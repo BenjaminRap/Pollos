@@ -29,6 +29,13 @@ public class InputManager : MonoBehaviour
 
 	private void    Rotate(InputAction.CallbackContext context)
 	{
-		Debug.Log(context.ReadValue<float>());
+		Level	currentLevel = Level.GetInstance();
+		
+		if (currentLevel == null)
+		{
+			Debug.LogError("The class Level has no instance but the input Rotate has been performed");
+			return ;
+		}
+		currentLevel.Rotate(context.ReadValue<float>());
 	}
 }
