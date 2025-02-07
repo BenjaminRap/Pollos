@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class CharacterControler : MonoBehaviour
 {
-    [SerializeField] private Animator _animPoilos = null;
+    [SerializeField] private Animator _animPollos = null;
+    private Collider2D _collider;
+    private bool _isGrounded = false;
     void Start()
     {
-        _animPoilos = GetComponent<Animator>();
+        _animPollos = GetComponent<Animator>();
+        _animPollos.SetTrigger("TriggerSpawn");
     }
 
     void Update()
@@ -14,13 +17,34 @@ public class CharacterControler : MonoBehaviour
     }
     private void TriggerDeath()
     {
-        if (_animPoilos != null)
+        if (_animPollos != null)
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                _animPoilos.SetTrigger("TriggerDeath");
+                _animPollos.SetTrigger("TriggerDeath");
             }
         }
     }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = true;
+            _animPollos.SetBool("TriggerIsFlying", false);
+        }
+
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = false;
+            _animPollos.SetBool("TriggerIsFlying",true);
+        }
+    }
+
+
 
 }
