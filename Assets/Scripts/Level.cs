@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    private const float rotationDuration = 0.5f;
+    private const float rotationAngle = 90.0f;
+
     private static Level    _instance;
 
     private void    Start()
@@ -28,6 +31,6 @@ public class Level : MonoBehaviour
     
     public void     Rotate(float axisValue)
     {
-        transform.Rotate(Vector3.forward, axisValue * 90);
+        StartCoroutine(TransformUtils.RotateAroundInTime(transform, Vector3.forward, axisValue * rotationAngle, rotationDuration));
     }
 }
