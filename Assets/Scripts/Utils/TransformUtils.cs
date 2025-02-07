@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TransformUtils
+public static class TransformUtils
 {
     public static IEnumerator	RotateInTime(Transform transform, Quaternion rotationGoal, float time)
 	{
