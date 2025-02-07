@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    private const float rotationDuration = 0.5f;
+    private const float rotationDuration = 0.2f;
     private const float rotationAngle = 90.0f;
 
     private static Level    _instance;
+    
+    private Coroutine       _rotateCoroutine;
+    private Quaternion      _rotationGoal;
 
     private void    Start()
     {
@@ -17,6 +20,7 @@ public class Level : MonoBehaviour
             return ;
         }
         _instance = this;
+        _rotationGoal = transform.rotation;
     }
     
     private void    OnDestroy()
@@ -31,6 +35,9 @@ public class Level : MonoBehaviour
     
     public void     Rotate(float axisValue)
     {
-        StartCoroutine(TransformUtils.RotateAroundInTime(transform, Vector3.forward, axisValue * rotationAngle, rotationDuration));
+        if (_rotateCoroutine != null)
+            StopCoroutine(_rotateCoroutine);
+        _rotationGoal *= Quaternion.Euler(-axisValue * rotationAngle * Vector3.forward);
+        _rotateCoroutine = StartCoroutine(TransformUtils.RotateInTime(transform, _rotationGoal, rotationDuration));
     }
 }

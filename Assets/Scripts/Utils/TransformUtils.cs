@@ -1,18 +1,16 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TransformUtils
 {
-    public static IEnumerator	RotateAroundInTime(Transform transform, Vector3 axis, float angle, float time)
+    public static IEnumerator	RotateInTime(Transform transform, Quaternion rotationGoal, float time)
 	{
-		float	duration = 0.0f;
+		float		duration = 0.0f;
+		Quaternion	rotationStart = transform.rotation;
 
 		while (duration < time)
 		{
-			float deltaTime = Time.deltaTime;
-
-			transform.Rotate(axis, angle * deltaTime / time);
+			transform.rotation = Quaternion.Lerp(rotationStart, rotationGoal, duration / time);
 			duration += Time.deltaTime;
 			yield return (null);
 		}
