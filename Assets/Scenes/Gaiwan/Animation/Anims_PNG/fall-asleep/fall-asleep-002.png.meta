@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fall-asleep-002_0: -8145357006819985221
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
