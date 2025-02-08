@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 85a142870320b9a499f25cccf12507a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _smokeEffect: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
+  - _pollosShockVFX: {fileID: 5939128868431362914, guid: e83e924266991824babf81fbefdea8a7, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
