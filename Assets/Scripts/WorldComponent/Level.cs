@@ -8,12 +8,15 @@ public class Level : MonoBehaviour
 	private float			_rotationDuration = 0.2f;
 	[SerializeField]
 	private GameObject		_rotableChild;
+	[SerializeField]
+	private Material		_stormEffect;
 
 	private static Level	_instance;
 	
 	private Coroutine		_rotateCoroutine;
 	private Quaternion		_rotationGoal;
 	private Storm[]			_storms;
+	private float			_averageStormDistanceAtStart;
 
 	private void		Start()
 	{
@@ -26,6 +29,24 @@ public class Level : MonoBehaviour
 		_instance = this;
 		_rotationGoal = _rotableChild.transform.rotation;
 		_storms = GetComponentsInChildren<Storm>();
+		_averageStormDistanceAtStart = GetAverageStormDistance();
+	}
+	
+	private void	Update()
+	{
+		_stormEffect.SetFloat("_alphaMultiplicator", Mathf.InverseLerp(_averageStormDistanceAtStart, 0, GetAverageStormDistance()));
+	}
+
+	private float	GetAverageStormDistance()
+	{
+		float	averageStormDistance = 0.0f;
+
+		foreach (Storm storm in _storms)
+		{
+			averageStormDistance += Vector3.Distance(storm.transform.position, transform.position);
+		}
+		averageStormDistance /= _storms.Length;
+		return (averageStormDistance);
 	}
 	
 	public static Level	GetInstance()

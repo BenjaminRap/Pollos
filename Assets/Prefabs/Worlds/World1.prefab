@@ -85,6 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationDuration: 0.2
   _rotableChild: {fileID: 7603653796107683751}
+  _stormEffect: {fileID: 2100000, guid: 8251dd813068e6a408526df7a699b7bb, type: 2}
 --- !u!1 &6659880639117258345
 GameObject:
   m_ObjectHideFlags: 0

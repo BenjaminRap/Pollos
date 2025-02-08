@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: ce6ead100547eb649aaeda9cd08a840a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _rotableChild: {instanceID: 0}
+  - _stormEffect: {fileID: 2100000, guid: 8251dd813068e6a408526df7a699b7bb, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
