@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4f5837cb325319947b070c7fbb1f4fff
+guid: 9737a05d24df1d54a9b7655bd6fb7632
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6137559566469598862
-    second: BigCloud_0
+      213: -2011426126742821098
+    second: CLoud2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BigCloud_0
+      name: CLoud2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 80
-        height: 126
+        width: 62
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8e883358edfc2550800000000000000
-      internalID: 6137559566469598862
+      spriteID: 617ed8f389af514e0800000000000000
+      internalID: -2011426126742821098
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      BigCloud_0: 6137559566469598862
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
