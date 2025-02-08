@@ -29,11 +29,9 @@ public class Events : MonoBehaviour
 				gameObject.transform.rotation);
 		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 		Destroy(effect.gameObject, effectDuration);
-		AudioBank	audioBank = AudioBank.GetInstance();
-		if (audioBank == null)
-			Debug.LogError("No instance of the AudioBank class !");
-		else
-			audioBank.PlayBoxFallAudio(gameObject.transform.position, 1.0f);
+		AudioManager	audioManager = AudioManager.GetInstance();
+		if (audioManager != null)
+			audioManager.playAudioEffect("boxFall", gameObject.transform.position, 1);
 	}
 	
 	public static void	spawnPollosShockEffect(GameObject gameObject)
@@ -48,10 +46,8 @@ public class Events : MonoBehaviour
 		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 
 		Destroy(effect.gameObject, effectDuration);
-		AudioBank	audioBank = AudioBank.GetInstance();
-		if (audioBank == null)
-			Debug.LogError("No instance of the AudioBank class !");
-		else
-			audioBank.PlayChickenAudio(gameObject.transform.position, 1.0f);
+		AudioManager	audioManager = AudioManager.GetInstance();
+		if (audioManager != null)
+			audioManager.playAudioEffect("pollos", gameObject.transform.position, 1);
 	}
 }
