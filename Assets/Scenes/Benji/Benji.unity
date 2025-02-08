@@ -348,6 +348,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 218256bdbe5becd45902247ab220c000, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6287396fbc7bba342b8ad3d0d44e9da8, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[0].audioName
+      value: boxFall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[1].audioName
+      value: pollos
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[2].audioName
+      value: defeat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[3].audioName
+      value: victory
+      objectReference: {fileID: 0}
     - target: {fileID: 2195462322752959078, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: _fallingBoxEffetct
       value: 
@@ -396,7 +436,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2497426830519902028, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

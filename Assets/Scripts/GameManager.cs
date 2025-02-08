@@ -55,12 +55,9 @@ public class GameManager : MonoBehaviour
 	
 	public void	Victory()
 	{
-		AudioBank audioBank = AudioBank.GetInstance();
-
-		if (audioBank == null)
-			Debug.LogError("The  AudioBank class has no instance, but the Victory() has been called !");
-		else
-			audioBank.PlayWinAudio(Vector3.zero, 1.0f);
+		AudioManager	audioManager = AudioManager.GetInstance();
+		if (audioManager != null)
+			audioManager.playAudioEffect("victory", gameObject.transform.position, 1);
 		Debug.Log("Victory !!!");
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
@@ -72,12 +69,9 @@ public class GameManager : MonoBehaviour
 	
 	public void	Defeat()
 	{
-		AudioBank audioBank = AudioBank.GetInstance();
-
-		if (audioBank == null)
-			Debug.LogError("The  AudioBank class has no instance, but the Defeat() has been called !");
-		else
-			audioBank.PlayDefeatAudio(Vector3.zero, 1.0f);
+		AudioManager	audioManager = AudioManager.GetInstance();
+		if (audioManager != null)
+			audioManager.playAudioEffect("defeat", gameObject.transform.position, 1);
 		Debug.Log("Defeat ...");
 		StartCoroutine(ChangeLevelAfterDelay(2.0f, _levelIndex));
 	}
