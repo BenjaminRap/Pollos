@@ -17,8 +17,6 @@ public class Goal : MonoBehaviour
 	
 	private void	OnTriggerEnter2D(Collider2D collider)
 	{
-		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler))
-			return ;
 		GameManager	gameManager = GameManager.GetInstance();
 		
 		if (gameManager == null)
@@ -26,7 +24,11 @@ public class Goal : MonoBehaviour
 			Debug.LogError("The GameManager has no instance !");
 			return ;
 		}
-		gameManager.Victory();
+
+		if (collider.CompareTag("Heavy"))
+			gameManager.Defeat();
+		else if (collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler))
+			gameManager.Victory();
 	}
 
 	public static Goal	GetInstance()
