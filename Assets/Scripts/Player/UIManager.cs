@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,11 +8,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _quitButton = null;
     [SerializeField] private GameObject _creditButton = null;
     [SerializeField] private GameObject _uiCredit= null;
-    [SerializeField] private GameObject[] _popText = null;
+    [SerializeField] private GameObject _cancelImage = null;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _cancelImage.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,6 +38,8 @@ public class UIManager : MonoBehaviour
     public void PlayGame()
     {
         //SceneManager.LoadSceneAsync("");
+        _cancelImage.SetActive(true);
+
     }
     public void ExitGame()
     {
