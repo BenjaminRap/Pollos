@@ -370,7 +370,7 @@ Transform:
   m_GameObject: {fileID: 1623231636168552421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.96, y: -12.5, z: 0.14117606}
+  m_LocalPosition: {x: -1.96, y: -37.6, z: 0.14117606}
   m_LocalScale: {x: 11.941364, y: 0.9149364, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 20
+  _stepCount: 7
   _moveDuration: 0.3
 --- !u!61 &3101362885545720961
 BoxCollider2D:
@@ -835,7 +835,7 @@ Transform:
   m_GameObject: {fileID: 4151127922497548069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.876, y: -2.018, z: 0.14117606}
+  m_LocalPosition: {x: 39.3, y: -2.018, z: 0.14117606}
   m_LocalScale: {x: 1.3785639, y: 8.133116, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 20
+  _stepCount: 7
   _moveDuration: 0.3
 --- !u!61 &4272897531519136463
 BoxCollider2D:
@@ -984,7 +984,7 @@ Transform:
   m_GameObject: {fileID: 5465748039122234974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.141, y: -1.492, z: 0.14117606}
+  m_LocalPosition: {x: -42.6, y: -1.492, z: 0.14117606}
   m_LocalScale: {x: 1.3136903, y: 7.427026, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 20
+  _stepCount: 7
   _moveDuration: 0.3
 --- !u!61 &2375055831338614807
 BoxCollider2D:
@@ -1755,7 +1755,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 343299179108477762, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
       propertyPath: _stepCount
-      value: 20
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4207645364171261960, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1763,7 +1763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4207645364171261960, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.89
+      value: 39.2
       objectReference: {fileID: 0}
     - target: {fileID: 4207645364171261960, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
       propertyPath: m_LocalPosition.z
