@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _quitButton = null;
     [SerializeField] private GameObject _creditButton = null;
     [SerializeField] private GameObject _uiCredit= null;
+    [SerializeField] private GameObject[] _popText = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,7 +35,7 @@ public class UIManager : MonoBehaviour
     }
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("Benji");
+        //SceneManager.LoadSceneAsync("");
     }
     public void ExitGame()
     {
