@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909267796281817631}
   - component: {fileID: 1738384563119148159}
+  - component: {fileID: 8660853515632917617}
   m_Layer: 0
   m_Name: BackgroundMiddleBack
   m_TagString: Untagged
@@ -29,8 +30,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 15249722265957628}
+  m_Children: []
   m_Father: {fileID: 3092779904132407663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1738384563119148159
@@ -88,6 +88,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8660853515632917617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302410618981727323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c857f86fcd06904e85393bc759b9c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minMaxOffset: {x: -1, y: 1}
+  _maxSpeed: 0.03
 --- !u!1 &5549032152090624154
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +133,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1909267796281817631}
+  - {fileID: 15249722265957628}
+  - {fileID: 5296677535286720798}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7467094497756235603
@@ -186,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 15249722265957628}
   - component: {fileID: 5203595985321669738}
+  - component: {fileID: 8773011953411069664}
   m_Layer: 0
   m_Name: BackgroundMiddleFront
   m_TagString: Untagged
@@ -202,12 +219,11 @@ Transform:
   m_GameObject: {fileID: 6879567016100876289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.317, z: -0.19999999}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5296677535286720798}
-  m_Father: {fileID: 1909267796281817631}
+  m_Children: []
+  m_Father: {fileID: 3092779904132407663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5203595985321669738
 SpriteRenderer:
@@ -264,6 +280,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8773011953411069664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879567016100876289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c857f86fcd06904e85393bc759b9c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minMaxOffset: {x: -0.25, y: 0.25}
+  _maxSpeed: 0.06
 --- !u!1 &7098462565944333267
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5296677535286720798}
   - component: {fileID: 5209197659585570994}
+  - component: {fileID: 849928594370401196}
   m_Layer: 0
   m_Name: BackgroundFront
   m_TagString: Untagged
@@ -290,11 +321,11 @@ Transform:
   m_GameObject: {fileID: 7098462565944333267}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0.162, y: -1.479, z: -0.29999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 15249722265957628}
+  m_Father: {fileID: 3092779904132407663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5209197659585570994
 SpriteRenderer:
@@ -351,3 +382,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &849928594370401196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098462565944333267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c857f86fcd06904e85393bc759b9c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minMaxOffset: {x: -1, y: 1}
+  _maxSpeed: 0.1

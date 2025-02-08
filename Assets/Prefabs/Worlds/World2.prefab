@@ -1050,6 +1050,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5124901898341630589}
     m_Modifications:
+    - target: {fileID: 7383920219671619455, guid: 24f476d650c75394987a7ab404200fad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.445
+      objectReference: {fileID: 0}
     - target: {fileID: 7590919056779796471, guid: 24f476d650c75394987a7ab404200fad, type: 3}
       propertyPath: m_Name
       value: BackgroundBack
