@@ -15,8 +15,10 @@ public class Goal : MonoBehaviour
 		_instance = this;
 	}
 	
-	private void	OnTriggerEnter2D(Collider2D col)
+	private void	OnTriggerEnter2D(Collider2D collider)
 	{
+		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler))
+			return ;
 		GameManager	gameManager = GameManager.GetInstance();
 		
 		if (gameManager == null)

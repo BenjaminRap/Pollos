@@ -34,8 +34,12 @@ public class Storm : MonoBehaviour
 		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
-	private void	OnTriggerEnter2D(Collider2D col)
+	private void	OnTriggerEnter2D(Collider2D collider)
 	{
+		CharacterControler	characterControler;
+	
+		if (!collider.TryGetComponent<CharacterControler>(out characterControler))
+			return ;
 		GameManager	gameManager = GameManager.GetInstance();
 		
 		if (gameManager == null)
@@ -43,8 +47,6 @@ public class Storm : MonoBehaviour
 			Debug.LogError("The GameManager has no instance !");
 			return ;
 		}
-		CharacterControler	characterControler = CharacterControler.GetInstance();
-
 		if (characterControler == null)
 		{
 			Debug.LogError("The class CharacterController has no instance !");
