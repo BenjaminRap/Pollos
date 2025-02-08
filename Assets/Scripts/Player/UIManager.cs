@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     }
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("");
+        SceneManager.LoadSceneAsync("Benji");
     }
     public void ExitGame()
     {
@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
     }
     public void BackToLobby()
     {
-        SceneManager.LoadSceneAsync("");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
     public void OnClic()
     {
