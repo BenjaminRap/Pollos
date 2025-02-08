@@ -53,10 +53,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaMultiplicator: 1
     - _EnableExternalAlpha: 0
     - _ZWrite: 0
-    - _circleEffectMultiplicator: 1.38
-    - _circleEffectPower: 5.9
+    - _alphaMultiplicator: 0.9472303
+    - _circleEffectMultiplicator: 3.05
+    - _circleEffectPower: 2.22
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

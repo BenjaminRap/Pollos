@@ -10,6 +10,8 @@ public class Level : MonoBehaviour
 	private GameObject		_rotableChild;
 	[SerializeField]
 	private Material		_stormEffect;
+	[SerializeField]
+	private AnimationCurve	_alphaCurve;
 
 	private static Level	_instance;
 	
@@ -34,7 +36,9 @@ public class Level : MonoBehaviour
 	
 	private void	Update()
 	{
-		_stormEffect.SetFloat("_alphaMultiplicator", Mathf.InverseLerp(_averageStormDistanceAtStart, 0, GetAverageStormDistance()));
+		float	progression = Mathf.InverseLerp(_averageStormDistanceAtStart, 0, GetAverageStormDistance());
+		float	alpha = _alphaCurve.Evaluate(progression);
+		_stormEffect.SetFloat("_alphaMultiplicator", alpha);
 	}
 
 	private float	GetAverageStormDistance()
