@@ -22,11 +22,6 @@ public class Level : MonoBehaviour
         _rotationGoal = transform.rotation;
     }
     
-    private void    OnDestroy()
-    {
-        _instance = null;
-    }
-    
     public static Level    GetInstance()
     {
         return (_instance);
