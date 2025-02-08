@@ -8,6 +8,10 @@ public class AudioBank : MonoBehaviour
 	private AudioClip			_winAudio;
 	[SerializeField]
 	private AudioClip			_defeatAudio;
+	[SerializeField]
+	private AudioClip			_chickenAudio;
+	[SerializeField]
+	private AudioClip			_boxFallAudio;
 
 	private void	Start()
 	{
@@ -44,10 +48,24 @@ public class AudioBank : MonoBehaviour
 		audioManager.playAudioEffect(_winAudio, audioSourcePoint, volume);
 	}
 	
-		public void	PlayDefeatAudio(Vector3 audioSourcePoint, float volume)
+	public void	PlayDefeatAudio(Vector3 audioSourcePoint, float volume)
 	{
 		if (!getAudioManager(out AudioManager audioManager))
 			return ;
 		audioManager.playAudioEffect(_defeatAudio, audioSourcePoint, volume);
+	}
+	
+	public void	PlayChickenAudio(Vector3 audioSourcePoint, float volume)
+	{
+		if (!getAudioManager(out AudioManager audioManager))
+			return ;
+		audioManager.playAudioEffect(_chickenAudio, audioSourcePoint, volume);
+	}
+	
+	public void	PlayBoxFallAudio(Vector3 audioSourcePoint, float volume)
+	{
+		if (!getAudioManager(out AudioManager audioManager))
+			return ;
+		audioManager.playAudioEffect(_boxFallAudio, audioSourcePoint, volume);
 	}
 }

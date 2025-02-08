@@ -349,10 +349,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2195462322752959078, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
-      propertyPath: _smokeEffect
-      value: 
-      objectReference: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
-    - target: {fileID: 2195462322752959078, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: _fallingBoxEffetct
       value: 
       objectReference: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
