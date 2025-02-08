@@ -7,13 +7,11 @@ public class CharacterControler : MonoBehaviour
 {
 	private static CharacterControler	_instance;
 	
-	private const float					_velocityMultiplicatorAtRotation = 0.4f;
 
 
 	[SerializeField] private Animator	_animPollos = null;
 
 	private bool						_isFlying;
-	private Rigidbody2D					_rigidbody;
 
 	private void Start()
 	{
@@ -26,7 +24,6 @@ public class CharacterControler : MonoBehaviour
 		_instance = this;
 		_animPollos = GetComponent<Animator>();
 		_animPollos.SetTrigger("TriggerSpawn");
-		_rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
 	public static CharacterControler	GetInstance()
@@ -52,13 +49,6 @@ public class CharacterControler : MonoBehaviour
 	}
 	public void RotateCharacter()
 	{
-		Vector3	newPosition;
-
-		newPosition.x = MathF.Round(transform.position.x + 0.5f) - 0.5f;
-		newPosition.y = MathF.Round(transform.position.y + 0.5f) - 0.5f;
-		newPosition.z = transform.position.z;
-		transform.position = newPosition;
-		_rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
 		if (_isFlying == true)
 		{
 			_animPollos.SetTrigger("TrFlyToRotate");
@@ -68,16 +58,6 @@ public class CharacterControler : MonoBehaviour
 			_animPollos.SetTrigger("TrIdleToRotate");
 
 		}
-	}
-	
-	public void	StopSimulation()
-	{
-		_rigidbody.simulated = false;
-	}
-
-	public void	RestartSimulation()
-	{
-		_rigidbody.simulated = true;
 	}
 	
 	public void	Kill()
