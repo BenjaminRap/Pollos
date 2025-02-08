@@ -6,7 +6,7 @@ public class CharacterControler : MonoBehaviour
 
 	[SerializeField] private Animator	_animPollos = null;
 	private bool						_isFlying;
-	void Start()
+	private void Start()
 	{
 		if (_instance != null)
 		{
@@ -56,5 +56,10 @@ public class CharacterControler : MonoBehaviour
 	public void	Kill()
 	{
 		_animPollos.SetTrigger("TriggerDeath");
+	}
+	
+	public void	ResetRotation()
+	{
+		transform.rotation = Quaternion.identity;
 	}
 }
