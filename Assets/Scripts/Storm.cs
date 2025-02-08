@@ -3,29 +3,32 @@ using UnityEngine;
 public class Storm : MonoBehaviour
 {
 	[SerializeField]
-	private float		_speed = 1.5f;
+	private uint		_stepCount = 5;
 	[SerializeField]
 	private float		_moveDuration = 0.3f;
 	
 	private Coroutine	_moveCoroutine;
 	private Vector3		_goalPosition;
+	private Vector3		_move;
 	
 	private void	Start()
 	{
+		Level	level = Level.GetInstance();
+
+		if (level == null)
+		{
+			Debug.LogError("The class Level has no instance !");
+			Destroy(this);
+			return ;
+		}
 		_goalPosition = transform.position;
+		Vector3	direction = level.transform.position - transform.position;
+		_move = direction / _stepCount;
 	}
 
 	public void		ComeCloser()
 	{
-		Goal goal = Goal.GetInstance();
-		
-		if (goal == null)
-		{
-			Debug.LogError("The goal class has no instance but the ComeClose method if the Storm class has been called !");
-			return ;
-		}
-		Vector3	direction = (goal.transform.position - transform.position).normalized;
-		_goalPosition += direction * _speed;
+		_goalPosition += _move;
 		if (_moveCoroutine != null)
 			StopCoroutine(_moveCoroutine);
 		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
