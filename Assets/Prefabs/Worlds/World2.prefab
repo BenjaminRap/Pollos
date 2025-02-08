@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 5
+  _stepCount: 10
   _moveDuration: 0.3
 --- !u!61 &3101362885545720961
 BoxCollider2D:
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 5
+  _stepCount: 10
   _moveDuration: 0.3
 --- !u!61 &4272897531519136463
 BoxCollider2D:
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c701901d1c5b4e87666170375f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCount: 5
+  _stepCount: 10
   _moveDuration: 0.3
 --- !u!61 &2375055831338614807
 BoxCollider2D:
@@ -1348,6 +1348,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8466026813495502127}
     m_Modifications:
+    - target: {fileID: 343299179108477762, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
+      propertyPath: _stepCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4207645364171261960, guid: 6f25df8c15f863943a9d0c6a442d9643, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.949
