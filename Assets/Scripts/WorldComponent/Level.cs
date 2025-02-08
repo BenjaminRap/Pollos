@@ -35,6 +35,14 @@ public class Level : MonoBehaviour
 	
 	public void			Rotate(float axisValue)
 	{
+		CharacterControler	characterControler = CharacterControler.GetInstance();
+
+		if (characterControler == null)
+		{
+			Debug.LogError("The CharacterControler class has no instance !");
+			return ;
+		}
+		characterControler.RotateCharacter();
 		foreach (Storm storm in _storms)
 		{
 			storm.ComeCloser();
