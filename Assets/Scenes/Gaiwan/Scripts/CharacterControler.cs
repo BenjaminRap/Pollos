@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -51,6 +52,12 @@ public class CharacterControler : MonoBehaviour
 	}
 	public void RotateCharacter()
 	{
+		Vector3	newPosition;
+
+		newPosition.x = MathF.Round(transform.position.x + 0.5f) - 0.5f;
+		newPosition.y = MathF.Round(transform.position.y + 0.5f) - 0.5f;
+		newPosition.z = transform.position.z;
+		transform.position = newPosition;
 		_rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
 		if (_isFlying == true)
 		{
