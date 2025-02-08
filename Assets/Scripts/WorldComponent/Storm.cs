@@ -43,6 +43,14 @@ public class Storm : MonoBehaviour
 			Debug.LogError("The GameManager has no instance !");
 			return ;
 		}
+		CharacterControler	characterControler = CharacterControler.GetInstance();
+
+		if (characterControler == null)
+		{
+			Debug.LogError("The class CharacterController has no instance !");
+			return ;
+		}
 		gameManager.Defeat();
+		characterControler.Kill();
 	}
 }

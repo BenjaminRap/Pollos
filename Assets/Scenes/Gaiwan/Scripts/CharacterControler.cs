@@ -52,4 +52,9 @@ public class CharacterControler : MonoBehaviour
 
 		}
 	}
+	
+	public void	Kill()
+	{
+		_animPollos.SetTrigger("TriggerDeath");
+	}
 }
