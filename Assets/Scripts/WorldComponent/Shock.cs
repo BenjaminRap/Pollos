@@ -1,13 +1,16 @@
 using UnityEngine;
-using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Shock : MonoBehaviour
 {
-	private const float					_minVelocityDiffToShock = 8.5f;
+	private const float				_minVelocityDiffToShock = 8.5f;
+	
+	[SerializeField]
+	private UnityEvent<GameObject>	_onShock;
 
-	private Rigidbody2D					_rigidbody;
-	private Vector2						_previousVelocity;
+	private Rigidbody2D				_rigidbody;
+	private Vector2					_previousVelocity;
 	
 	void	Start()
 	{
@@ -19,7 +22,7 @@ public class Shock : MonoBehaviour
 	{
 		float velocityDiff = _previousVelocity.magnitude - _rigidbody.linearVelocity.magnitude;
 		if (velocityDiff > _minVelocityDiffToShock)
-			Debug.Log(velocityDiff);
+			_onShock.Invoke(gameObject);
 		_previousVelocity = _rigidbody.linearVelocity;
 	}
 }
