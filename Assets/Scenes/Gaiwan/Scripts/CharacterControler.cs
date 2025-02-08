@@ -24,7 +24,6 @@ public class CharacterControler : MonoBehaviour
 		_instance = this;
 		_animPollos = GetComponent<Animator>();
 		_animPollos.SetTrigger("TriggerSpawn");
-		_rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
 	public static CharacterControler	GetInstance()
