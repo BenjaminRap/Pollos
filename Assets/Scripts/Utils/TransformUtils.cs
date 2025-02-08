@@ -15,4 +15,17 @@ public static class TransformUtils
 			yield return (null);
 		}
 	}
+	
+	public static IEnumerator	MoveInTime(Transform transform, Vector3 positionGoal, float time)
+	{
+		float	duration = 0.0f;
+		Vector3	positionStart = transform.position;
+
+		while (duration < time)
+		{
+			transform.position = Vector3.Lerp(positionStart, positionGoal, duration / time);
+			duration += Time.deltaTime;
+			yield return (null);
+		}
+	}
 }

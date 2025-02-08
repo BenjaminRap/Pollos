@@ -24,6 +24,11 @@ public class Goal : MonoBehaviour
 			Debug.LogError("The GameManager has no instance !");
 			return ;
 		}
-		gameManager.GoToNextLevel();
+		gameManager.Victory();
+	}
+
+	public static Goal	GetInstance()
+	{
+		return (_instance);
 	}
 }
