@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -58,6 +59,12 @@ public class Level : MonoBehaviour
 		return (_instance);
 	}
 	
+	private IEnumerator	RotateLevelToRotationGoal(CharacterControler characterController)
+	{
+		yield return StartCoroutine(TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration));
+		characterController.RestartSimulation();
+	}
+	
 	public void			Rotate(float axisValue)
 	{
 		CharacterControler	characterControler = CharacterControler.GetInstance();
@@ -74,7 +81,8 @@ public class Level : MonoBehaviour
 		}
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
+		characterControler.StopSimulation();
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
-		_rotateCoroutine = StartCoroutine(TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration));
+		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(characterControler));
 	}
 }

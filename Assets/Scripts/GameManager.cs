@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 			Debug.Log("No more levels :(");
 			return ;
 		}
-		StartCoroutine(ChangeLevelAfterDelay(2.0f, _levelIndex + 1));
+		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex + 1));
 	}
 	
 	public void	Defeat()
@@ -73,6 +73,6 @@ public class GameManager : MonoBehaviour
 		if (audioManager != null)
 			audioManager.playAudioEffect("defeat", gameObject.transform.position, 1);
 		Debug.Log("Defeat ...");
-		StartCoroutine(ChangeLevelAfterDelay(2.0f, _levelIndex));
+		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex));
 	}
 }
