@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1ea8fa58478b89d47856ec47e9451eba
+guid: 57b25506e495ce74eb7cf48e464ee832
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2175225612622093584
-    second: UIButton2_0
+      213: 269533619020893227
+    second: Cloud5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIButton2_0
+      name: Cloud5_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 54
-        height: 18
+        width: 75
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01ddbaa7b24ff2e10800000000000000
-      internalID: 2175225612622093584
+      spriteID: b2c04c006639db300800000000000000
+      internalID: 269533619020893227
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UIButton2_0: 2175225612622093584
+      Cloud5_0: 269533619020893227
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
