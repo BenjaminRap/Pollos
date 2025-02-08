@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1ea8fa58478b89d47856ec47e9451eba
+guid: 6917be13480a12e47a478a9c14be0b57
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2175225612622093584
-    second: UIButton2_0
+      213: -8805941976036427166
+    second: Calque 3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIButton2_0
+      name: Calque 3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 54
-        height: 18
+        width: 208
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01ddbaa7b24ff2e10800000000000000
-      internalID: 2175225612622093584
+      spriteID: 26ab5adbd620bc580800000000000000
+      internalID: -8805941976036427166
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      UIButton2_0: 2175225612622093584
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
