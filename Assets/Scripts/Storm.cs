@@ -3,9 +3,19 @@ using UnityEngine;
 public class Storm : MonoBehaviour
 {
 	[SerializeField]
-	private float	speed = 1.5f;
+	private float		_speed = 1.5f;
+	[SerializeField]
+	private float		_moveDuration = 0.3f;
+	
+	private Coroutine	_moveCoroutine;
+	private Vector3		_goalPosition;
+	
+	private void	Start()
+	{
+		_goalPosition = transform.position;
+	}
 
-	public void	ComeCloser()
+	public void		ComeCloser()
 	{
 		Goal goal = Goal.GetInstance();
 		
@@ -15,7 +25,10 @@ public class Storm : MonoBehaviour
 			return ;
 		}
 		Vector3	direction = (goal.transform.position - transform.position).normalized;
-		transform.position += direction * speed;
+		_goalPosition += direction * _speed;
+		if (_moveCoroutine != null)
+			StopCoroutine(_moveCoroutine);
+		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
 	private void	OnTriggerEnter2D(Collider2D col)
