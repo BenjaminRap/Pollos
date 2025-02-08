@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2524635988404003399}
   - component: {fileID: 898836717310291808}
   - component: {fileID: 523522131286415599}
+  - component: {fileID: 302710648124243556}
   m_Layer: 0
   m_Name: Pollos
   m_TagString: Untagged
@@ -199,3 +200,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5267942, y: 0.59}
   m_EdgeRadius: 0
+--- !u!114 &302710648124243556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492667115537793193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4612776b4a503384890ce87978186783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

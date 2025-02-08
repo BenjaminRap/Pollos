@@ -1,11 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class CharacterControler : MonoBehaviour
 {
 	private static CharacterControler	_instance;
 
+
 	[SerializeField] private Animator	_animPollos = null;
+
 	private bool						_isFlying;
+
 	private void Start()
 	{
 		if (_instance != null)
@@ -17,6 +21,7 @@ public class CharacterControler : MonoBehaviour
 		_instance = this;
 		_animPollos = GetComponent<Animator>();
 		_animPollos.SetTrigger("TriggerSpawn");
+
 	}
 	
 	public static CharacterControler	GetInstance()
