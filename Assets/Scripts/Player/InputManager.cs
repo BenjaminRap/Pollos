@@ -19,12 +19,31 @@ public class InputManager : MonoBehaviour
 
 		_playerController.World.Enable();
 		_playerController.World.rotateWorld.performed += Rotate;
+		_playerController.World.resetLevel.performed += ResetLevel;
+		_playerController.World.menu.performed += OpenMenu;
 		_instance = this;
 	}
 
 	private void    OnDestroy()
 	{
 		_playerController.World.Disable();
+	}
+	
+	private void	OpenMenu(InputAction.CallbackContext context)
+	{
+		Debug.Log("Open Menu");
+	}
+	
+	private void	ResetLevel(InputAction.CallbackContext context)
+	{
+		GameManager	gameManager = GameManager.GetInstance();
+
+		if (gameManager == null)
+		{
+			Debug.LogError("The GameManager class has no instance but the function resetLevel has been called !");
+			return ;
+		}
+		gameManager.Defeat();
 	}
 
 	private void    Rotate(InputAction.CallbackContext context)
