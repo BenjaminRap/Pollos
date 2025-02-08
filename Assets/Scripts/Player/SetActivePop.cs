@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SetActivePop : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _popText = null;
+    [SerializeField] private GameObject _fade = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,10 +16,6 @@ public class SetActivePop : MonoBehaviour
     }
     public void PlayGame()
     {
-        //SceneManager.LoadSceneAsync("");
-        foreach (GameObject pop in _popText)
-        {
-            pop.SetActive(true);
-        }
+        _fade.SetActive(true);
     }
 }
