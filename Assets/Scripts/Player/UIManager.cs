@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,10 +36,11 @@ public class UIManager : MonoBehaviour
         _quitButton.SetActive(true);
         _creditButton.SetActive(true);
     }
-    public void PlayGame()
+    public IEnumerator PlayGameCoroutine()
     {
-        //SceneManager.LoadSceneAsync("");
         _cancelImage.SetActive(true);
+        yield return new WaitForSeconds(6);
+        SceneManager.LoadSceneAsync("Benji");
     }
     public void ExitGame()
     {
@@ -51,6 +53,10 @@ public class UIManager : MonoBehaviour
     public void OnClic()
     {
         //Pour les sound effect des clics 
+    }
+    public void PlayGame()
+    {
+        StartCoroutine(PlayGameCoroutine());
     }
 
 }
