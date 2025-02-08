@@ -92,6 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _winAudio: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
   _defeatAudio: {fileID: 8300000, guid: 6287396fbc7bba342b8ad3d0d44e9da8, type: 3}
+  _chickenAudio: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+  _boxFallAudio: {fileID: 8300000, guid: 218256bdbe5becd45902247ab220c000, type: 3}
 --- !u!114 &2195462322752959078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,3 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a142870320b9a499f25cccf12507a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _smokeEffect: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
