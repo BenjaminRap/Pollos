@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nuageui_0: -89075692156077065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
