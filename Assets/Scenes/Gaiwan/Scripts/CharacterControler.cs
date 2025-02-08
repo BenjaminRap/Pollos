@@ -5,6 +5,8 @@ using UnityEngine;
 public class CharacterControler : MonoBehaviour
 {
 	private static CharacterControler	_instance;
+	
+	private const float					_velocityMultiplicatorAtRotation = 0.4f;
 
 
 	[SerializeField] private Animator	_animPollos = null;
@@ -49,7 +51,7 @@ public class CharacterControler : MonoBehaviour
 	}
 	public void RotateCharacter()
 	{
-		_rigidbody.linearVelocity = Vector2.zero;
+		_rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
 		if (_isFlying == true)
 		{
 			_animPollos.SetTrigger("TrFlyToRotate");
