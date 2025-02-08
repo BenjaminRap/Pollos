@@ -99,6 +99,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""resetLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""763b4d24-ed30-4ac2-b35d-a2161ed4c77f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e5eaa8b-7619-46c7-b774-5c8d1b62e5e7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -116,7 +134,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""c41f8a3c-4c4f-49ce-ae02-e2b4cbe7ce75"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -127,13 +145,35 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""877cc298-0fa0-458c-a2a5-f7a973146294"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""rotateWorld"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de4e98be-7663-4ce8-8657-b573b07bc737"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""resetLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7646b09d-fd76-4b39-9034-4b2b88b08d8d"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         // World
         m_World = asset.FindActionMap("World", throwIfNotFound: true);
         m_World_rotateWorld = m_World.FindAction("rotateWorld", throwIfNotFound: true);
+        m_World_resetLevel = m_World.FindAction("resetLevel", throwIfNotFound: true);
+        m_World_menu = m_World.FindAction("menu", throwIfNotFound: true);
     }
 
     ~@PlayerController()
@@ -224,6 +266,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_World;
     private List<IWorldActions> m_WorldActionsCallbackInterfaces = new List<IWorldActions>();
     private readonly InputAction m_World_rotateWorld;
+    private readonly InputAction m_World_resetLevel;
+    private readonly InputAction m_World_menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "World".
     /// </summary>
@@ -239,6 +283,14 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "World/rotateWorld".
         /// </summary>
         public InputAction @rotateWorld => m_Wrapper.m_World_rotateWorld;
+        /// <summary>
+        /// Provides access to the underlying input action "World/resetLevel".
+        /// </summary>
+        public InputAction @resetLevel => m_Wrapper.m_World_resetLevel;
+        /// <summary>
+        /// Provides access to the underlying input action "World/menu".
+        /// </summary>
+        public InputAction @menu => m_Wrapper.m_World_menu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -268,6 +320,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @rotateWorld.started += instance.OnRotateWorld;
             @rotateWorld.performed += instance.OnRotateWorld;
             @rotateWorld.canceled += instance.OnRotateWorld;
+            @resetLevel.started += instance.OnResetLevel;
+            @resetLevel.performed += instance.OnResetLevel;
+            @resetLevel.canceled += instance.OnResetLevel;
+            @menu.started += instance.OnMenu;
+            @menu.performed += instance.OnMenu;
+            @menu.canceled += instance.OnMenu;
         }
 
         /// <summary>
@@ -282,6 +340,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @rotateWorld.started -= instance.OnRotateWorld;
             @rotateWorld.performed -= instance.OnRotateWorld;
             @rotateWorld.canceled -= instance.OnRotateWorld;
+            @resetLevel.started -= instance.OnResetLevel;
+            @resetLevel.performed -= instance.OnResetLevel;
+            @resetLevel.canceled -= instance.OnResetLevel;
+            @menu.started -= instance.OnMenu;
+            @menu.performed -= instance.OnMenu;
+            @menu.canceled -= instance.OnMenu;
         }
 
         /// <summary>
@@ -329,5 +393,19 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotateWorld(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "resetLevel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnResetLevel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenu(InputAction.CallbackContext context);
     }
 }

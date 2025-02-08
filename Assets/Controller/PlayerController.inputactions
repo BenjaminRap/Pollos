@@ -13,6 +13,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "resetLevel",
+                    "type": "Button",
+                    "id": "763b4d24-ed30-4ac2-b35d-a2161ed4c77f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "menu",
+                    "type": "Button",
+                    "id": "8e5eaa8b-7619-46c7-b774-5c8d1b62e5e7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -30,7 +48,7 @@
                 {
                     "name": "negative",
                     "id": "c41f8a3c-4c4f-49ce-ae02-e2b4cbe7ce75",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -41,13 +59,35 @@
                 {
                     "name": "positive",
                     "id": "877cc298-0fa0-458c-a2a5-f7a973146294",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "rotateWorld",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "de4e98be-7663-4ce8-8657-b573b07bc737",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "resetLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7646b09d-fd76-4b39-9034-4b2b88b08d8d",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
