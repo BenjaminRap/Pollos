@@ -47,20 +47,26 @@ public class GameManager : MonoBehaviour
         Instantiate(_levelsPrefabs[_levelIndex]);
     }
     
-    private IEnumerator GoToNextLevelCoroutine()
+    private IEnumerator ChangeLevelAfterDelay(float delay, int levelIndex)
     {
-        Debug.Log("Victory !!!");
-        yield return (new WaitForSeconds(2f));
-        SetLevel(_levelIndex + 1);
+        yield return (new WaitForSeconds(delay));
+        SetLevel(levelIndex);
     }
     
-    public void     GoToNextLevel()
+    public void     Victory()
     {
+        Debug.Log("Victory !!!");
         if (_levelIndex >= _levelsPrefabs.Count - 1)
         {
             Debug.Log("No more levels :(");
             return ;
         }
-        StartCoroutine(GoToNextLevelCoroutine());
+        StartCoroutine(ChangeLevelAfterDelay(2.0f, _levelIndex + 1));
+    }
+    
+    public void     Defeat()
+    {
+        Debug.Log("Defeat ...");
+        StartCoroutine(ChangeLevelAfterDelay(2.0f, _levelIndex));
     }
 }

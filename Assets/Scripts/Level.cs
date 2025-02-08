@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -9,6 +10,7 @@ public class Level : MonoBehaviour
     
     private Coroutine       _rotateCoroutine;
     private Quaternion      _rotationGoal;
+    private Storm[]         _storms;
 
     private void    Start()
     {
@@ -20,6 +22,7 @@ public class Level : MonoBehaviour
         }
         _instance = this;
         _rotationGoal = transform.rotation;
+        _storms = GetComponentsInChildren<Storm>();
     }
     
     public static Level    GetInstance()
@@ -29,6 +32,10 @@ public class Level : MonoBehaviour
     
     public void     Rotate(float axisValue)
     {
+        foreach (Storm storm in _storms)
+        {
+            storm.ComeCloser();
+        }
         if (_rotateCoroutine != null)
             StopCoroutine(_rotateCoroutine);
         _rotationGoal *= Quaternion.Euler(-axisValue * rotationAngle * Vector3.forward);
