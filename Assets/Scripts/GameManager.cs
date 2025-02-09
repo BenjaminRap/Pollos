@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	private List<GameObject>	_levelsPrefabs;
 	private int					_levelIndex;
 	private bool				_inLevelTransition;
+	[SerializeField] 
+	private UIFade _uiFade = null;
 
 	private void	Start()
 	{
@@ -50,12 +52,13 @@ public class GameManager : MonoBehaviour
 	
 	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
 	{
-		//fade in
+		_uiFade.FadeIn();
+		Debug.Log("Transi");
 		yield return (new WaitForSeconds(delay));
 		SetLevel(levelIndex);
-		//FadeOut
-		_inLevelTransition = false;
-	}
+        _inLevelTransition = false;
+        _uiFade.FadeOut();
+    }
 	
 	public void	Victory()
 	{
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
 			return ;
 			
 		}
-		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex + 1));
+		StartCoroutine(ChangeLevelAfterDelay(1.3f, _levelIndex + 1));
 	}
 	
 	public void	Defeat()
