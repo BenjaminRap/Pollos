@@ -30,17 +30,11 @@ public class CharacterControler : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.CompareTag("Ground"))
-		{
-			_animPollos.SetBool("BoolIsFlying", false);
-		}
+		_animPollos.SetBool("BoolIsFlying", false);
 	}
 	private void OnCollisionExit2D(Collision2D other)
 	{
-		if (other.gameObject.CompareTag("Ground"))
-		{
-			_animPollos.SetBool("BoolIsFlying", true);
-		}
+		_animPollos.SetBool("BoolIsFlying", true);
 	}
 	public void RotateCharacter()
 	{
