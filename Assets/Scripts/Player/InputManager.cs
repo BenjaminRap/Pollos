@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-	private static InputManager _instance;
+	private static InputManager 			_instance;
 	
 	[SerializeField]
-	private GameObject			_ui;
+	private GameObject						_ui;
 
-	private PlayerController    _playerController;
+	private PlayerController.WorldActions    _worldActions;
 
 	private void    Start()
 	{
@@ -18,18 +18,19 @@ public class InputManager : MonoBehaviour
 			Destroy(this);
 			return ;
 		}
-		_playerController = new PlayerController();
+		PlayerController playerController = new();
+		_worldActions = playerController.World;
 
-		_playerController.World.Enable();
-		_playerController.World.rotateWorld.performed += Rotate;
-		_playerController.World.resetLevel.performed += ResetLevel;
-		_playerController.World.menu.performed += OpenMenu;
+		_worldActions.Enable();
+		_worldActions.rotateWorld.performed += Rotate;
+		_worldActions.resetLevel.performed += ResetLevel;
+		_worldActions.menu.performed += OpenMenu;
 		_instance = this;
 	}
 
 	private void    OnDestroy()
 	{
-		_playerController.World.Disable();
+		_worldActions.Disable();
 	}
 	
 	private void	OpenMenu(InputAction.CallbackContext context)

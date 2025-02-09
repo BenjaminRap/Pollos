@@ -21,7 +21,7 @@ public class	AudioManager : MonoBehaviour
 	[SerializeField]
 	private AudioEffectSerializable[]		_audioEffectsSerializable;
 	
-	private Dictionary<string, AudioClip[]>	_audioEffects = new Dictionary<string, AudioClip[]>();
+	private Dictionary<string, AudioClip[]>	_audioEffects = new();
 
 	private void	Start()
 	{
