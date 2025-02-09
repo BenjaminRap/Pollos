@@ -2113,6 +2113,22 @@ PrefabInstance:
       propertyPath: _uiFade
       value: 
       objectReference: {fileID: 1132845235}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _levelsPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_levelsPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2627361148891017334, guid: eca710bef44d11f4f970d33f9661fef3, type: 3}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_levelsPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2627361148891017334, guid: c0a7aa97dcc90ea45a155ef3bc0bb0fc, type: 3}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_levelsPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 2627361148891017334, guid: d957cb7c6b099c248a33e19dfc7aab47, type: 3}
     - target: {fileID: 8056080230015103099, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
