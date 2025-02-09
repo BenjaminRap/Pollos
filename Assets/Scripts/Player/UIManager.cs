@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _uiCredit= null;
     [SerializeField] private GameObject _cancelImage = null;
     [SerializeField] private Animator _animatorFade= null;
+    [SerializeField] private Animator _animatorPlay= null;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +41,7 @@ public class UIManager : MonoBehaviour
     }
     public IEnumerator PlayGameCoroutine()
     {
+        _animatorPlay.SetBool("PlayClick",true);
         _cancelImage.SetActive(true);
         yield return new WaitForSeconds(8);
         SceneManager.LoadSceneAsync("Benji");
@@ -49,7 +52,9 @@ public class UIManager : MonoBehaviour
     }
     public void OnClic()
     {
-        //Pour les sound effect des clics 
+        AudioManager audioManager = AudioManager.GetInstance();
+        if (audioManager != null)
+            audioManager.playAudioEffect("Clic", gameObject.transform.position, 2);
     }
     public void PlayGame()
     {

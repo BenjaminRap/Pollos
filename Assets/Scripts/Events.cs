@@ -34,7 +34,7 @@ public class Events : MonoBehaviour
 		Destroy(effect.gameObject, effectDuration);
 		AudioManager	audioManager = AudioManager.GetInstance();
 		if (audioManager != null)
-			audioManager.playAudioEffect("boxFall", gameObject.transform.position, 1);
+			audioManager.playAudioEffect("BoxFall", gameObject.transform.position, 1);
 	}
 	
 	public static void	spawnPollosShockEffect(GameObject gameObject)
@@ -54,7 +54,7 @@ public class Events : MonoBehaviour
 		{
 			AudioManager	audioManager = AudioManager.GetInstance();
 			if (audioManager != null)
-				audioManager.playAudioEffect("pollos", gameObject.transform.position, 1);
+				audioManager.playAudioEffect("Hurt", gameObject.transform.position, 1);
 		}
 		{
 			VisualEffect	vfx = Instantiate(_instance._pollosShockVFX, gameObject.transform.position,
