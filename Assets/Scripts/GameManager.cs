@@ -50,15 +50,25 @@ public class GameManager : MonoBehaviour
 		Instantiate(_levelsPrefabs[_levelIndex]);
 	}
 	
-	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
+	private IEnumerator	ChangeLevelWithFade(int levelIndex)
 	{
 		_uiFade.FadeIn();
-		Debug.Log("Transi");
+		yield return (new WaitForSeconds(1f));
+		SetLevel(levelIndex);
+        _uiFade.FadeOut();
+		yield return (new WaitForSeconds(0.6f));
+		InputManager inputManager = InputManager.GetInstance();
+		if (inputManager != null)
+			inputManager.SetWorldActionsState(true);
+        _inLevelTransition = false;
+    }
+	
+	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
+	{
 		yield return (new WaitForSeconds(delay));
 		SetLevel(levelIndex);
-        _inLevelTransition = false;
-        _uiFade.FadeOut();
-    }
+		_inLevelTransition = false;
+	}
 	
 	public void	Victory()
 	{
@@ -72,9 +82,11 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("No more levels :(");
 			return ;
-			
 		}
-		StartCoroutine(ChangeLevelAfterDelay(1.3f, _levelIndex + 1));
+		StartCoroutine(ChangeLevelWithFade(_levelIndex + 1));
+		InputManager inputManager = InputManager.GetInstance();
+		if (inputManager != null)
+			inputManager.SetWorldActionsState(false);
 	}
 	
 	public void	Defeat()

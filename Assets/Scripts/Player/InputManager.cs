@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-	private static InputManager _instance;
+	private static InputManager 			_instance;
 	
 	[SerializeField]
-	private GameObject			_ui;
+	private GameObject						_ui;
 
-	private PlayerController    _playerController;
+	private PlayerController.WorldActions    _worldActions;
 
 	private void    Start()
 	{
@@ -18,18 +18,32 @@ public class InputManager : MonoBehaviour
 			Destroy(this);
 			return ;
 		}
-		_playerController = new PlayerController();
+		PlayerController playerController = new();
+		_worldActions = playerController.World;
 
-		_playerController.World.Enable();
-		_playerController.World.rotateWorld.performed += Rotate;
-		_playerController.World.resetLevel.performed += ResetLevel;
-		_playerController.World.menu.performed += OpenMenu;
+		_worldActions.Enable();
+		_worldActions.rotateWorld.performed += Rotate;
+		_worldActions.resetLevel.performed += ResetLevel;
+		_worldActions.menu.performed += OpenMenu;
 		_instance = this;
+	}
+	
+	public static InputManager	GetInstance()
+	{
+		return (_instance);
+	}
+	
+	public void	SetWorldActionsState(bool enabled)
+	{
+		if (!enabled)
+			_worldActions.Disable();
+		else
+			_worldActions.Enable();
 	}
 
 	private void    OnDestroy()
 	{
-		_playerController.World.Disable();
+		_worldActions.Disable();
 	}
 	
 	private void	OpenMenu(InputAction.CallbackContext context)
@@ -46,7 +60,15 @@ public class InputManager : MonoBehaviour
 			Debug.LogError("The GameManager class has no instance but the function resetLevel has been called !");
 			return ;
 		}
-		gameManager.Defeat();
+		CharacterControler	characterControler = CharacterControler.GetInstance();
+		if (characterControler == null)
+		{
+			Debug.LogError("The CharacterController class has no instance but the function ResetLevel has been called !");
+			return ;
+		}
+		AnimatorClipInfo[] clipInfos = characterControler.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0);
+		if (clipInfos.Length != 0 && clipInfos[0].clip.name != "SpawnAnim")
+			gameManager.Defeat();
 	}
 
 	private void    Rotate(InputAction.CallbackContext context)
