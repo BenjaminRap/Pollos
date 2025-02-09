@@ -53,10 +53,10 @@ public class GameManager : MonoBehaviour
 	private IEnumerator	ChangeLevelWithFade(int levelIndex)
 	{
 		_uiFade.FadeIn();
-		yield return (new WaitForSeconds(1.3f));
+		yield return (new WaitForSeconds(1f));
 		SetLevel(levelIndex);
         _uiFade.FadeOut();
-		yield return (new WaitForSeconds(1.3f));
+		yield return (new WaitForSeconds(0.6f));
 		InputManager inputManager = InputManager.GetInstance();
 		if (inputManager != null)
 			inputManager.SetWorldActionsState(true);
