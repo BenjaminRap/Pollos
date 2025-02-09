@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _quitButton = null;
     [SerializeField] private GameObject _creditButton = null;
     [SerializeField] private GameObject _uiCredit= null;
-    [SerializeField] private GameObject _cancelImage = null; 
+    [SerializeField] private GameObject _cancelImage = null;
+    [SerializeField] private GameObject _pauseUI = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,5 +59,9 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(PlayGameCoroutine());
     }
-
+    public void ClosePauseGame()
+    {
+        _pauseUI.SetActive(false);
+    }
+    
 }
