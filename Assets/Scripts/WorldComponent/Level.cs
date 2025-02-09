@@ -45,6 +45,11 @@ public class Level : MonoBehaviour
 		float	alpha = _alphaCurve.Evaluate(progression);
 		_stormEffect.SetFloat("_alphaMultiplicator", alpha);
 	}
+	
+	private void	OnDestroy()
+	{
+		_stormEffect.SetFloat("_alphaMultiplicator", 0);
+	}
 
 	private float	GetAverageStormDistance()
 	{
