@@ -1619,6 +1619,50 @@ PrefabInstance:
       propertyPath: _ui
       value: 
       objectReference: {fileID: 1132845230}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[0].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[1].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[2].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _audioEffectsSerializable.Array.data[3].clips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[0].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 218256bdbe5becd45902247ab220c000, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[1].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[2].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 6287396fbc7bba342b8ad3d0d44e9da8, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[2].clips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[2].clips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[2].clips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
+    - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_audioEffectsSerializable.Array.data[3].clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
     - target: {fileID: 3259950549411156748, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: _pauseUI
       value: 

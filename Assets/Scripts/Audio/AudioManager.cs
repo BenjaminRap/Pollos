@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +9,7 @@ public class	AudioEffectSerializable
 	[SerializeField]
 	public string		audioName;
 	[SerializeField]
-	public AudioClip	clip;
+	public AudioClip[]	clips;
 }
 
 public class	AudioManager : MonoBehaviour
@@ -20,13 +21,13 @@ public class	AudioManager : MonoBehaviour
 	[SerializeField]
 	private AudioEffectSerializable[]		_audioEffectsSerializable;
 	
-	private Dictionary<string, AudioClip>	_audioEffects = new Dictionary<string, AudioClip>();
+	private Dictionary<string, AudioClip[]>	_audioEffects = new Dictionary<string, AudioClip[]>();
 
 	private void	Start()
 	{
 		foreach (AudioEffectSerializable audioEffect in _audioEffectsSerializable)
 		{
-			_audioEffects.Add(audioEffect.audioName, audioEffect.clip);
+			_audioEffects.Add(audioEffect.audioName, audioEffect.clips);
 		}
 		if (_instance != null)
 		{
@@ -42,15 +43,31 @@ public class	AudioManager : MonoBehaviour
 		return (_instance);
 	}
 	
+	private AudioClip	PickRandomAudio(string audioName)
+	{
+		AudioClip[]	audioClips = _audioEffects[audioName];
+
+		if (audioClips == null)
+		{
+			Debug.LogError("Unkown clips ! : " + audioName);
+			return (null);
+		}
+		int audioCount = audioClips.Count();
+		if (audioCount == 0)
+		{
+			Debug.LogError("The sound : " + audioName + " has no clip attached");
+			return (null);
+		}
+		int randomIndex = UnityEngine.Random.Range(0, audioCount - 1);
+		return (audioClips[randomIndex]);
+	}
+	
 	public void	playAudioEffect(string audioName, Vector3 audioSourcePoint, float volume)
 	{
-		AudioClip	audioClip = _audioEffects[audioName];
+		AudioClip	audioClip = PickRandomAudio(audioName);
 
 		if (audioClip == null)
-		{
-			Debug.LogError("Unknown audio clip !");
 			return ;
-		}
 		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity);
 		
 		audioSource.clip = audioClip;
