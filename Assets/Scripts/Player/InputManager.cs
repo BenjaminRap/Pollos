@@ -27,6 +27,19 @@ public class InputManager : MonoBehaviour
 		_worldActions.menu.performed += OpenMenu;
 		_instance = this;
 	}
+	
+	public static InputManager	GetInstance()
+	{
+		return (_instance);
+	}
+	
+	public void	SetWorldActionsState(bool enabled)
+	{
+		if (!enabled)
+			_worldActions.Disable();
+		else
+			_worldActions.Enable();
+	}
 
 	private void    OnDestroy()
 	{
