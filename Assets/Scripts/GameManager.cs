@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 		_inLevelTransition = true;
 		AudioManager	audioManager = AudioManager.GetInstance();
 		if (audioManager != null)
-			audioManager.playAudioEffect("victory", gameObject.transform.position, 1);
+			audioManager.playAudioEffect("Victory", gameObject.transform.position, 1);
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
 			Debug.Log("No more levels :(");
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
 		_inLevelTransition = true;
 		AudioManager	audioManager = AudioManager.GetInstance();
 		if (audioManager != null)
-			audioManager.playAudioEffect("defeat", gameObject.transform.position, 1);
+			audioManager.playAudioEffect("Death", gameObject.transform.position, 1);
 		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex));
 	}
 }
