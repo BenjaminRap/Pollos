@@ -11,8 +11,6 @@ public class CharacterControler : MonoBehaviour
 
 	[SerializeField] private Animator	_animPollos = null;
 
-	private bool						_isFlying;
-
 	private void Start()
 	{
 		if (_instance != null)
@@ -23,7 +21,6 @@ public class CharacterControler : MonoBehaviour
 		}
 		_instance = this;
 		_animPollos = GetComponent<Animator>();
-		_animPollos.SetTrigger("TriggerSpawn");
 	}
 	
 	public static CharacterControler	GetInstance()
@@ -36,28 +33,18 @@ public class CharacterControler : MonoBehaviour
 		if (other.gameObject.CompareTag("Ground"))
 		{
 			_animPollos.SetBool("BoolIsFlying", false);
-			_isFlying = false;
 		}
 	}
 	private void OnCollisionExit2D(Collision2D other)
 	{
 		if (other.gameObject.CompareTag("Ground"))
 		{
-			_animPollos.SetBool("BoolIsFlying",true);
-			_isFlying = true;
+			_animPollos.SetBool("BoolIsFlying", true);
 		}
 	}
 	public void RotateCharacter()
 	{
-		if (_isFlying == true)
-		{
-			_animPollos.SetTrigger("TrFlyToRotate");
-		}
-		else
-		{
-			_animPollos.SetTrigger("TrIdleToRotate");
-
-		}
+		_animPollos.SetTrigger("TriggerRotate");
 	}
 	
 	public void	Kill()

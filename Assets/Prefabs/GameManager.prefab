@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 486075254718215608}
   - component: {fileID: 7151958347453068034}
   - component: {fileID: 2093545199340624296}
-  - component: {fileID: 2497426830519902028}
   - component: {fileID: 2195462322752959078}
+  - component: {fileID: 3259950549411156748}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3918877b8a4964db745ace499019a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ui: {fileID: 0}
 --- !u!114 &7151958347453068034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,22 +79,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSourcePrefab: {fileID: 4889395711976024667, guid: 9ebc51d2f66a96b488310649474a160c, type: 3}
---- !u!114 &2497426830519902028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643472824328817187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feec66c9ea7c5f04c9ce3596702f90e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _winAudio: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
-  _defeatAudio: {fileID: 8300000, guid: 6287396fbc7bba342b8ad3d0d44e9da8, type: 3}
-  _chickenAudio: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
-  _boxFallAudio: {fileID: 8300000, guid: 218256bdbe5becd45902247ab220c000, type: 3}
+  _audioEffectsSerializable:
+  - audioName: boxFall
+    clip: {fileID: 8300000, guid: 218256bdbe5becd45902247ab220c000, type: 3}
+  - audioName: pollos
+    clip: {fileID: 8300000, guid: df4f1a43fc39e0c4281bbf746c068697, type: 3}
+  - audioName: defeat
+    clip: {fileID: 8300000, guid: 6287396fbc7bba342b8ad3d0d44e9da8, type: 3}
+  - audioName: victory
+    clip: {fileID: 8300000, guid: 3bb1477c3e4f41047912f3ee883e054f, type: 3}
 --- !u!114 &2195462322752959078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +101,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _smokeEffect: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
+  _pollosShockVFX: {fileID: 5939128868431362914, guid: e83e924266991824babf81fbefdea8a7, type: 3}
+--- !u!114 &3259950549411156748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643472824328817187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0584b0280bfac46ae73672967bbad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playButton: {fileID: 0}
+  _quitButton: {fileID: 0}
+  _creditButton: {fileID: 0}
+  _uiCredit: {fileID: 0}
+  _cancelImage: {fileID: 0}
+  _pauseUI: {fileID: 0}
