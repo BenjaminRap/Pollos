@@ -70,8 +70,10 @@ public class Level : MonoBehaviour
 	
 	private IEnumerator	RotateLevelToRotationGoal(CharacterControler characterController)
 	{
-		yield return StartCoroutine(TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration));
+		
+		yield return TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration);
 		StartRigidbodysSimulation();
+		_rotateCoroutine = null;
 	}
 	
 	private  void	StopRigidbodysSimulationInGrid()
