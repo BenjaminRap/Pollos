@@ -94,15 +94,16 @@ public class Level : MonoBehaviour
 		}
 	}
 	
-	public static void	placeTransformInGrid(Transform transform)
+	public static void	placeTransformInGrid(Transform rigidbody)
 	{
 		Vector3	newPosition;
-		Vector3	position = transform.position;
+		Vector3	position = rigidbody.position;
 
 		newPosition.x = MathF.Round(position.x + 0.5f) - 0.5f;
 		newPosition.y = MathF.Round(position.y + 0.5f) - 0.5f;
 		newPosition.z = position.z;
-		transform.position = newPosition;
+		rigidbody.position = newPosition;
+		Debug.Log(rigidbody.position);
 	}
 	
 	public void			Rotate(float axisValue)

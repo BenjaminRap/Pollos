@@ -20,7 +20,7 @@ public class Draft : MonoBehaviour
 		if (!collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
 			return ;
 		SetInDraft(rigidbody, true);
-		rigidbody.position -= Vector2.up * 0.3f;
+		rigidbody.position -= Vector2.up * 0.1f;
 		Level.placeTransformInGrid(collider.transform);
 		StartCoroutine(CheckIfIgidbodyMoves(rigidbody));
 	}
@@ -42,16 +42,17 @@ public class Draft : MonoBehaviour
 			return ;
 		if (!IsInDraft(rigidbody))
 			return ;
-		rigidbody.AddForce(transform.TransformVector(_draftForce * Time.deltaTime), ForceMode2D.Impulse);
+		rigidbody.AddForce(transform.TransformVector(_draftForce * Time.deltaTime), ForceMode2D.Force);
 	}
 	
 	private IEnumerator	CheckIfIgidbodyMoves(Rigidbody2D rigidbody)
 	{
-		yield return (new WaitForSeconds(1.0f));
+		yield return (new WaitForSeconds(0.5f));
 		if (!IsInDraft(rigidbody))
 			yield break;
-		if (rigidbody.linearVelocity.magnitude < 0.1f)
-			SetInDraft(rigidbody, false);
+		while (rigidbody.linearVelocity.magnitude > 0.1f)
+			yield return (null);
+		SetInDraft(rigidbody, false);
 	}
 	
 	private void	SetInDraft(Rigidbody2D rigidbody, bool inDraft)
