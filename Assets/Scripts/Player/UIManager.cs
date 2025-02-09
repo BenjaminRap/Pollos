@@ -10,12 +10,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _creditButton = null;
     [SerializeField] private GameObject _uiCredit= null;
     [SerializeField] private GameObject _cancelImage = null;
-    [SerializeField] private GameObject _pauseUI = null;
+    [SerializeField] private GameObject _animatorFade= null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        DontDestroyOnLoad(this._animatorFade.gameObject);
     }
 
     // Update is called once per frame
@@ -42,14 +42,11 @@ public class UIManager : MonoBehaviour
         _cancelImage.SetActive(true);
         yield return new WaitForSeconds(8);
         SceneManager.LoadSceneAsync("Benji");
+        //_animatorFade.SetBool("RevealWorld", true);
     }
     public void ExitGame()
     {
         Application.Quit();
-    }
-    public void BackToLobby()
-    {
-        SceneManager.LoadSceneAsync("MainMenu");
     }
     public void OnClic()
     {
@@ -59,9 +56,4 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(PlayGameCoroutine());
     }
-    public void ClosePauseGame()
-    {
-        _pauseUI.SetActive(false);
-    }
-    
 }
