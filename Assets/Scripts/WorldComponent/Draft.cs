@@ -13,6 +13,23 @@ public class Draft : MonoBehaviour
 	{
 		_draftForce = _draftDirection.normalized * _draftLength;
 	}
+	
+	private void	OnTriggerEnter2D(Collider2D collider)
+	{
+		if (!collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
+			return ;
+		rigidbody.gravityScale = 0;
+		rigidbody.linearVelocity = Vector2.zero;
+		Level.placeTransformInGrid(collider.transform);
+	}
+
+	private void	OnTriggerExit2D(Collider2D collider)
+	{
+		if (!collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
+			return ;
+		rigidbody.gravityScale = 1;
+		rigidbody.linearVelocity = Vector2.zero;
+	}
 
 	private void	OnTriggerStay2D(Collider2D collider)
 	{

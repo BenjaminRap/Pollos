@@ -80,13 +80,7 @@ public class Level : MonoBehaviour
 	{
 		foreach (Rigidbody2D rigidbody in _rigidBodys)
 		{
-			Vector3	newPosition;
-			Vector3	position = rigidbody.transform.position;
-
-			newPosition.x = MathF.Round(position.x + 0.5f) - 0.5f;
-			newPosition.y = MathF.Round(position.y + 0.5f) - 0.5f;
-			newPosition.z = position.z;
-			rigidbody.transform.position = newPosition;
+			Level.placeTransformInGrid(rigidbody.transform);
 			rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
 			rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		}
@@ -98,6 +92,17 @@ public class Level : MonoBehaviour
 		{
 			rigidbody.bodyType = RigidbodyType2D.Dynamic;
 		}
+	}
+	
+	public static void	placeTransformInGrid(Transform transform)
+	{
+		Vector3	newPosition;
+		Vector3	position = transform.position;
+
+		newPosition.x = MathF.Round(position.x + 0.5f) - 0.5f;
+		newPosition.y = MathF.Round(position.y + 0.5f) - 0.5f;
+		newPosition.z = position.z;
+		transform.position = newPosition;
 	}
 	
 	public void			Rotate(float axisValue)
