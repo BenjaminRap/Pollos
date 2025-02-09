@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private List<GameObject>	_levelsPrefabs;
 	private int					_levelIndex;
+	private bool				_inLevelTransition;
 
 	private void	Start()
 	{
@@ -53,14 +54,17 @@ public class GameManager : MonoBehaviour
 		yield return (new WaitForSeconds(delay));
 		SetLevel(levelIndex);
 		//FadeOut
+		_inLevelTransition = false;
 	}
 	
 	public void	Victory()
 	{
+		if (_inLevelTransition == true)
+			return ;
+		_inLevelTransition = true;
 		AudioManager	audioManager = AudioManager.GetInstance();
 		if (audioManager != null)
 			audioManager.playAudioEffect("victory", gameObject.transform.position, 1);
-		Debug.Log("Victory !!!");
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
 			Debug.Log("No more levels :(");
@@ -72,10 +76,12 @@ public class GameManager : MonoBehaviour
 	
 	public void	Defeat()
 	{
+		if (_inLevelTransition == true)
+			return ;
+		_inLevelTransition = true;
 		AudioManager	audioManager = AudioManager.GetInstance();
 		if (audioManager != null)
 			audioManager.playAudioEffect("defeat", gameObject.transform.position, 1);
-		Debug.Log("Defeat ...");
 		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex));
 	}
 }
