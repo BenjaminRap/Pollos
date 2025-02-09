@@ -559,7 +559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1047548668
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1449,6 +1449,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 486075254718215608, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: _ui
+      value: 
+      objectReference: {fileID: 1047548667}
     - target: {fileID: 2093545199340624296, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: _audioEffects.Array.size
       value: 1

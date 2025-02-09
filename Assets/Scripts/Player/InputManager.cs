@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
 	private static InputManager _instance;
+	
+	[SerializeField]
+	private GameObject			_ui;
 
 	private PlayerController    _playerController;
 
@@ -31,7 +34,7 @@ public class InputManager : MonoBehaviour
 	
 	private void	OpenMenu(InputAction.CallbackContext context)
 	{
-		Debug.Log("Open Menu");
+		_ui.SetActive(!_ui.activeSelf);
 	}
 	
 	private void	ResetLevel(InputAction.CallbackContext context)
