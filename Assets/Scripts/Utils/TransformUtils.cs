@@ -14,6 +14,7 @@ public static class TransformUtils
 			duration += Time.deltaTime;
 			yield return (null);
 		}
+		transform.rotation = rotationGoal;
 	}
 	
 	public static IEnumerator	MoveInTime(Transform transform, Vector3 positionGoal, float time)
@@ -27,5 +28,6 @@ public static class TransformUtils
 			duration += Time.deltaTime;
 			yield return (null);
 		}
+		transform.position = positionGoal;
 	}
 }
