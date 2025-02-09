@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator PlayGameCoroutine()
     {
         _cancelImage.SetActive(true);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(8);
         SceneManager.LoadSceneAsync("Benji");
     }
     public void ExitGame()
