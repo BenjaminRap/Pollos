@@ -60,7 +60,15 @@ public class InputManager : MonoBehaviour
 			Debug.LogError("The GameManager class has no instance but the function resetLevel has been called !");
 			return ;
 		}
-		gameManager.Defeat();
+		CharacterControler	characterControler = CharacterControler.GetInstance();
+		if (characterControler == null)
+		{
+			Debug.LogError("The CharacterController class has no instance but the function ResetLevel has been called !");
+			return ;
+		}
+		AnimatorClipInfo[] clipInfos = characterControler.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0);
+		if (clipInfos.Length != 0 && clipInfos[0].clip.name != "SpawnAnim")
+			gameManager.Defeat();
 	}
 
 	private void    Rotate(InputAction.CallbackContext context)
