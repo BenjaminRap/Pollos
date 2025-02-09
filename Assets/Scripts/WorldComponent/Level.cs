@@ -86,7 +86,7 @@ public class Level : MonoBehaviour
 			newPosition.z = position.z;
 			rigidbody.transform.position = newPosition;
 			rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
-			rigidbody.simulated = false;
+			rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class Level : MonoBehaviour
 	{
 		foreach (Rigidbody2D rigidbody in _rigidBodys)
 		{
-			rigidbody.simulated = true;
+			rigidbody.bodyType = RigidbodyType2D.Dynamic;
 		}
 	}
 	

@@ -57,8 +57,8 @@ Material:
     - _EnableExternalAlpha: 0
     - _ZWrite: 0
     - _alphaMultiplicator: 0
-    - _circleEffectMultiplicator: 2.24
-    - _circleEffectPower: 1
+    - _circleEffectMultiplicator: 1.99
+    - _circleEffectPower: 1.62
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

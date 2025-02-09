@@ -58,6 +58,7 @@ public class InputManager : MonoBehaviour
 			Debug.LogError("The class Level has no instance but the input Rotate has been performed");
 			return ;
 		}
-		currentLevel.Rotate(context.ReadValue<float>());
+		float value = Mathf.Round(context.ReadValue<float>());
+		currentLevel.Rotate(value);
 	}
 }

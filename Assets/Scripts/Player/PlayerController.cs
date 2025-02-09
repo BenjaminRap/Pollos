@@ -95,7 +95,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""name"": ""rotateWorld"",
                     ""type"": ""Value"",
                     ""id"": ""704834ec-708a-4763-8fcc-a96a6be2d941"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
