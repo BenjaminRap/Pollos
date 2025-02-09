@@ -784,7 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -816,7 +816,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &696377173
 GameObject:
@@ -1381,8 +1381,7 @@ MonoBehaviour:
   _creditButton: {fileID: 1987497803}
   _uiCredit: {fileID: 1161503260}
   _cancelImage: {fileID: 376940282}
-  _pauseUI: {fileID: 0}
-  _animatorFade: {fileID: 653374392}
+  _animatorFade: {fileID: 1835383082}
 --- !u!1 &881151318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1835383081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2607,14 +2606,14 @@ RectTransform:
   m_GameObject: {fileID: 1835383080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.90625, y: 0.90625, z: 0.90625}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 653374393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 181.25}
+  m_AnchoredPosition: {x: 0, y: 202.21552}
   m_SizeDelta: {x: 75, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1835383082

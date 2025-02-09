@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7151958347453068034}
   - component: {fileID: 2093545199340624296}
   - component: {fileID: 2195462322752959078}
-  - component: {fileID: 3259950549411156748}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -66,6 +65,7 @@ MonoBehaviour:
   - {fileID: 2627361148891017334, guid: c79bccd45dcf37645b14f6003e9e9fb5, type: 3}
   - {fileID: 2627361148891017334, guid: 080c8c25ab072e14b891849ddbf0f6c5, type: 3}
   - {fileID: 2627361148891017334, guid: c0a7aa97dcc90ea45a155ef3bc0bb0fc, type: 3}
+  _uiManager: {fileID: 0}
 --- !u!114 &2093545199340624296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,21 +102,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _smokeEffect: {fileID: 8021133619374490475, guid: 29a8ae1befe93ab4c9211df58599e901, type: 3}
   _pollosShockVFX: {fileID: 5939128868431362914, guid: e83e924266991824babf81fbefdea8a7, type: 3}
---- !u!114 &3259950549411156748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643472824328817187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0584b0280bfac46ae73672967bbad2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playButton: {fileID: 0}
-  _quitButton: {fileID: 0}
-  _creditButton: {fileID: 0}
-  _uiCredit: {fileID: 0}
-  _cancelImage: {fileID: 0}
-  _pauseUI: {fileID: 0}
