@@ -49,8 +49,10 @@ public class GameManager : MonoBehaviour
 	
 	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
 	{
+		//fade in
 		yield return (new WaitForSeconds(delay));
 		SetLevel(levelIndex);
+		//FadeOut
 	}
 	
 	public void	Victory()
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
 		{
 			Debug.Log("No more levels :(");
 			return ;
+			
 		}
 		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex + 1));
 	}
