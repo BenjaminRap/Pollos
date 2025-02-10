@@ -103,7 +103,6 @@ public class Level : MonoBehaviour
 		newPosition.y = MathF.Round(position.y + 0.5f) - 0.5f;
 		newPosition.z = position.z;
 		rigidbody.position = newPosition;
-		Debug.Log(rigidbody.position);
 	}
 	
 	public void			Rotate(float axisValue)
