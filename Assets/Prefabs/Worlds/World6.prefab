@@ -4035,8 +4035,12 @@ PrefabInstance:
       value: GroundEndLine (5)
       objectReference: {fileID: 0}
     - target: {fileID: 6794019971445202924, guid: cd1f5abee44a58346ba205af4ede42f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7883
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794019971445202924, guid: cd1f5abee44a58346ba205af4ede42f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4999998
+      value: -2.3942
       objectReference: {fileID: 0}
     - target: {fileID: 6794019971445202924, guid: cd1f5abee44a58346ba205af4ede42f0, type: 3}
       propertyPath: m_LocalPosition.y
