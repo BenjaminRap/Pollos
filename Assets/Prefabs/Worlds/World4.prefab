@@ -2419,9 +2419,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2048080934235256897}
     m_Modifications:
+    - target: {fileID: 137873197330723027, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
+      propertyPath: _stepCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3000383048435731187, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
+      propertyPath: _stepCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088392363680492898, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
+      propertyPath: _stepCount
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7990385287087922063, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
       propertyPath: m_Name
       value: Storms
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061681800125567526, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
+      propertyPath: _stepCount
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8232224086467886033, guid: f2e6c3da7ab05a94099255ccb94aebdc, type: 3}
       propertyPath: m_LocalPosition.x
