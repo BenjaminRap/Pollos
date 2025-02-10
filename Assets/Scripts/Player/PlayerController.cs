@@ -134,7 +134,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""c41f8a3c-4c4f-49ce-ae02-e2b4cbe7ce75"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -145,7 +145,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""877cc298-0fa0-458c-a2a5-f7a973146294"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

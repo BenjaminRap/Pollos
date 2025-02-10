@@ -41,7 +41,7 @@ public class Events : MonoBehaviour
 	{
 		if (_instance == null)
 		{
-			Debug.LogError("There is no instance of the Events class but an eventt function has been called !");
+			Debug.LogError("There is no instance of the Events class but an event function has been called !");
 			return;
 		}
 		{
@@ -50,11 +50,6 @@ public class Events : MonoBehaviour
 			float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 
 			Destroy(effect.gameObject, effectDuration);
-		}
-		{
-			AudioManager	audioManager = AudioManager.GetInstance();
-			if (audioManager != null)
-				audioManager.playAudioEffect("Hurt", gameObject.transform.position, 1);
 		}
 		{
 			VisualEffect	vfx = Instantiate(_instance._pollosShockVFX, gameObject.transform.position,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 		_instance = this;
 		if (_levelsPrefabs.Count == 0)
 		{
-			Debug.LogWarning("No levels in the GameManager !");
+            Debug.LogWarning("No levels in the GameManager !");
 			return ;
 		}
 		Instantiate(_levelsPrefabs[0]);
@@ -80,7 +81,8 @@ public class GameManager : MonoBehaviour
 			audioManager.playAudioEffect("Victory", gameObject.transform.position, 1);
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
-			Debug.Log("No more levels :(");
+            SceneManager.LoadScene(2);
+            Debug.Log("No more levels :(");
 			return ;
 		}
 		StartCoroutine(ChangeLevelWithFade(_levelIndex + 1));
