@@ -32,8 +32,7 @@ public class Events : MonoBehaviour
 				gameObject.transform.rotation);
 		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 		Destroy(effect.gameObject, effectDuration);
-		AudioManager	audioManager = AudioManager.GetInstance();
-		if (audioManager != null)
+		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
 			audioManager.playAudioEffect("BoxFall", gameObject.transform.position, 1);
 	}
 	

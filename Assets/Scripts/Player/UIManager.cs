@@ -52,8 +52,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnClic()
     {
-        AudioManager audioManager = AudioManager.GetInstance();
-        if (audioManager != null)
+        if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
             audioManager.playAudioEffect("Clic", gameObject.transform.position, 2);
     }
     public void PlayGame()

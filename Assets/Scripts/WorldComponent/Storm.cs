@@ -14,14 +14,8 @@ public class Storm : MonoBehaviour
 	
 	private void	Start()
 	{
-		Level	level = Level.GetInstance();
-
-		if (level == null)
-		{
-			Debug.LogError("The class Level has no instance !");
-			Destroy(this);
+		if (!Level.TryAndGetInstance(out Level level))
 			return ;
-		}
 		_goalPosition = transform.position;
 		Vector3	direction = level.transform.position - transform.position;
 		_move = direction / _stepCount;
@@ -37,20 +31,9 @@ public class Storm : MonoBehaviour
 	
 	private void	OnTriggerEnter2D(Collider2D collider)
 	{
-		CharacterControler	characterControler;
-	
-		if (!collider.TryGetComponent<CharacterControler>(out characterControler))
-			return ;
-		GameManager	gameManager = GameManager.GetInstance();
-		
-		if (gameManager == null)
+		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)
+			|| !GameManager.TryAndGetInstance(out GameManager gameManager))
 		{
-			Debug.LogError("The GameManager has no instance !");
-			return ;
-		}
-		if (characterControler == null)
-		{
-			Debug.LogError("The class CharacterController has no instance !");
 			return ;
 		}
 		gameManager.Defeat();

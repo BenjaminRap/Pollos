@@ -63,9 +63,15 @@ public class Level : MonoBehaviour
 		return (averageStormDistance);
 	}
 	
-	public static Level	GetInstance()
+	public static bool	TryAndGetInstance(out Level level)
 	{
-		return (_instance);
+		level = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("The class Level has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 	
 	private IEnumerator	RotateLevelToRotationGoal(CharacterControler characterController)
@@ -107,13 +113,8 @@ public class Level : MonoBehaviour
 	
 	public void			Rotate(float axisValue)
 	{
-		CharacterControler	characterControler = CharacterControler.GetInstance();
-
-		if (characterControler == null)
-		{
-			Debug.LogError("The CharacterControler class has no instance !");
+		if (!CharacterControler.TryAndGetInstance(out CharacterControler characterControler))
 			return ;
-		}
 		characterControler.RotateCharacter();
 		foreach (Storm storm in _storms)
 		{

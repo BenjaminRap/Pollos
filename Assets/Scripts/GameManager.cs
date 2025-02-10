@@ -31,9 +31,15 @@ public class GameManager : MonoBehaviour
 		Instantiate(_levelsPrefabs[0]);
 	}
 	
-	public static GameManager	GetInstance()
+	public static bool	TryAndGetInstance(out GameManager gameManager)
 	{
-		return (_instance);
+		gameManager = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("The GameManager class has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 	
 	private void	SetLevel(int levelIndex)
@@ -44,9 +50,7 @@ public class GameManager : MonoBehaviour
 			return ;
 		}
 		_levelIndex = levelIndex;
-		Level level = Level.GetInstance();
-		
-		if (level != null)
+		if (Level.TryAndGetInstance(out Level level))
 			DestroyImmediate(level.gameObject);
 		Instantiate(_levelsPrefabs[_levelIndex]);
 	}
@@ -58,8 +62,7 @@ public class GameManager : MonoBehaviour
 		SetLevel(levelIndex);
         _uiFade.FadeOut();
 		yield return (new WaitForSeconds(0.6f));
-		InputManager inputManager = InputManager.GetInstance();
-		if (inputManager != null)
+		if (InputManager.TryAndGetInstance(out InputManager inputManager))
 			inputManager.SetWorldActionsState(true);
         _inLevelTransition = false;
     }
@@ -76,8 +79,7 @@ public class GameManager : MonoBehaviour
 		if (_inLevelTransition == true)
 			return ;
 		_inLevelTransition = true;
-		AudioManager	audioManager = AudioManager.GetInstance();
-		if (audioManager != null)
+		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
 			audioManager.playAudioEffect("Victory", gameObject.transform.position, 1);
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
@@ -86,8 +88,7 @@ public class GameManager : MonoBehaviour
 			return ;
 		}
 		StartCoroutine(ChangeLevelWithFade(_levelIndex + 1));
-		InputManager inputManager = InputManager.GetInstance();
-		if (inputManager != null)
+		if (InputManager.TryAndGetInstance(out InputManager inputManager))
 			inputManager.SetWorldActionsState(false);
 	}
 	
@@ -96,8 +97,7 @@ public class GameManager : MonoBehaviour
 		if (_inLevelTransition == true)
 			return ;
 		_inLevelTransition = true;
-		AudioManager	audioManager = AudioManager.GetInstance();
-		if (audioManager != null)
+		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
 			audioManager.playAudioEffect("Death", gameObject.transform.position, 1);
 		StartCoroutine(ChangeLevelAfterDelay(0.001f, _levelIndex));
 	}

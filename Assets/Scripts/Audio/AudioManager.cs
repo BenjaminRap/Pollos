@@ -38,9 +38,15 @@ public class	AudioManager : MonoBehaviour
 		_instance = this;
 	}
 	
-	public static AudioManager	GetInstance()
+	public static bool	TryAndGetInstance(out AudioManager audioManager)
 	{
-		return (_instance);
+		audioManager = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("The AudioManager class has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 	
 	private AudioClip	PickRandomAudio(string audioName)
