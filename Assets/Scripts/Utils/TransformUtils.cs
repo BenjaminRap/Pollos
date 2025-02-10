@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>This class has utils functions that are usefuls for transforms.</summary>
 public static class TransformUtils
 {
+	/// <summary>Rotate the transform from its current rotation to the rotationGoal in time seconds.</summary>
     public static IEnumerator	RotateInTime(Transform transform, Quaternion rotationGoal, float time)
 	{
 		float		duration = 0.0f;
@@ -17,6 +19,7 @@ public static class TransformUtils
 		transform.rotation = rotationGoal;
 	}
 	
+	/// <summary>Move the transform from its current position to the positionGoal in time seconds.</summary>
 	public static IEnumerator	MoveInTime(Transform transform, Vector3 positionGoal, float time)
 	{
 		float	duration = 0.0f;

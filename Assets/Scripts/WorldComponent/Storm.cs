@@ -1,10 +1,14 @@
 using UnityEngine;
 
+/// <summary>The class that manages a single storm cloud.</summary>
 [RequireComponent(typeof(Collider2D))]
 public class Storm : MonoBehaviour
 {
+	/// <summary>The number of rotate the player can make before the storm
+	/// has finished is movement to the center of the map.</summary>
 	[SerializeField]
 	private uint		_stepCount = 5;
+	/// <summary>The duration of the movement from a step to another.</summary>
 	[SerializeField]
 	private float		_moveDuration = 0.3f;
 	
@@ -21,6 +25,7 @@ public class Storm : MonoBehaviour
 		_move = direction / _stepCount;
 	}
 
+	/// <summary>Move forward to the center of the level, from 1 step.</summary>
 	public void		ComeCloser()
 	{
 		_goalPosition += _move;
@@ -29,6 +34,9 @@ public class Storm : MonoBehaviour
 		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
+	/// <summary>When the CharacterController enter this collider, this functions
+	/// calls the Defeat() functions.</summary>
+	/// <param name="collider"></param>
 	private void	OnTriggerEnter2D(Collider2D collider)
 	{
 		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)

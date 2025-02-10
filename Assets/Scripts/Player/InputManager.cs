@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>This class is a singleton that manages the inputs, 
+/// they all come through this class first, and then this class calls the
+/// different functions.</summary>
 public class InputManager : MonoBehaviour
 {
 	private static InputManager 			_instance;
@@ -8,6 +11,7 @@ public class InputManager : MonoBehaviour
 	[SerializeField]
 	private GameObject						_ui;
 
+	/// <summary>The default acton map.</summary>
 	private PlayerController.WorldActions    _worldActions;
 
 	private void    Start()
@@ -28,6 +32,9 @@ public class InputManager : MonoBehaviour
 		_instance = this;
 	}
 	
+	/// <summary>Get the instance of this singleton if there is one.</summary>
+	/// <param name="inputManager">This variable will be set to the instance value.</param>
+	/// <returns>True if there is an instance, false otherwise.</returns>
 	public static bool	TryAndGetInstance(out InputManager inputManager)
 	{
 		inputManager = _instance;
@@ -39,6 +46,9 @@ public class InputManager : MonoBehaviour
 		return (true);
 	}
 	
+	/// <summary>Change the activate state of the default action map.</summary>
+	/// <param name="enabled">True if the function should activate the action
+	/// map, false if it should deactivate it.</param>
 	public void	SetWorldActionsState(bool enabled)
 	{
 		if (!enabled)

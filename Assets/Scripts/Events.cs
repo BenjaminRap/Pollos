@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
+/// <summary>This class is a singleton that stores all the static event functions
+/// that can be assigned to a prefab</summary>
 public class Events : MonoBehaviour
 {
 	private static Events	_instance;
@@ -21,7 +23,9 @@ public class Events : MonoBehaviour
 		_instance = this;
 	}
 
-	public static void	spawnFallingBoxShockEffect(GameObject gameObject)
+	/// <summary>Spawn a smoke effect and play a falling box sound.</summary>
+	/// <param name="gameObject">The box gameObject.</param>
+	public static void	SpawnFallingBoxShockEffect(GameObject gameObject)
 	{
 		if (_instance == null)
 		{
@@ -33,10 +37,12 @@ public class Events : MonoBehaviour
 		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 		Destroy(effect.gameObject, effectDuration);
 		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
-			audioManager.playAudioEffect("BoxFall", gameObject.transform.position, 1);
+			audioManager.PlayAudioEffect("BoxFall", gameObject.transform.position, 1);
 	}
 	
-	public static void	spawnPollosShockEffect(GameObject gameObject)
+	/// <summary>Spawn a smoke effect, a feather vfx and a pollos hurt sound.</summary>
+	/// <param name="gameObject">The pollos gameObject.</param>
+	public static void	SpawnPollosShockEffect(GameObject gameObject)
 	{
 		if (_instance == null)
 		{
