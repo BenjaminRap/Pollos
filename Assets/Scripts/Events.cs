@@ -1,5 +1,16 @@
+using System;
 using UnityEngine;
-using UnityEngine.VFX;
+
+[Serializable]
+public class Effect {
+	[SerializeField]
+	private GameObject	_prefab;
+	[SerializeField]
+	private float		_duration;
+	
+	public GameObject	Prefab { get => _prefab; }
+	public float		Duration { get => _duration; }
+};
 
 /// <summary>This class is a singleton that stores all the static event functions
 /// that can be assigned to a prefab</summary>
@@ -8,9 +19,9 @@ public class Events : MonoBehaviour
 	private static Events	_instance;
 
 	[SerializeField]
-	private Animator		_smokeEffect;
+	private Effect			_smokeEffect;
 	[SerializeField]
-	private VisualEffect	_pollosShockVFX;
+	private Effect			_pollosShockVFX;
 	
 	private void	Start()
 	{
@@ -21,6 +32,14 @@ public class Events : MonoBehaviour
 			return ;
 		}
 		_instance = this;
+	}
+	
+	private static void	InstantiateTemporaryEffect(Effect effect, Transform transform)
+	{
+		if (!Level.TryAndGetInstance(out Level level))
+			return ;
+		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, level.GetRotableChild());
+		Destroy(instance, effect.Duration);
 	}
 
 	/// <summary>Spawn a smoke effect and play a falling box sound.</summary>
@@ -33,12 +52,7 @@ public class Events : MonoBehaviour
 			return;
 		}
 
-		if (!Level.TryAndGetInstance(out Level level))
-			return ;
-		Animator	effect = Instantiate(_instance._smokeEffect , transform.position,
-				transform.rotation, level.GetRotableChild());
-		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
-		Destroy(effect.gameObject, effectDuration);
+		InstantiateTemporaryEffect(_instance._smokeEffect, transform);
 		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("BoxFall", transform.position, 1);
 	}
@@ -52,21 +66,7 @@ public class Events : MonoBehaviour
 			Debug.LogError("There is no instance of the Events class but an event function has been called !");
 			return;
 		}
-		if (!Level.TryAndGetInstance(out Level level))
-			return ;
-		{
-			Animator	effect = Instantiate(_instance._smokeEffect , transform.position,
-					transform.rotation, level.GetRotableChild());
-			float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
-
-			Destroy(effect.gameObject, effectDuration);
-		}
-		{
-			VisualEffect	vfx = Instantiate(_instance._pollosShockVFX, transform.position,
-					transform.rotation, level.GetRotableChild());
-			float	effectDuration = 2.0f;
-			
-			Destroy(vfx.gameObject, effectDuration);
-		}
+		InstantiateTemporaryEffect(_instance._smokeEffect, transform);
+		InstantiateTemporaryEffect(_instance._pollosShockVFX, transform);
 	}
 }
