@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour
     }
     public void OnExitCreditClic()
     {
-        _uiCredit.SetActive(false);
-        _playButton.SetActive(true);
-        _quitButton.SetActive(true);
-        _creditButton.SetActive(true);
+        //_uiCredit.SetActive(false);
+        //_playButton.SetActive(true);
+        //_quitButton.SetActive(true);
+        //_creditButton.SetActive(true);
     }
     public IEnumerator PlayGameCoroutine()
     {
