@@ -25,40 +25,45 @@ public class Events : MonoBehaviour
 
 	/// <summary>Spawn a smoke effect and play a falling box sound.</summary>
 	/// <param name="gameObject">The box gameObject.</param>
-	public static void	SpawnFallingBoxShockEffect(GameObject gameObject)
+	public static void	SpawnFallingBoxShockEffect(Transform transform)
 	{
 		if (_instance == null)
 		{
 			Debug.LogError("There is no instance of the Events class but an eventt function has been called !");
 			return;
 		}
-		Animator	effect = Instantiate(_instance._smokeEffect , gameObject.transform.position,
-				gameObject.transform.rotation);
+
+		if (!Level.TryAndGetInstance(out Level level))
+			return ;
+		Animator	effect = Instantiate(_instance._smokeEffect , transform.position,
+				transform.rotation, level.GetRotableChild());
 		float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 		Destroy(effect.gameObject, effectDuration);
 		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
-			audioManager.PlayAudioEffect("BoxFall", gameObject.transform.position, 1);
+			audioManager.PlayAudioEffect("BoxFall", transform.position, 1);
 	}
 	
 	/// <summary>Spawn a smoke effect, a feather vfx and a pollos hurt sound.</summary>
 	/// <param name="gameObject">The pollos gameObject.</param>
-	public static void	SpawnPollosShockEffect(GameObject gameObject)
+	public static void	SpawnPollosShockEffect(Transform transform)
 	{
 		if (_instance == null)
 		{
 			Debug.LogError("There is no instance of the Events class but an event function has been called !");
 			return;
 		}
+		if (!Level.TryAndGetInstance(out Level level))
+			return ;
 		{
-			Animator	effect = Instantiate(_instance._smokeEffect , gameObject.transform.position,
-					gameObject.transform.rotation);
+			Animator	effect = Instantiate(_instance._smokeEffect , transform.position,
+					transform.rotation, level.GetRotableChild());
 			float effectDuration = effect.GetCurrentAnimatorStateInfo(0).length;
 
 			Destroy(effect.gameObject, effectDuration);
 		}
 		{
-			VisualEffect	vfx = Instantiate(_instance._pollosShockVFX, gameObject.transform.position,
-					gameObject.transform.rotation);
+			VisualEffect	vfx = Instantiate(_instance._pollosShockVFX, transform.position,
+					transform.rotation, level.GetRotableChild());
 			float	effectDuration = 2.0f;
 			
 			Destroy(vfx.gameObject, effectDuration);

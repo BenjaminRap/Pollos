@@ -217,7 +217,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2195462322752959078, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
         m_TargetAssemblyTypeName: Events, Assembly-CSharp
-        m_MethodName: spawnPollosShockEffect
+        m_MethodName: SpawnPollosShockEffect
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
