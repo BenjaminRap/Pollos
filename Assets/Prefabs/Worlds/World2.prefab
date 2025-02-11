@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationDuration: 0.2
-  _rotableChild: {fileID: 4984774974986292881}
+  _rotableChild: {fileID: 3909547111023414187}
   _stormEffect: {fileID: 2100000, guid: 8251dd813068e6a408526df7a699b7bb, type: 2}
   _alphaCurve:
     serializedVersion: 2

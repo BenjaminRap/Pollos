@@ -12,7 +12,7 @@ public class Shock : MonoBehaviour
 	/// <summary>The event that is called on shock. It should take a GameObject has
 	/// his unique parameter.</summary>
 	[SerializeField]
-	private UnityEvent<GameObject>	_onShock;
+	private UnityEvent<Transform>	_onShock;
 
 	private Rigidbody2D				_rigidbody;
 	private Vector2					_previousVelocity;
@@ -27,7 +27,7 @@ public class Shock : MonoBehaviour
 	{
 		float velocityDiff = _previousVelocity.magnitude - _rigidbody.linearVelocity.magnitude;
 		if (velocityDiff > _minVelocityDiffToShock)
-			_onShock.Invoke(gameObject);
+			_onShock.Invoke(transform);
 		_previousVelocity = _rigidbody.linearVelocity;
 	}
 }

@@ -92,7 +92,9 @@ public class	AudioManager : MonoBehaviour
 
 		if (audioClip == null)
 			return ;
-		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity);
+		if (!Level.TryAndGetInstance(out Level level))
+			return ;
+		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, level.GetRotableChild());
 		
 		audioSource.clip = audioClip;
 		audioSource.volume = volume;

@@ -16,7 +16,7 @@ public class Level : MonoBehaviour
 	private float			_rotationDuration = 0.2f;
 	/// <summary>The GameOBject that will be rotated.</summary>
 	[SerializeField]
-	private GameObject		_rotableChild;
+	private Transform		_rotableChild;
 	/// <summary>The material that has the storm effect</summary>
 	[SerializeField]
 	private Material		_stormEffect;
@@ -41,7 +41,7 @@ public class Level : MonoBehaviour
 			return ;
 		}
 		_instance = this;
-		_rotationGoal = _rotableChild.transform.rotation;
+		_rotationGoal = _rotableChild.rotation;
 		_storms = GetComponentsInChildren<Storm>();
 		_averageStormDistanceAtStart = GetAverageStormDistance();
 		_rigidBodys = GetComponentsInChildren<Rigidbody2D>();
@@ -90,7 +90,7 @@ public class Level : MonoBehaviour
 	private IEnumerator	RotateLevelToRotationGoal()
 	{
 		
-		yield return TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration);
+		yield return TransformUtils.RotateInTime(_rotableChild, _rotationGoal, _rotationDuration);
 		StartRigidbodysSimulation();
 		_rotateCoroutine = null;
 	}
@@ -143,5 +143,10 @@ public class Level : MonoBehaviour
 		StopRigidbodysSimulationInGrid();
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
+	}
+	
+	public Transform	GetRotableChild()
+	{
+		return (_rotableChild);
 	}
 }

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5666446833952311804}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4612776b4a503384890ce87978186783, type: 3}
   m_Name: 
@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2195462322752959078, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
         m_TargetAssemblyTypeName: Events, Assembly-CSharp
-        m_MethodName: spawnFallingBoxShockEffect
+        m_MethodName: SpawnFallingBoxShockEffect
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
