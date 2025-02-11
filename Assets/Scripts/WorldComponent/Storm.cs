@@ -1,10 +1,14 @@
 using UnityEngine;
 
+/// <summary>The class that manages a single storm cloud.</summary>
 [RequireComponent(typeof(Collider2D))]
 public class Storm : MonoBehaviour
 {
+	/// <summary>The number of rotate the player can make before the storm
+	/// has finished is movement to the center of the map.</summary>
 	[SerializeField]
 	private uint		_stepCount = 5;
+	/// <summary>The duration of the movement from a step to another.</summary>
 	[SerializeField]
 	private float		_moveDuration = 0.3f;
 	
@@ -14,19 +18,14 @@ public class Storm : MonoBehaviour
 	
 	private void	Start()
 	{
-		Level	level = Level.GetInstance();
-
-		if (level == null)
-		{
-			Debug.LogError("The class Level has no instance !");
-			Destroy(this);
+		if (!Level.TryAndGetInstance(out Level level))
 			return ;
-		}
 		_goalPosition = transform.position;
 		Vector3	direction = level.transform.position - transform.position;
 		_move = direction / _stepCount;
 	}
 
+	/// <summary>Move forward to the center of the level, from 1 step.</summary>
 	public void		ComeCloser()
 	{
 		_goalPosition += _move;
@@ -35,22 +34,14 @@ public class Storm : MonoBehaviour
 		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
+	/// <summary>When the CharacterController enter this collider, this functions
+	/// calls the Defeat() functions.</summary>
+	/// <param name="collider"></param>
 	private void	OnTriggerEnter2D(Collider2D collider)
 	{
-		CharacterControler	characterControler;
-	
-		if (!collider.TryGetComponent<CharacterControler>(out characterControler))
-			return ;
-		GameManager	gameManager = GameManager.GetInstance();
-		
-		if (gameManager == null)
+		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)
+			|| !GameManager.TryAndGetInstance(out GameManager gameManager))
 		{
-			Debug.LogError("The GameManager has no instance !");
-			return ;
-		}
-		if (characterControler == null)
-		{
-			Debug.LogError("The class CharacterController has no instance !");
 			return ;
 		}
 		gameManager.Defeat();

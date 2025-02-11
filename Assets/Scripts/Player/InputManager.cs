@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>This class is a singleton that manages the inputs, 
+/// they all come through this class first, and then this class calls the
+/// different functions.</summary>
 public class InputManager : MonoBehaviour
 {
 	private static InputManager 			_instance;
@@ -8,6 +11,7 @@ public class InputManager : MonoBehaviour
 	[SerializeField]
 	private GameObject						_ui;
 
+	/// <summary>The default acton map.</summary>
 	private PlayerController.WorldActions    _worldActions;
 
 	private void    Start()
@@ -28,11 +32,23 @@ public class InputManager : MonoBehaviour
 		_instance = this;
 	}
 	
-	public static InputManager	GetInstance()
+	/// <summary>Get the instance of this singleton if there is one.</summary>
+	/// <param name="inputManager">This variable will be set to the instance value.</param>
+	/// <returns>True if there is an instance, false otherwise.</returns>
+	public static bool	TryAndGetInstance(out InputManager inputManager)
 	{
-		return (_instance);
+		inputManager = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("The InputManager class has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 	
+	/// <summary>Change the activate state of the default action map.</summary>
+	/// <param name="enabled">True if the function should activate the action
+	/// map, false if it should deactivate it.</param>
 	public void	SetWorldActionsState(bool enabled)
 	{
 		if (!enabled)
@@ -53,17 +69,9 @@ public class InputManager : MonoBehaviour
 	
 	private void	ResetLevel(InputAction.CallbackContext context)
 	{
-		GameManager	gameManager = GameManager.GetInstance();
-
-		if (gameManager == null)
+		if (!GameManager.TryAndGetInstance(out GameManager gameManager)
+			|| !CharacterControler.TryAndGetInstance(out CharacterControler characterControler))
 		{
-			Debug.LogError("The GameManager class has no instance but the function resetLevel has been called !");
-			return ;
-		}
-		CharacterControler	characterControler = CharacterControler.GetInstance();
-		if (characterControler == null)
-		{
-			Debug.LogError("The CharacterController class has no instance but the function ResetLevel has been called !");
 			return ;
 		}
 		AnimatorClipInfo[] clipInfos = characterControler.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0);
@@ -73,13 +81,8 @@ public class InputManager : MonoBehaviour
 
 	private void    Rotate(InputAction.CallbackContext context)
 	{
-		Level	currentLevel = Level.GetInstance();
-		
-		if (currentLevel == null)
-		{
-			Debug.LogError("The class Level has no instance but the input Rotate has been performed");
+		if (!Level.TryAndGetInstance(out Level currentLevel))
 			return ;
-		}
 		float value = Mathf.Round(context.ReadValue<float>());
 		currentLevel.Rotate(value);
 	}

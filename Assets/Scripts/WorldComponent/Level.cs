@@ -2,17 +2,25 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>This class manages a level : the storms and the rotation of the level.</summary>
 public class Level : MonoBehaviour
 {
+	/// <summary>The angle rotated each input.</summary>
 	private const float		_rotationAngle = 90.0f;
+	/// <summary>A multiplicator applied on rigidbody's velocity when the level is rotated</summary>
 	private const float		_velocityMultiplicatorAtRotation = 0.4f;
 	
+	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
+	/// than the rotate animation.</summary>
 	[SerializeField]
 	private float			_rotationDuration = 0.2f;
+	/// <summary>The GameOBject that will be rotated.</summary>
 	[SerializeField]
 	private GameObject		_rotableChild;
+	/// <summary>The material that has the storm effect</summary>
 	[SerializeField]
 	private Material		_stormEffect;
+	/// <summary>The curve that describe the alpha of the storm effect over time</summary>
 	[SerializeField]
 	private AnimationCurve	_alphaCurve;
 
@@ -63,12 +71,23 @@ public class Level : MonoBehaviour
 		return (averageStormDistance);
 	}
 	
-	public static Level	GetInstance()
+	/// <summary>Get the instance of this singleton if there is one.</summary>
+	/// <param name="level">This variable will be set to the instance value.</param>
+	/// <returns>True if there is an instance, false otherwise.</returns>
+	public static bool	TryAndGetInstance(out Level level)
 	{
-		return (_instance);
+		level = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("The class Level has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 	
-	private IEnumerator	RotateLevelToRotationGoal(CharacterControler characterController)
+	/// <summary>A corotutine that rotates the level and restart the rigidbody's
+	// simulation after that</summary>
+	private IEnumerator	RotateLevelToRotationGoal()
 	{
 		
 		yield return TransformUtils.RotateInTime(_rotableChild.transform, _rotationGoal, _rotationDuration);
@@ -76,16 +95,18 @@ public class Level : MonoBehaviour
 		_rotateCoroutine = null;
 	}
 	
+	/// <summary>Stop all the rigidbody's simulation and place them in the nearest case.</summary>
 	private  void	StopRigidbodysSimulationInGrid()
 	{
 		foreach (Rigidbody2D rigidbody in _rigidBodys)
 		{
-			Level.placeTransformInGrid(rigidbody.transform);
+			Level.PlaceTransformInGrid(rigidbody.transform);
 			rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
 			rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		}
 	}
 
+	/// <summary>Restart the rigidbody's simulation.</summary>
 	private void	StartRigidbodysSimulation()
 	{
 		foreach (Rigidbody2D rigidbody in _rigidBodys)
@@ -94,7 +115,8 @@ public class Level : MonoBehaviour
 		}
 	}
 	
-	public static void	placeTransformInGrid(Transform rigidbody)
+	/// <summary>Place the transform in the nearest grid.</summary>
+	public static void	PlaceTransformInGrid(Transform rigidbody)
 	{
 		Vector3	newPosition;
 		Vector3	position = rigidbody.position;
@@ -105,15 +127,12 @@ public class Level : MonoBehaviour
 		rigidbody.position = newPosition;
 	}
 	
+	/// <summary>Rotate the level.</summary>
+	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
 	public void			Rotate(float axisValue)
 	{
-		CharacterControler	characterControler = CharacterControler.GetInstance();
-
-		if (characterControler == null)
-		{
-			Debug.LogError("The CharacterControler class has no instance !");
+		if (!CharacterControler.TryAndGetInstance(out CharacterControler characterControler))
 			return ;
-		}
 		characterControler.RotateCharacter();
 		foreach (Storm storm in _storms)
 		{
@@ -123,6 +142,6 @@ public class Level : MonoBehaviour
 			StopCoroutine(_rotateCoroutine);
 		StopRigidbodysSimulationInGrid();
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(characterControler));
+		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 }

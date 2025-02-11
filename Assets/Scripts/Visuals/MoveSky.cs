@@ -1,7 +1,11 @@
 using UnityEngine;
 
+/// <summary>This class moves the GameObject from a min to a max with a random speed
+/// in range [0, _maxSpeed]. </summary>
 public class MoveSky : MonoBehaviour
 {
+	/// <summary>The x of this vector is the min offset that this monobehaviour position will be set.
+	/// The y is the max.</summary>
 	[SerializeField]
 	private Vector2	_minMaxOffset;
 	[SerializeField]
@@ -21,6 +25,12 @@ public class MoveSky : MonoBehaviour
 	}
 	
 	private void	Update()
+	{
+		MoveHorizontally();
+	}
+	
+	/// <summary>Moves this GameObject between the min and max offset.</summary>
+	private void	MoveHorizontally()
 	{
 		transform.localPosition += _direction * Time.deltaTime;			
 		if (transform.localPosition.x < _minMaxOffset.x)

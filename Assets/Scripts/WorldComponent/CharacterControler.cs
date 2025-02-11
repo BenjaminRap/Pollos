@@ -23,9 +23,15 @@ public class CharacterControler : MonoBehaviour
 		_animPollos = GetComponent<Animator>();
 	}
 	
-	public static CharacterControler	GetInstance()
+	public static bool	TryAndGetInstance(out CharacterControler characterControler)
 	{
-		return (_instance);
+		characterControler = _instance;
+		if (_instance == null)
+		{
+			Debug.LogError("CharacterController has no instance !");
+			return (false);
+		}
+		return (true);
 	}
 
 	private void OnCollisionEnter2D(Collision2D other)
