@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+/// <summary>This class stores all the variables necessary for an Effect :
+/// its prefab and duration.</summary>
 [Serializable]
 public class Effect {
 	[SerializeField]
@@ -34,6 +36,9 @@ public class Events : MonoBehaviour
 		_instance = this;
 	}
 	
+	/// <summary>Instantiate the Effect.Prefab and destroy it after Effect.Duration seconds.
+	/// The parent of the instanciated effect will be the current level rotable</summary>
+	/// <param name="transform">The effect will be instanciated with the transform.position and rotation.</param>
 	private static void	InstantiateTemporaryEffect(Effect effect, Transform transform)
 	{
 		if (!Level.TryAndGetInstance(out Level level))
