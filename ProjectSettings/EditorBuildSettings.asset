@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Gaiwan/MainMenu.unity
     guid: d5723ada6165e7f4786df5765b3b5dc3
   - enabled: 1
-    path: Assets/Scenes/Benji/Benji.unity
+    path: Assets/Scenes/Benji/InGame.unity
     guid: fb7a805c1f9f6e94ebb5f557295e6fa7
   - enabled: 1
     path: Assets/Scenes/Gaiwan/EndMenu.unity

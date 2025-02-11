@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
         _animatorPlay.SetBool("PlayClick",true);
         _cancelImage.SetActive(true);
         yield return new WaitForSeconds(8);
-        SceneManager.LoadSceneAsync("Benji");
+        SceneManager.LoadSceneAsync("InGame");
     }
     public void ExitGame()
     {
