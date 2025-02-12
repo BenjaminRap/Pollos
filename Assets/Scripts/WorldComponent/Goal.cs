@@ -23,11 +23,11 @@ public class Goal : MonoBehaviour
 	/// Victory()</summary>
 	private void	OnTriggerEnter(Collider collider)
 	{
-		if (!GameManager.TryAndGetInstance(out GameManager gameManager))
+		if (!GameManager.TryGetInstance(out GameManager gameManager))
 			return ;
 		if (collider.CompareTag("Heavy"))
 			gameManager.Defeat();
-		else if (collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler))
+		else if (collider.TryGetComponent<PollosController>(out PollosController characterControler))
 			gameManager.Victory();
 	}
 }

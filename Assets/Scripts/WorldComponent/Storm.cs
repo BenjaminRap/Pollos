@@ -18,7 +18,7 @@ public class Storm : MonoBehaviour
 	
 	private void	Start()
 	{
-		if (!Level.TryAndGetInstance(out Level level))
+		if (!Level.TryGetInstance(out Level level))
 			return ;
 		_goalPosition = transform.position;
 		Vector3	direction = level.transform.position - transform.position;
@@ -39,8 +39,8 @@ public class Storm : MonoBehaviour
 	/// <param name="collider"></param>
 	private void	OnTriggerEnter(Collider collider)
 	{
-		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)
-			|| !GameManager.TryAndGetInstance(out GameManager gameManager))
+		if (!collider.TryGetComponent<PollosController>(out PollosController characterControler)
+			|| !GameManager.TryGetInstance(out GameManager gameManager))
 		{
 			return ;
 		}

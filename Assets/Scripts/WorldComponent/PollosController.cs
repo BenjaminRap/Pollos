@@ -2,11 +2,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterControler : MonoBehaviour
+public class PollosController : MonoBehaviour
 {
-	private static CharacterControler	_instance;
+	private static PollosController	_instance;
 	
-
 
 	[SerializeField] private Animator	_animPollos = null;
 
@@ -14,7 +13,7 @@ public class CharacterControler : MonoBehaviour
 	{
 		if (_instance != null)
 		{
-			Debug.LogError("Multiples instances of the CharacterController class");
+			Debug.LogError("Multiples instances of the PollosController class");
 			Destroy(this);
 			return ;
 		}
@@ -22,12 +21,12 @@ public class CharacterControler : MonoBehaviour
 		_animPollos = GetComponent<Animator>();
 	}
 	
-	public static bool	TryAndGetInstance(out CharacterControler characterControler)
+	public static bool	TryGetInstance(out PollosController characterControler)
 	{
 		characterControler = _instance;
 		if (_instance == null)
 		{
-			Debug.LogError("CharacterController has no instance !");
+			Debug.LogError("PollosController has no instance !");
 			return (false);
 		}
 		return (true);

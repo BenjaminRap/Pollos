@@ -48,7 +48,7 @@ public class	AudioManager : MonoBehaviour
 	/// <summary>Get the instance of this singleton if there is one.</summary>
 	/// <param name="audioManager">This variable will be set to the instance value.</param>
 	/// <returns>True if there is an instance, false otherwise.</returns>
-	public static bool	TryAndGetInstance(out AudioManager audioManager)
+	public static bool	TryGetInstance(out AudioManager audioManager)
 	{
 		audioManager = _instance;
 		if (_instance == null)
@@ -92,7 +92,7 @@ public class	AudioManager : MonoBehaviour
 
 		if (audioClip == null)
 			return ;
-		if (!Level.TryAndGetInstance(out Level level))
+		if (!Level.TryGetInstance(out Level level))
 			return ;
 		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, level.GetRotableChild());
 		

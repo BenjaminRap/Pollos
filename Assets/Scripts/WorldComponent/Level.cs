@@ -74,7 +74,7 @@ public class Level : MonoBehaviour
 	/// <summary>Get the instance of this singleton if there is one.</summary>
 	/// <param name="level">This variable will be set to the instance value.</param>
 	/// <returns>True if there is an instance, false otherwise.</returns>
-	public static bool	TryAndGetInstance(out Level level)
+	public static bool	TryGetInstance(out Level level)
 	{
 		level = _instance;
 		if (_instance == null)
@@ -131,7 +131,7 @@ public class Level : MonoBehaviour
 	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
 	public void			Rotate(float axisValue)
 	{
-		if (!CharacterControler.TryAndGetInstance(out CharacterControler characterControler))
+		if (!PollosController.TryGetInstance(out PollosController characterControler))
 			return ;
 		characterControler.RotateCharacter();
 		foreach (Storm storm in _storms)
