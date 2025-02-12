@@ -30,7 +30,7 @@ public class Level : MonoBehaviour
 	private Quaternion		_rotationGoal;
 	private Storm[]			_storms;
 	private float			_averageStormDistanceAtStart;
-	private Rigidbody2D[]	_rigidBodys;
+	private Rigidbody[]		_rigidBodys;
 
 	private void		Start()
 	{
@@ -44,7 +44,7 @@ public class Level : MonoBehaviour
 		_rotationGoal = _rotableChild.rotation;
 		_storms = GetComponentsInChildren<Storm>();
 		_averageStormDistanceAtStart = GetAverageStormDistance();
-		_rigidBodys = GetComponentsInChildren<Rigidbody2D>();
+		_rigidBodys = GetComponentsInChildren<Rigidbody>();
 	}
 	
 	private void	Update()
@@ -98,20 +98,20 @@ public class Level : MonoBehaviour
 	/// <summary>Stop all the rigidbody's simulation and place them in the nearest case.</summary>
 	private  void	StopRigidbodysSimulationInGrid()
 	{
-		foreach (Rigidbody2D rigidbody in _rigidBodys)
+		foreach (Rigidbody rigidbody in _rigidBodys)
 		{
 			Level.PlaceTransformInGrid(rigidbody.transform);
 			rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
-			rigidbody.bodyType = RigidbodyType2D.Kinematic;
+			rigidbody.isKinematic = true;
 		}
 	}
 
 	/// <summary>Restart the rigidbody's simulation.</summary>
 	private void	StartRigidbodysSimulation()
 	{
-		foreach (Rigidbody2D rigidbody in _rigidBodys)
+		foreach (Rigidbody rigidbody in _rigidBodys)
 		{
-			rigidbody.bodyType = RigidbodyType2D.Dynamic;
+			rigidbody.isKinematic = false;
 		}
 	}
 	
