@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>The class that manages a single storm cloud.</summary>
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider))]
 public class Storm : MonoBehaviour
 {
 	/// <summary>The number of rotate the player can make before the storm
@@ -37,7 +37,7 @@ public class Storm : MonoBehaviour
 	/// <summary>When the CharacterController enter this collider, this functions
 	/// calls the Defeat() functions.</summary>
 	/// <param name="collider"></param>
-	private void	OnTriggerEnter2D(Collider2D collider)
+	private void	OnTriggerEnter(Collider collider)
 	{
 		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)
 			|| !GameManager.TryAndGetInstance(out GameManager gameManager))
