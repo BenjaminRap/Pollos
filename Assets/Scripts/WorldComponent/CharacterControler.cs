@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class CharacterControler : MonoBehaviour
 {
 	private static CharacterControler	_instance;
@@ -34,11 +33,11 @@ public class CharacterControler : MonoBehaviour
 		return (true);
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
+	private void OnCollisionEnter(Collision other)
 	{
 		_animPollos.SetBool("BoolIsFlying", false);
 	}
-	private void OnCollisionExit2D(Collision2D other)
+	private void OnCollisionExit(Collision other)
 	{
 		_animPollos.SetBool("BoolIsFlying", true);
 	}
