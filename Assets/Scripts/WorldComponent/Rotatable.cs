@@ -6,9 +6,11 @@ using UnityEngine;
 public class Rotatable : MonoBehaviour
 {
 	private const float		_velocityMultiplicatorAtRotation = 0.4f;
-	private Rigidbody	_rigidbody;
-	private Vector3		_velocityAtFreeze;
-	private bool		_isFroze;
+	private Rigidbody		_rigidbody;
+	private Vector3			_velocityAtFreeze;
+	private bool			_isFroze;
+	
+	public bool				IsFroze { get => _isFroze; }
 
     private void Start()
     {
@@ -24,7 +26,7 @@ public class Rotatable : MonoBehaviour
 		newPosition.x = Mathf.Round(transform.position.x + 0.5f) - 0.5f;
 		newPosition.y = Mathf.Round(transform.position.y + 0.5f) - 0.5f;
 		newPosition.z = transform.position.z;
-		_rigidbody.position = newPosition;
+		transform.position = newPosition;
 	}
 
 	public void	ToggleFreeze()
@@ -32,6 +34,7 @@ public class Rotatable : MonoBehaviour
 		_isFroze = !_isFroze;
 		if (_isFroze)
 		{
+			PlaceInGrid();
 			_velocityAtFreeze = _rigidbody.linearVelocity;
 			_rigidbody.isKinematic = true;
 		}

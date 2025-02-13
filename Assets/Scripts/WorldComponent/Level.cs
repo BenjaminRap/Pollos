@@ -85,7 +85,7 @@ public class Level : MonoBehaviour
 	}
 	
 	/// <summary>A corotutine that rotates the level and restart the rigidbody's
-	// simulation after that</summary>
+	/// simulation after that</summary>
 	private IEnumerator	RotateLevelToRotationGoal()
 	{
 		
