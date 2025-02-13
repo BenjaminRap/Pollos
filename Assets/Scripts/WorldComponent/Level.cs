@@ -100,7 +100,7 @@ public class Level : MonoBehaviour
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
 		{
-			rotatable.ToggleFreeze();
+			rotatable.ToggleFreeze(_rotationDuration);
 		}
 	}
 	

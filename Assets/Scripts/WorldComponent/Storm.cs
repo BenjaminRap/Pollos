@@ -31,7 +31,7 @@ public class Storm : MonoBehaviour
 		_goalPosition += _move;
 		if (_moveCoroutine != null)
 			StopCoroutine(_moveCoroutine);
-		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
+		_moveCoroutine = StartCoroutine(TransformUtils.LocalMoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
 	/// <summary>When the CharacterController enter this collider, this functions
