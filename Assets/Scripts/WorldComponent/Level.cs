@@ -90,17 +90,25 @@ public class Level : MonoBehaviour
 	{
 		
 		yield return TransformUtils.RotateInTime(_rotableChild, _rotationGoal, _rotationDuration);
-		ToggleRotatablesObjectsFreeze();
+		UnfreezeRotatables();
 		_rotateCoroutine = null;
 	}
 
 	/// <summary>Toggle the freezing state of the rotatables objects, freeze
 	/// means they won't move with forces.</summary>
-	private void	ToggleRotatablesObjectsFreeze()
+	private void	FreezeRotatables()
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
 		{
-			rotatable.ToggleFreeze(_rotationDuration);
+			rotatable.Freeze(_rotationDuration);
+		}
+	}
+
+	private void	UnfreezeRotatables()
+	{
+		foreach (Rotatable rotatable in _rotatablesObjets)
+		{
+			rotatable.Unfreeze();
 		}
 	}
 	
@@ -128,7 +136,7 @@ public class Level : MonoBehaviour
 		}
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
-		ToggleRotatablesObjectsFreeze();
+		FreezeRotatables();
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}

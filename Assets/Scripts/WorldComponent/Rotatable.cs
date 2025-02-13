@@ -6,6 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Rotatable : MonoBehaviour
 {
+	[SerializeField]
+	[Range(0.0f, 0.25f)]
+	private float			_adjustmentLength;
+
 	private const float		_velocityMultiplicatorAtRotation = 0.4f;
 	private Rigidbody		_rigidbody;
 	private bool			_isFroze;
@@ -14,7 +18,7 @@ public class Rotatable : MonoBehaviour
 	
 	public bool				IsFroze { get => _isFroze; }
 
-	private void Start()
+	private void	Start()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		_isFroze = false;
@@ -23,11 +27,11 @@ public class Rotatable : MonoBehaviour
 
 	private Vector3		GetNearestCase()
 	{
-		Vector3	newPosition;
+		Vector3	localVelocity = transform.parent.InverseTransformDirection(_velocityAtFreeze);
+		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;
 
-		newPosition.x = Mathf.Round(transform.localPosition.x + 0.5f) - 0.5f;
-		newPosition.y = Mathf.Round(transform.localPosition.y + 0.5f) - 0.5f;
-		newPosition.z = transform.localPosition.z;
+		newPosition.x = Mathf.Round(newPosition.x + 0.5f) - 0.5f;
+		newPosition.y = Mathf.Round(newPosition.y + 0.5f) - 0.5f;
 		return (newPosition);
 	}
 
@@ -41,20 +45,23 @@ public class Rotatable : MonoBehaviour
 		yield return TransformUtils.LocalMoveInTime(transform, newPosition, movementDuration);
 		_placeInGridCoroutine = null;
 	}
-
-	public void	ToggleFreeze(float rotationDuration)
+	
+	public void	Freeze(float rotationDuration)
 	{
-		_isFroze = !_isFroze;
 		if (_isFroze)
-		{
-			_velocityAtFreeze = _rigidbody.linearVelocity;
-			_rigidbody.isKinematic = true;
-			_placeInGridCoroutine ??= StartCoroutine(MoveToNearestCase(rotationDuration));
-		}
-		else
-		{
-			_rigidbody.isKinematic = false;
-			_rigidbody.linearVelocity = _velocityAtFreeze * _velocityMultiplicatorAtRotation;
-		}
+			return ;
+		_isFroze = true;
+		_velocityAtFreeze = _rigidbody.linearVelocity;
+		_rigidbody.isKinematic = true;
+		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestCase(rotationDuration));
+	}
+
+	public void	Unfreeze()
+	{
+		if (!_isFroze)
+			return ;
+		_isFroze = false;
+		_rigidbody.isKinematic = false;
+		_rigidbody.linearVelocity = _velocityAtFreeze * _velocityMultiplicatorAtRotation;
 	}
 }
