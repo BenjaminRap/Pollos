@@ -1,14 +1,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(StormManager))]
-[RequireComponent(typeof(RotablesManager))]
+[RequireComponent(typeof(RotationManager))]
 /// <summary>This class manages a level : the storms and the rotation of the level.</summary>
 public class Level : MonoBehaviour
 {
 	private static Level	_instance;
 	
 	private StormManager	_stormManager;
-	private RotablesManager	_rotablesManager;
+	private RotationManager	_rotationManager;
 
 	private void		Start()
 	{
@@ -20,7 +20,7 @@ public class Level : MonoBehaviour
 		}
 		_instance = this;
 		_stormManager = GetComponent<StormManager>();
-		_rotablesManager = GetComponent<RotablesManager>();
+		_rotationManager = GetComponent<RotationManager>();
 	}
 	
 	/// <summary>Get the instance of this singleton if there is one.</summary>
@@ -45,11 +45,11 @@ public class Level : MonoBehaviour
 			return ;
 		characterControler.RotateCharacter();
 		_stormManager.ComeCloser();
-		_rotablesManager.Rotate(axisValue);
+		_rotationManager.Rotate(axisValue);
 	}
 	
 	public Transform	GetRotatableChild()
 	{
-		return (_rotablesManager.RotatableChild);
+		return (_rotationManager.RotatableChild);
 	}
 }

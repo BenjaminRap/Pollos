@@ -3,9 +3,9 @@ using UnityEngine;
 
 /// <summary>This class is a singleton than manages the rotation of the level.
 /// It rotate the parent rotable and freeze the rotables in it.</summary>
-public class RotablesManager : MonoBehaviour
+public class RotationManager : MonoBehaviour
 {
-	private static RotablesManager	_instance;
+	private static RotationManager	_instance;
 
 	/// <summary>The angle rotated each input.</summary>
 	private const float				_rotationAngle = 90.0f;
@@ -28,7 +28,7 @@ public class RotablesManager : MonoBehaviour
     {
 		if (_instance != null)
 		{
-			Debug.LogError("Multiples instances of the RotablesManager class !");
+			Debug.LogError("Multiples instances of the RotationManager class !");
 			Destroy(gameObject);
 			return ;
 		}
