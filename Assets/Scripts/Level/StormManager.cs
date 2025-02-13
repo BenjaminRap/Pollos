@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>This class is a singleton that manages the storms, it destroy itslef
+/// if there is no storms. It moves the storms and update the storm shader alpha
+/// multiplicator.</summary>
 public class StormManager : MonoBehaviour
 {
 	private static StormManager	_instance;

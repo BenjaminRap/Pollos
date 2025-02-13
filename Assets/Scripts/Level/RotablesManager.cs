@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>This class is a singleton than manages the rotation of the level.
+/// It rotate the parent rotable and freeze the rotables in it.</summary>
 public class RotablesManager : MonoBehaviour
 {
 	private static RotablesManager	_instance;
