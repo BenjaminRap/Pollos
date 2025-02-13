@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
 	/// <summary>Get the instance of this singleton if there is one.</summary>
 	/// <param name="inputManager">This variable will be set to the instance value.</param>
 	/// <returns>True if there is an instance, false otherwise.</returns>
-	public static bool	TryAndGetInstance(out InputManager inputManager)
+	public static bool	TryGetInstance(out InputManager inputManager)
 	{
 		inputManager = _instance;
 		if (_instance == null)
@@ -69,8 +69,8 @@ public class InputManager : MonoBehaviour
 	
 	private void	ResetLevel(InputAction.CallbackContext context)
 	{
-		if (!GameManager.TryAndGetInstance(out GameManager gameManager)
-			|| !CharacterControler.TryAndGetInstance(out CharacterControler characterControler))
+		if (!GameManager.TryGetInstance(out GameManager gameManager)
+			|| !PollosController.TryGetInstance(out PollosController characterControler))
 		{
 			return ;
 		}
@@ -81,7 +81,7 @@ public class InputManager : MonoBehaviour
 
 	private void    Rotate(InputAction.CallbackContext context)
 	{
-		if (!Level.TryAndGetInstance(out Level currentLevel))
+		if (!Level.TryGetInstance(out Level currentLevel))
 			return ;
 		float value = Mathf.Round(context.ReadValue<float>());
 		currentLevel.Rotate(value);

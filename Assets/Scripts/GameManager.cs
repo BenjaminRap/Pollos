@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 	/// <summary>Get the instance of this singleton if there is one.</summary>
 	/// <param name="gameManager">This variable will be set to the instance value.</param>
 	/// <returns>True if there is an instance, false otherwise.</returns>
-	public static bool	TryAndGetInstance(out GameManager gameManager)
+	public static bool	TryGetInstance(out GameManager gameManager)
 	{
 		gameManager = _instance;
 		if (_instance == null)
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 			return ;
 		}
 		_levelIndex = levelIndex;
-		if (Level.TryAndGetInstance(out Level level))
+		if (Level.TryGetInstance(out Level level))
 			DestroyImmediate(level.gameObject);
 		Instantiate(_levelsPrefabs[_levelIndex]);
 	}
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 	/// <param name="levelIndex"></param>
 	private IEnumerator	ChangeLevelWithFade(int levelIndex)
 	{
-		if (!InputManager.TryAndGetInstance(out InputManager inputManager))
+		if (!InputManager.TryGetInstance(out InputManager inputManager))
 			yield break ;
 		inputManager.SetWorldActionsState(false);
 		_uiFade.FadeIn();
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 	/// It deactivate the input at start and reactivate it at end.</summary>
 	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
 	{
-		if (!InputManager.TryAndGetInstance(out InputManager inputManager))
+		if (!InputManager.TryGetInstance(out InputManager inputManager))
 			yield break ;
 		inputManager.SetWorldActionsState(false);
 		yield return (new WaitForSeconds(delay));
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 		if (_inLevelTransition == true)
 			return ;
 		_inLevelTransition = true;
-		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("Victory", gameObject.transform.position, 1);
 		if (_levelIndex >= _levelsPrefabs.Count - 1)
 		{
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 		if (_inLevelTransition == true)
 			return ;
 		_inLevelTransition = true;
-		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("Death", gameObject.transform.position, 1);
 		StartCoroutine(ChangeLevelAfterDelay(0.5f, _levelIndex));
 	}

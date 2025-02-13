@@ -1,13 +1,11 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
-public class CharacterControler : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class PollosController : MonoBehaviour
 {
-	private static CharacterControler	_instance;
+	private static PollosController	_instance;
 	
-
 
 	[SerializeField] private Animator	_animPollos = null;
 
@@ -15,7 +13,7 @@ public class CharacterControler : MonoBehaviour
 	{
 		if (_instance != null)
 		{
-			Debug.LogError("Multiples instances of the CharacterController class");
+			Debug.LogError("Multiples instances of the PollosController class");
 			Destroy(this);
 			return ;
 		}
@@ -23,22 +21,22 @@ public class CharacterControler : MonoBehaviour
 		_animPollos = GetComponent<Animator>();
 	}
 	
-	public static bool	TryAndGetInstance(out CharacterControler characterControler)
+	public static bool	TryGetInstance(out PollosController characterControler)
 	{
 		characterControler = _instance;
 		if (_instance == null)
 		{
-			Debug.LogError("CharacterController has no instance !");
+			Debug.LogError("PollosController has no instance !");
 			return (false);
 		}
 		return (true);
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
+	private void OnCollisionEnter(Collision other)
 	{
 		_animPollos.SetBool("BoolIsFlying", false);
 	}
-	private void OnCollisionExit2D(Collision2D other)
+	private void OnCollisionExit(Collision other)
 	{
 		_animPollos.SetBool("BoolIsFlying", true);
 	}

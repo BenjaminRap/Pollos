@@ -41,7 +41,7 @@ public class Events : MonoBehaviour
 	/// <param name="transform">The effect will be instanciated with the transform.position and rotation.</param>
 	private static void	InstantiateTemporaryEffect(Effect effect, Transform transform)
 	{
-		if (!Level.TryAndGetInstance(out Level level))
+		if (!Level.TryGetInstance(out Level level))
 			return ;
 		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, level.GetRotableChild());
 		Destroy(instance, effect.Duration);
@@ -58,7 +58,7 @@ public class Events : MonoBehaviour
 		}
 
 		InstantiateTemporaryEffect(_instance._smokeEffect, transform);
-		if (AudioManager.TryAndGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("BoxFall", transform.position, 1);
 	}
 	

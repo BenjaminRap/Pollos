@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>This class adds the goal behaviour, when a CharacterController enter
 /// its collider, call Victory().</summary>
+[RequireComponent(typeof(Collider))]
 public class Goal : MonoBehaviour
 {
 	private static Goal	_instance;
@@ -20,13 +21,13 @@ public class Goal : MonoBehaviour
 	/// <summary>When a rigidbody enter the collider : if it has the tag heavy, 
 	/// it calls Defeat(). If it has a CharacterController class, it calls
 	/// Victory()</summary>
-	private void	OnTriggerEnter2D(Collider2D collider)
+	private void	OnTriggerEnter(Collider collider)
 	{
-		if (!GameManager.TryAndGetInstance(out GameManager gameManager))
+		if (!GameManager.TryGetInstance(out GameManager gameManager))
 			return ;
 		if (collider.CompareTag("Heavy"))
 			gameManager.Defeat();
-		else if (collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler))
+		else if (collider.TryGetComponent<PollosController>(out PollosController characterControler))
 			gameManager.Victory();
 	}
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>The class that manages a single storm cloud.</summary>
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider))]
 public class Storm : MonoBehaviour
 {
 	/// <summary>The number of rotate the player can make before the storm
@@ -18,7 +18,7 @@ public class Storm : MonoBehaviour
 	
 	private void	Start()
 	{
-		if (!Level.TryAndGetInstance(out Level level))
+		if (!Level.TryGetInstance(out Level level))
 			return ;
 		_goalPosition = transform.position;
 		Vector3	direction = level.transform.position - transform.position;
@@ -31,16 +31,16 @@ public class Storm : MonoBehaviour
 		_goalPosition += _move;
 		if (_moveCoroutine != null)
 			StopCoroutine(_moveCoroutine);
-		_moveCoroutine = StartCoroutine(TransformUtils.MoveInTime(transform, _goalPosition, _moveDuration));
+		_moveCoroutine = StartCoroutine(TransformUtils.LocalMoveInTime(transform, _goalPosition, _moveDuration));
 	}
 	
 	/// <summary>When the CharacterController enter this collider, this functions
 	/// calls the Defeat() functions.</summary>
 	/// <param name="collider"></param>
-	private void	OnTriggerEnter2D(Collider2D collider)
+	private void	OnTriggerEnter(Collider collider)
 	{
-		if (!collider.TryGetComponent<CharacterControler>(out CharacterControler characterControler)
-			|| !GameManager.TryAndGetInstance(out GameManager gameManager))
+		if (!collider.TryGetComponent<PollosController>(out PollosController characterControler)
+			|| !GameManager.TryGetInstance(out GameManager gameManager))
 		{
 			return ;
 		}

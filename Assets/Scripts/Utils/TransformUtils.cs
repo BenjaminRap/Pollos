@@ -20,17 +20,17 @@ public static class TransformUtils
 	}
 	
 	/// <summary>Move the transform from its current position to the positionGoal in time seconds.</summary>
-	public static IEnumerator	MoveInTime(Transform transform, Vector3 positionGoal, float time)
+	public static IEnumerator	LocalMoveInTime(Transform transform, Vector3 localPositionGoal, float time)
 	{
 		float	duration = 0.0f;
-		Vector3	positionStart = transform.position;
+		Vector3	positionStart = transform.localPosition;
 
 		while (duration < time)
 		{
-			transform.position = Vector3.Lerp(positionStart, positionGoal, duration / time);
+			transform.localPosition = Vector3.Lerp(positionStart, localPositionGoal, duration / time);
 			duration += Time.deltaTime;
 			yield return (null);
 		}
-		transform.position = positionGoal;
+		transform.localPosition = localPositionGoal;;
 	}
 }
