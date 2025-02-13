@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the Inputmanager class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		PlayerController playerController = new();
@@ -83,7 +83,7 @@ public class InputManager : MonoBehaviour
 	{
 		if (!Level.TryGetInstance(out Level currentLevel))
 			return ;
-		float value = Mathf.Round(context.ReadValue<float>());
+		int value = Mathf.RoundToInt(context.ReadValue<float>());
 		currentLevel.Rotate(value);
 	}
 }

@@ -30,7 +30,7 @@ public class Events : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the Events class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_instance = this;
@@ -43,7 +43,7 @@ public class Events : MonoBehaviour
 	{
 		if (!Level.TryGetInstance(out Level level))
 			return ;
-		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, level.GetRotableChild());
+		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, level.GetRotatableChild());
 		Destroy(instance, effect.Duration);
 	}
 

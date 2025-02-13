@@ -35,7 +35,7 @@ public class	AudioManager : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the AudioManager class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		foreach (AudioEffectSerializable audioEffect in _audioEffectsSerializable)
@@ -94,7 +94,7 @@ public class	AudioManager : MonoBehaviour
 			return ;
 		if (!Level.TryGetInstance(out Level level))
 			return ;
-		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, level.GetRotableChild());
+		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, level.GetRotatableChild());
 		
 		audioSource.clip = audioClip;
 		audioSource.volume = volume;

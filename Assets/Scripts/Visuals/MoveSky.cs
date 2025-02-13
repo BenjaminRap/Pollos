@@ -18,7 +18,7 @@ public class MoveSky : MonoBehaviour
 		if (_minMaxOffset.x > _minMaxOffset.y)
 		{
 			Debug.LogError("The min value is superior to the max value in the MoveSky script !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_direction = Random.Range(-1.0f, 1.0f) * _maxSpeed * Vector3.right;
