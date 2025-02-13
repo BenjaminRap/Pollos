@@ -8,7 +8,6 @@ public class Level : MonoBehaviour
 	/// <summary>The angle rotated each input.</summary>
 	private const float		_rotationAngle = 90.0f;
 	/// <summary>A multiplicator applied on rigidbody's velocity when the level is rotated</summary>
-	private const float		_velocityMultiplicatorAtRotation = 0.4f;
 	
 	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
 	/// than the rotate animation.</summary>
@@ -30,7 +29,7 @@ public class Level : MonoBehaviour
 	private Quaternion		_rotationGoal;
 	private Storm[]			_storms;
 	private float			_averageStormDistanceAtStart;
-	private Rigidbody[]		_rigidBodys;
+	private Rotatable[]		_rotatablesObjets;
 
 	private void		Start()
 	{
@@ -44,7 +43,7 @@ public class Level : MonoBehaviour
 		_rotationGoal = _rotableChild.rotation;
 		_storms = GetComponentsInChildren<Storm>();
 		_averageStormDistanceAtStart = GetAverageStormDistance();
-		_rigidBodys = GetComponentsInChildren<Rigidbody>();
+		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
 	}
 	
 	private void	Update()
@@ -91,35 +90,24 @@ public class Level : MonoBehaviour
 	{
 		
 		yield return TransformUtils.RotateInTime(_rotableChild, _rotationGoal, _rotationDuration);
-		StartRigidbodysSimulation();
+		ToggleRotatablesObjectsFreeze();
 		_rotateCoroutine = null;
 	}
-	
-	/// <summary>Stop all the rigidbody's simulation and place them in the nearest case.</summary>
-	private  void	StopRigidbodysSimulationInGrid()
-	{
-		foreach (Rigidbody rigidbody in _rigidBodys)
-		{
-			Level.PlaceTransformInGrid(rigidbody.transform);
-			rigidbody.linearVelocity *= _velocityMultiplicatorAtRotation;
-			rigidbody.isKinematic = true;
-		}
-	}
 
-	/// <summary>Restart the rigidbody's simulation.</summary>
-	private void	StartRigidbodysSimulation()
+	/// <summary>Toggle the freezing state of the rotatables objects, freeze
+	/// means they won't move with forces.</summary>
+	private void	ToggleRotatablesObjectsFreeze()
 	{
-		foreach (Rigidbody rigidbody in _rigidBodys)
+		foreach (Rotatable rotatable in _rotatablesObjets)
 		{
-			rigidbody.isKinematic = false;
+			rotatable.ToggleFreeze();
 		}
 	}
 	
 	/// <summary>Place the transform in the nearest grid.</summary>
 	public static void	PlaceTransformInGrid(Transform rigidbody)
 	{
-		Vector3	newPosition;
-		Vector3	position = rigidbody.position;
+		Vector3	newPosition; Vector3	position = rigidbody.position;
 
 		newPosition.x = MathF.Round(position.x + 0.5f) - 0.5f;
 		newPosition.y = MathF.Round(position.y + 0.5f) - 0.5f;
@@ -140,7 +128,7 @@ public class Level : MonoBehaviour
 		}
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
-		StopRigidbodysSimulationInGrid();
+		ToggleRotatablesObjectsFreeze();
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}

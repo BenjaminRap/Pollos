@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1240392643638139365}
   - component: {fileID: 2524635988404003399}
   - component: {fileID: 302710648124243556}
+  - component: {fileID: 8020283930704895121}
   m_Layer: 0
   m_Name: Pollos
   m_TagString: Untagged
@@ -202,3 +203,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8020283930704895121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492667115537793193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd5dfcb9e4d94345a9deb02a748b361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
