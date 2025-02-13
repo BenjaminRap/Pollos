@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(StormManager))]
 /// <summary>This class manages a level : the storms and the rotation of the level.</summary>
 public class Level : MonoBehaviour
 {
@@ -16,19 +17,12 @@ public class Level : MonoBehaviour
 	/// <summary>The GameOBject that will be rotated.</summary>
 	[SerializeField]
 	private Transform		_rotableChild;
-	/// <summary>The material that has the storm effect</summary>
-	[SerializeField]
-	private Material		_stormEffect;
-	/// <summary>The curve that describe the alpha of the storm effect over time</summary>
-	[SerializeField]
-	private AnimationCurve	_alphaCurve;
 
 	private static Level	_instance;
 	
+	private StormManager	_stormManager;
 	private Coroutine		_rotateCoroutine;
 	private Quaternion		_rotationGoal;
-	private Storm[]			_storms;
-	private float			_averageStormDistanceAtStart;
 	private Rotatable[]		_rotatablesObjets;
 
 	private void		Start()
@@ -41,33 +35,8 @@ public class Level : MonoBehaviour
 		}
 		_instance = this;
 		_rotationGoal = _rotableChild.rotation;
-		_storms = GetComponentsInChildren<Storm>();
-		_averageStormDistanceAtStart = GetAverageStormDistance();
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
-	}
-	
-	private void	Update()
-	{
-		float	progression = Mathf.InverseLerp(_averageStormDistanceAtStart, 0, GetAverageStormDistance());
-		float	alpha = _alphaCurve.Evaluate(progression);
-		_stormEffect.SetFloat("_alphaMultiplicator", alpha);
-	}
-	
-	private void	OnDestroy()
-	{
-		_stormEffect.SetFloat("_alphaMultiplicator", 0);
-	}
-
-	private float	GetAverageStormDistance()
-	{
-		float	averageStormDistance = 0.0f;
-
-		foreach (Storm storm in _storms)
-		{
-			averageStormDistance += Vector3.Distance(storm.transform.position, transform.position);
-		}
-		averageStormDistance /= _storms.Length;
-		return (averageStormDistance);
+		_stormManager = GetComponent<StormManager>();
 	}
 	
 	/// <summary>Get the instance of this singleton if there is one.</summary>
@@ -130,10 +99,7 @@ public class Level : MonoBehaviour
 		if (!PollosController.TryGetInstance(out PollosController characterControler))
 			return ;
 		characterControler.RotateCharacter();
-		foreach (Storm storm in _storms)
-		{
-			storm.ComeCloser();
-		}
+		_stormManager.ComeCloser();
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
 		FreezeRotatables();
