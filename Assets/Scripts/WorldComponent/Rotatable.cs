@@ -33,7 +33,7 @@ public class Rotatable : MonoBehaviour
 
 	/// <summary>Returns the middle of the nearest case. The result of this
 	/// function is influenced by the _adjustmentLength.</summary>
-	private Vector3		GetNearestGridCell()
+	public Vector3		GetNearestGridCell()
 	{
 		Vector3	localVelocity = transform.parent.InverseTransformDirection(_velocityAtFreeze);
 		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;

@@ -83,7 +83,7 @@ public class InputManager : MonoBehaviour
 	{
 		if (!Level.TryGetInstance(out Level currentLevel))
 			return ;
-		float value = Mathf.Round(context.ReadValue<float>());
+		int value = Mathf.RoundToInt(context.ReadValue<float>());
 		currentLevel.Rotate(value);
 	}
 }

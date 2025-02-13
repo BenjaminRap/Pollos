@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2048080934235256897}
   - component: {fileID: 5199821468771705673}
   - component: {fileID: 965882122287875450}
+  - component: {fileID: 8614172014810839802}
   m_Layer: 0
   m_Name: World7
   m_TagString: Untagged
@@ -132,8 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6ead100547eb649aaeda9cd08a840a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationDuration: 0.2
-  _rotableChild: {fileID: 3909547111023414187}
 --- !u!114 &965882122287875450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +170,20 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8614172014810839802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159126921825663166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7256fd354c142cd4da793c7e410aa40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationDuration: 0.2
+  _rotatableChild: {fileID: 3909547111023414187}
 --- !u!1 &4984774974986292881
 GameObject:
   m_ObjectHideFlags: 0
