@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the Inputmanager class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		PlayerController playerController = new();

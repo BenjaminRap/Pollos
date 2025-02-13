@@ -14,7 +14,7 @@ public class PollosController : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the PollosController class");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_instance = this;

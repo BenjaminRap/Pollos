@@ -30,7 +30,7 @@ public class Events : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the Events class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_instance = this;

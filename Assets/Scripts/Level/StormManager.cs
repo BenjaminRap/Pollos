@@ -2,18 +2,27 @@ using UnityEngine;
 
 public class StormManager : MonoBehaviour
 {
+	private static StormManager	_instance;
+
 	/// <summary>The material that has the storm effect</summary>
 	[SerializeField]
-	private Material		_stormEffect;
+	private Material			_stormEffect;
 	/// <summary>The curve that describe the alpha of the storm effect over time</summary>
 	[SerializeField]
-	private AnimationCurve	_alphaCurve;
+	private AnimationCurve		_alphaCurve;
 
-	private Storm[]			_storms;
-	private float			_averageStormDistanceAtStart;
+	private Storm[]				_storms;
+	private float				_averageStormDistanceAtStart;
 	
 	private void	Start()
 	{
+		if (_instance != null)
+		{
+			Debug.LogError("Multiples instances of the StormManager class !");
+			Destroy(gameObject);
+			return ;
+		}
+		_instance = this;
 		_storms = GetComponentsInChildren<Storm>();
 		if (_storms.Length == 0)
 		{

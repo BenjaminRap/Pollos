@@ -3,25 +3,34 @@ using UnityEngine;
 
 public class RotablesManager : MonoBehaviour
 {
+	private static RotablesManager	_instance;
+
 	/// <summary>The angle rotated each input.</summary>
-	private const float		_rotationAngle = 90.0f;
+	private const float				_rotationAngle = 90.0f;
 	
 	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
 	/// than the rotate animation.</summary>
 	[SerializeField]
-	private float			_rotationDuration = 0.2f;
+	private float					_rotationDuration = 0.2f;
 	/// <summary>The GameOBject that will be rotated.</summary>
 	[SerializeField]
-	private Transform		_rotatableChild;
+	private Transform				_rotatableChild;
 
-	private Coroutine		_rotateCoroutine;
-	private Quaternion		_rotationGoal;
-	private Rotatable[]		_rotatablesObjets;
+	private Coroutine				_rotateCoroutine;
+	private Quaternion				_rotationGoal;
+	private Rotatable[]				_rotatablesObjets;
 	
-	public Transform		RotatableChild { get => _rotatableChild; }
+	public Transform				RotatableChild { get => _rotatableChild; }
 
     private void Start()
     {
+		if (_instance != null)
+		{
+			Debug.LogError("Multiples instances of the RotablesManager class !");
+			Destroy(gameObject);
+			return ;
+		}
+		_instance = this;
         _rotationGoal = _rotatableChild.rotation;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }

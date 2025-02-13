@@ -12,7 +12,7 @@ public class Goal : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the Goal class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_instance = this;

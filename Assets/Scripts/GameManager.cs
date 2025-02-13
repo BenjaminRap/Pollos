@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the GameManager class");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		_instance = this;

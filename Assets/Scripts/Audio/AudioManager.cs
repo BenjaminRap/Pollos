@@ -35,7 +35,7 @@ public class	AudioManager : MonoBehaviour
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the AudioManager class !");
-			Destroy(this);
+			Destroy(gameObject);
 			return ;
 		}
 		foreach (AudioEffectSerializable audioEffect in _audioEffectsSerializable)
