@@ -6,10 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Rotatable : MonoBehaviour
 {
+	/// <summary>When rotating the level, the rotables position will be set to
+	/// the nearest grid. The greater this variable, the greater the chance
+	/// that this gameObject moves to the grid cell in the direction of the
+	/// velocity.</summary>
 	[SerializeField]
 	[Range(0.0f, 0.25f)]
 	private float			_adjustmentLength;
 
+	/// <summary>When rotating, the velocity of the gameObject is multiplied
+	/// by this value.</summary>
 	private const float		_velocityMultiplicatorAtRotation = 0.4f;
 	private Rigidbody		_rigidbody;
 	private bool			_isFroze;
@@ -25,7 +31,9 @@ public class Rotatable : MonoBehaviour
 		_velocityAtFreeze = Vector3.zero;
 	}
 
-	private Vector3		GetNearestCase()
+	/// <summary>Returns the middle of the nearest case. The result of this
+	/// function is influenced by the _adjustmentLength.</summary>
+	private Vector3		GetNearestGridCell()
 	{
 		Vector3	localVelocity = transform.parent.InverseTransformDirection(_velocityAtFreeze);
 		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;
@@ -35,9 +43,11 @@ public class Rotatable : MonoBehaviour
 		return (newPosition);
 	}
 
-	private IEnumerator	MoveToNearestCase(float rotationDuration)
+	/// <summary>Moves this rigidbody to the nearest grid cell, in maximum
+	/// rotationDuration seconds.</summary>
+	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
 	{
-		Vector3	newPosition = GetNearestCase();
+		Vector3	newPosition = GetNearestGridCell();
 		float	distance = Vector3.Distance(newPosition, transform.localPosition);
 		float	speed = _velocityAtFreeze.magnitude;
 		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
@@ -46,6 +56,8 @@ public class Rotatable : MonoBehaviour
 		_placeInGridCoroutine = null;
 	}
 	
+	/// <summary>Freezes the rigidbody and move this object to the nearest grid
+	/// in maximum rotationDuration seconds</summary>
 	public void	Freeze(float rotationDuration)
 	{
 		if (_isFroze)
@@ -53,9 +65,10 @@ public class Rotatable : MonoBehaviour
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
 		_rigidbody.isKinematic = true;
-		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestCase(rotationDuration));
+		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
 	}
 
+	/// <summary>Unfreeze the rigidbody</summary>
 	public void	Unfreeze()
 	{
 		if (!_isFroze)
