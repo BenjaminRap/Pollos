@@ -73,4 +73,9 @@ public class RotationManager : MonoBehaviour
 		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
+	
+	public void	RotateCube(Vector2Int value)
+	{
+		Debug.Log(value);
+	}
 }

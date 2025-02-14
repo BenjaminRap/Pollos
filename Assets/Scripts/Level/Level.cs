@@ -48,6 +48,16 @@ public class Level : MonoBehaviour
 		_rotationManager.RotateFace(axisValue);
 	}
 	
+	public void			RotateCube(Vector2Int axisValue)
+	{
+		if (axisValue.x != 0 && axisValue.y != 0)
+			return ;
+		if (!PollosController.TryGetInstance(out PollosController characterControler))
+			return ;
+		characterControler.RotateCharacter();
+		_rotationManager.RotateCube(axisValue);
+	}
+	
 	public Transform	GetRotatableChild()
 	{
 		return (_rotationManager.RotatableChild);
