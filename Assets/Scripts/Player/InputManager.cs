@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
 		_worldActions = playerController.World;
 
 		_worldActions.Enable();
-		_worldActions.rotateWorld.performed += Rotate;
+		_worldActions.rotateFace.performed += RotateFace;
 		_worldActions.resetLevel.performed += ResetLevel;
 		_worldActions.menu.performed += OpenMenu;
 		_instance = this;
@@ -79,11 +79,11 @@ public class InputManager : MonoBehaviour
 			gameManager.Defeat();
 	}
 
-	private void    Rotate(InputAction.CallbackContext context)
+	private void    RotateFace(InputAction.CallbackContext context)
 	{
 		if (!Level.TryGetInstance(out Level currentLevel))
 			return ;
 		int value = Mathf.RoundToInt(context.ReadValue<float>());
-		currentLevel.Rotate(value);
+		currentLevel.RotateFace(value);
 	}
 }

@@ -92,7 +92,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             ""id"": ""ca8beeba-f22f-4ba3-bf05-b1c29c4dccfc"",
             ""actions"": [
                 {
-                    ""name"": ""rotateWorld"",
+                    ""name"": ""rotateFace"",
                     ""type"": ""Value"",
                     ""id"": ""704834ec-708a-4763-8fcc-a96a6be2d941"",
                     ""expectedControlType"": ""Axis"",
@@ -117,6 +117,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""rotateCube"",
+                    ""type"": ""Value"",
+                    ""id"": ""e3a0403b-a9cb-4fe5-95da-855f71721ecd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -127,29 +136,29 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""rotateWorld"",
+                    ""action"": ""rotateFace"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""negative"",
                     ""id"": ""c41f8a3c-4c4f-49ce-ae02-e2b4cbe7ce75"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""rotateWorld"",
+                    ""action"": ""rotateFace"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""positive"",
                     ""id"": ""877cc298-0fa0-458c-a2a5-f7a973146294"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""rotateWorld"",
+                    ""action"": ""rotateFace"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -174,6 +183,61 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""547d74b5-991e-439e-9872-03cfa611110b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rotateCube"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""beee42d5-9d88-4916-a70f-fc5dc478757b"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rotateCube"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""eae33f42-4c2f-4986-b2a0-ae2499c5c7c4"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rotateCube"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2ab73d3b-1b37-49ff-baae-3318ece5359f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rotateCube"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""6272e860-ee5c-4cee-9f1c-7775d2975adf"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rotateCube"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -182,9 +246,10 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
 }");
         // World
         m_World = asset.FindActionMap("World", throwIfNotFound: true);
-        m_World_rotateWorld = m_World.FindAction("rotateWorld", throwIfNotFound: true);
+        m_World_rotateFace = m_World.FindAction("rotateFace", throwIfNotFound: true);
         m_World_resetLevel = m_World.FindAction("resetLevel", throwIfNotFound: true);
         m_World_menu = m_World.FindAction("menu", throwIfNotFound: true);
+        m_World_rotateCube = m_World.FindAction("rotateCube", throwIfNotFound: true);
     }
 
     ~@PlayerController()
@@ -265,9 +330,10 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     // World
     private readonly InputActionMap m_World;
     private List<IWorldActions> m_WorldActionsCallbackInterfaces = new List<IWorldActions>();
-    private readonly InputAction m_World_rotateWorld;
+    private readonly InputAction m_World_rotateFace;
     private readonly InputAction m_World_resetLevel;
     private readonly InputAction m_World_menu;
+    private readonly InputAction m_World_rotateCube;
     /// <summary>
     /// Provides access to input actions defined in input action map "World".
     /// </summary>
@@ -280,9 +346,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// </summary>
         public WorldActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "World/rotateWorld".
+        /// Provides access to the underlying input action "World/rotateFace".
         /// </summary>
-        public InputAction @rotateWorld => m_Wrapper.m_World_rotateWorld;
+        public InputAction @rotateFace => m_Wrapper.m_World_rotateFace;
         /// <summary>
         /// Provides access to the underlying input action "World/resetLevel".
         /// </summary>
@@ -291,6 +357,10 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "World/menu".
         /// </summary>
         public InputAction @menu => m_Wrapper.m_World_menu;
+        /// <summary>
+        /// Provides access to the underlying input action "World/rotateCube".
+        /// </summary>
+        public InputAction @rotateCube => m_Wrapper.m_World_rotateCube;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -317,15 +387,18 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_WorldActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_WorldActionsCallbackInterfaces.Add(instance);
-            @rotateWorld.started += instance.OnRotateWorld;
-            @rotateWorld.performed += instance.OnRotateWorld;
-            @rotateWorld.canceled += instance.OnRotateWorld;
+            @rotateFace.started += instance.OnRotateFace;
+            @rotateFace.performed += instance.OnRotateFace;
+            @rotateFace.canceled += instance.OnRotateFace;
             @resetLevel.started += instance.OnResetLevel;
             @resetLevel.performed += instance.OnResetLevel;
             @resetLevel.canceled += instance.OnResetLevel;
             @menu.started += instance.OnMenu;
             @menu.performed += instance.OnMenu;
             @menu.canceled += instance.OnMenu;
+            @rotateCube.started += instance.OnRotateCube;
+            @rotateCube.performed += instance.OnRotateCube;
+            @rotateCube.canceled += instance.OnRotateCube;
         }
 
         /// <summary>
@@ -337,15 +410,18 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// <seealso cref="WorldActions" />
         private void UnregisterCallbacks(IWorldActions instance)
         {
-            @rotateWorld.started -= instance.OnRotateWorld;
-            @rotateWorld.performed -= instance.OnRotateWorld;
-            @rotateWorld.canceled -= instance.OnRotateWorld;
+            @rotateFace.started -= instance.OnRotateFace;
+            @rotateFace.performed -= instance.OnRotateFace;
+            @rotateFace.canceled -= instance.OnRotateFace;
             @resetLevel.started -= instance.OnResetLevel;
             @resetLevel.performed -= instance.OnResetLevel;
             @resetLevel.canceled -= instance.OnResetLevel;
             @menu.started -= instance.OnMenu;
             @menu.performed -= instance.OnMenu;
             @menu.canceled -= instance.OnMenu;
+            @rotateCube.started -= instance.OnRotateCube;
+            @rotateCube.performed -= instance.OnRotateCube;
+            @rotateCube.canceled -= instance.OnRotateCube;
         }
 
         /// <summary>
@@ -387,12 +463,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     public interface IWorldActions
     {
         /// <summary>
-        /// Method invoked when associated input action "rotateWorld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "rotateFace" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateWorld(InputAction.CallbackContext context);
+        void OnRotateFace(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "resetLevel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -407,5 +483,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "rotateCube" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateCube(InputAction.CallbackContext context);
     }
 }

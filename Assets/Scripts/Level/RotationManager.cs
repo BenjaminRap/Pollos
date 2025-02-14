@@ -65,7 +65,7 @@ public class RotationManager : MonoBehaviour
 		}
 	}
 	
-	public void	Rotate(int axisValue)
+	public void	RotateFace(int axisValue)
 	{
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);

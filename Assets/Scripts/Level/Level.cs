@@ -39,13 +39,13 @@ public class Level : MonoBehaviour
 	
 	/// <summary>Rotate the level.</summary>
 	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
-	public void			Rotate(int axisValue)
+	public void			RotateFace(int axisValue)
 	{
 		if (!PollosController.TryGetInstance(out PollosController characterControler))
 			return ;
 		characterControler.RotateCharacter();
 		_stormManager.ComeCloser();
-		_rotationManager.Rotate(axisValue);
+		_rotationManager.RotateFace(axisValue);
 	}
 	
 	public Transform	GetRotatableChild()
