@@ -20,6 +20,7 @@ public class RotationManager : MonoBehaviour
 
 	private Coroutine				_rotateCoroutine;
 	private Quaternion				_rotationGoal;
+
 	private Rotatable[]				_rotatablesObjets;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
@@ -70,12 +71,24 @@ public class RotationManager : MonoBehaviour
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
 		FreezeRotatables();
-		_rotationGoal *= Quaternion.Euler(-axisValue * _rotationAngle * Vector3.forward);
+		_rotationGoal = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward) * _rotationGoal;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 	
 	public void	RotateCube(Vector2Int value)
 	{
-		Debug.Log(value);
+		if (_rotateCoroutine != null)
+			StopCoroutine(_rotateCoroutine);
+		FreezeRotatables();
+		if (value.y != 0)
+		{
+			_rotationGoal = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right) * _rotationGoal;
+			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
+		}
+		else
+		{
+			_rotationGoal = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up) * _rotationGoal;
+			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
+		}
 	}
 }
