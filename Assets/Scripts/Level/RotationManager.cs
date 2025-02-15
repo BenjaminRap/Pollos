@@ -19,7 +19,8 @@ public class RotationManager : MonoBehaviour
 	private Transform				_rotatableChild;
 
 	private Coroutine				_rotateCoroutine;
-	private Quaternion				_rotationGoal;
+	private Quaternion				_globalRotation;
+	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
 	
@@ -34,7 +35,7 @@ public class RotationManager : MonoBehaviour
 			return ;
 		}
 		_instance = this;
-        _rotationGoal = _rotatableChild.rotation;
+        _globalRotation = _rotatableChild.rotation;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
 
@@ -42,8 +43,10 @@ public class RotationManager : MonoBehaviour
 	/// simulation after that</summary>
 	private IEnumerator	RotateLevelToRotationGoal()
 	{
-		
-		yield return TransformUtils.RotateInTime(_rotatableChild, _rotationGoal, _rotationDuration);
+		if (_rotateCoroutine != null)
+			StopCoroutine(_rotateCoroutine);
+		FreezeRotatables();
+		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, _rotationDuration);
 		UnfreezeRotatables();
 		_rotateCoroutine = null;
 	}
@@ -68,27 +71,19 @@ public class RotationManager : MonoBehaviour
 	
 	public void	RotateFace(int axisValue)
 	{
-		if (_rotateCoroutine != null)
-			StopCoroutine(_rotateCoroutine);
-		FreezeRotatables();
-		_rotationGoal = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward) * _rotationGoal;
+		_globalRotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward) * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 	
 	public void	RotateCube(Vector2Int value)
 	{
-		if (_rotateCoroutine != null)
-			StopCoroutine(_rotateCoroutine);
-		FreezeRotatables();
+		Quaternion rotation;
 		if (value.y != 0)
-		{
-			_rotationGoal = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right) * _rotationGoal;
-			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
-		}
+			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
-		{
-			_rotationGoal = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up) * _rotationGoal;
-			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
-		}
+			rotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
+		_localRotation *= rotation;
+		_globalRotation = rotation * _globalRotation;
+		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 }
