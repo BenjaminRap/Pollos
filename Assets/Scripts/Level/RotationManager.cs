@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
+[RequireComponent(typeof(Faces))]
 /// <summary>This class is a singleton than manages the rotation of the level.
 /// It rotate the parent rotable and freeze the rotables in it.</summary>
 public class RotationManager : MonoBehaviour
@@ -23,11 +25,13 @@ public class RotationManager : MonoBehaviour
 	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
+	private Faces					_faces;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 
     private void Start()
     {
+		_faces = GetComponent<Faces>();
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the RotationManager class !");
@@ -35,7 +39,8 @@ public class RotationManager : MonoBehaviour
 			return ;
 		}
 		_instance = this;
-        _globalRotation = _rotatableChild.rotation;
+        _globalRotation = Quaternion.identity;
+		_localRotation = Quaternion.identity;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
 
@@ -71,19 +76,23 @@ public class RotationManager : MonoBehaviour
 	
 	public void	RotateFace(int axisValue)
 	{
-		_globalRotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward) * _globalRotation;
+		Quaternion	newRotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward);
+		_localRotation *= newRotation;
+		_globalRotation = newRotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 	
 	public void	RotateCube(Vector2Int value)
 	{
-		Quaternion rotation;
+		Quaternion newRotation;
 		if (value.y != 0)
-			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
+			newRotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
-			rotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
-		_localRotation *= rotation;
-		_globalRotation = rotation * _globalRotation;
+			newRotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
+		if (!_faces.CanRotate(_localRotation, newRotation))
+			return ;
+		_localRotation *= newRotation;
+		_globalRotation = newRotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 }
