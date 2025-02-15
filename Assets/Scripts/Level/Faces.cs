@@ -4,22 +4,24 @@ using UnityEngine;
 public class Faces : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject	_upFace;
+	private GameObject							_upFace;
 	[SerializeField]
-	private GameObject	_downFace;
+	private GameObject							_downFace;
 	[SerializeField]
-	private GameObject	_rightFace;
+	private GameObject							_rightFace;
 	[SerializeField]
-	private GameObject	_leftFace;
+	private GameObject							_leftFace;
 	[SerializeField]
-	private GameObject	_forwardFace;
+	private GameObject							_forwardFace;
 	[SerializeField]
-	private GameObject	_backFace;
+	private GameObject							_backFace;
 	
 	private Dictionary<Vector3Int, GameObject>	_faces;
+	private Quaternion							_localRotation;
 	
 	private void Start()
     {
+		_localRotation = Quaternion.identity;
 		_faces = new()
         {
             { Vector3Int.down, _upFace }, // no idea why I must inverse up and down, it works
@@ -31,18 +33,25 @@ public class Faces : MonoBehaviour
         };
     }
 	
-	public bool	CanRotate(Quaternion localRotation, Quaternion newRotation)
+	public GameObject	RotateCube(Quaternion rotation)
 	{
-		Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * newRotation * Vector3.back);
-		
 		try
 		{
-			Debug.Log(_faces[frontFaceDirection]);
-			return (_faces[frontFaceDirection] != null);
+			Quaternion	newLocalRotation = _localRotation * rotation;
+			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(newLocalRotation * Vector3.back);
+			GameObject	frontFace = _faces[frontFaceDirection];
+			if (frontFace != null)
+				_localRotation = newLocalRotation;
+			return (frontFace);
 		}
 		catch (System.Exception)
 		{
-			return (false);
+			return (null);
 		}
+	}
+	
+	public void	RotateFace(Quaternion rotation)
+	{
+		_localRotation *= rotation;
 	}
 }

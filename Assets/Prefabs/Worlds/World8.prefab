@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _upFace: {fileID: 8705303059267656261}
   _downFace: {fileID: 5734334941030516472}
-  _rightFace: {fileID: 6649217958279421521}
+  _rightFace: {fileID: 0}
   _leftFace: {fileID: 9117804114283774275}
   _forwardFace: {fileID: 5769383941280934829}
   _backFace: {fileID: 7266794770860289550}
