@@ -25,13 +25,13 @@ public class RotationManager : MonoBehaviour
 	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
-	private Cube					_faces;
+	private Cube					_cube;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 
     private void Start()
     {
-		_faces = GetComponent<Cube>();
+		_cube = GetComponent<Cube>();
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the RotationManager class !");
@@ -79,7 +79,7 @@ public class RotationManager : MonoBehaviour
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
 		_localRotation *= rotation;
-		_faces.ShowPossibleRotations(_localRotation);
+		_cube.ShowPossibleRotations(_localRotation);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 	
@@ -90,11 +90,11 @@ public class RotationManager : MonoBehaviour
 			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
 			rotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
-		GameObject	newFace = _faces.GetFace(_localRotation, rotation);
+		GameObject	newFace = _cube.GetFace(_localRotation, rotation);
 		if (newFace == null)
 			return ;
 		_localRotation *= rotation;
-		_faces.ShowPossibleRotations(_localRotation);
+		_cube.ShowPossibleRotations(_localRotation);
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
