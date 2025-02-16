@@ -38,7 +38,6 @@ public class Cube : MonoBehaviour
 			{ Vector3Int.forward, _forwardFace },
 			{ Vector3Int.back, _backFace }
 		};
-		ShowPossibleRotations(Quaternion.identity);
 	}
 	
 	public Face			GetFace(Quaternion localRotation)
@@ -53,13 +52,5 @@ public class Cube : MonoBehaviour
 		{
 			return (null);
 		}
-	}
-	
-	public void	ShowPossibleRotations(Quaternion localRotation)
-	{
-		// _upArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(-90, Vector3.right)) != null);
-		// _downArraw.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(90, Vector3.right)) != null);
-		// _rightArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(-90, Vector3.up)) != null);
-		// _leftArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(90, Vector3.up)) != null);
 	}
 }

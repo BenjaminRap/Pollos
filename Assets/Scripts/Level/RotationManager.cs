@@ -92,7 +92,6 @@ public class RotationManager : MonoBehaviour
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
 		_localRotation *= Quaternion.Inverse(rotation);
-		_cube.ShowPossibleRotations(_localRotation);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_currentFace));
 	}
 	
@@ -104,17 +103,17 @@ public class RotationManager : MonoBehaviour
 		Vector3		newRotationAxis;
 		if (value.y != 0)
 		{
-			if (_rotationAxis.x != 0)
+			if (_rotationAxis.y != 0)
 				return ;
 			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
-			newRotationAxis = Vector3.up;
+			newRotationAxis = Vector3.right;
 		}
 		else
 		{
-			if (_rotationAxis.y != 0)
+			if (_rotationAxis.x != 0)
 				return ;
 			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
-			newRotationAxis = Vector3.right;
+			newRotationAxis = Vector3.up;
 		}
 		Quaternion newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
 		Face	newFace = _cube.GetFace(newLocalRotation);
@@ -122,7 +121,6 @@ public class RotationManager : MonoBehaviour
 			return ;
 		_rotationAxis = newRotationAxis;
 		_localRotation = newLocalRotation;
-		_cube.ShowPossibleRotations(_localRotation);
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
 	}
