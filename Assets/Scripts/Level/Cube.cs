@@ -25,20 +25,16 @@ public class Cube : MonoBehaviour
 	[SerializeField]
 	private SpriteRenderer						_leftArrow;
 	
-	private Dictionary<Vector3Int, Face>	_faces;
+	private Dictionary<Vector3Int, Face>		_faces;
 	private Quaternion							_localRotation;
 	
 	private void Start()
 	{
 		_localRotation = Quaternion.identity;
-		// When getting the current visible face, we must return the face opposite
-		// to the frontFaceDirection vector. That is why we inverse the up and down vector.
-		// As we are applying the rotation on the vector.back, the rotation on the y axis
-		// are already inversed. That's just a guess though.
 		_faces = new()
 		{
-			{ Vector3Int.down, _upFace },
-			{ Vector3Int.up, _downFace },
+			{ Vector3Int.up, _upFace },
+			{ Vector3Int.down, _downFace },
 			{ Vector3Int.right, _rightFace },
 			{ Vector3Int.left, _leftFace },
 			{ Vector3Int.forward, _forwardFace },

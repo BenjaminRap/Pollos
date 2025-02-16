@@ -475,6 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7256fd354c142cd4da793c7e410aa40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentFace: {fileID: 1744138845250648594}
   _rotationDuration: 0.2
   _rotatableChild: {fileID: 3909547111023414187}
 --- !u!114 &8900094541331985912
@@ -491,10 +492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _upFace: {fileID: 6106329401290962387}
   _downFace: {fileID: 2624995363205367600}
-  _rightFace: {fileID: 4500926117116258952}
+  _rightFace: {fileID: 0}
   _leftFace: {fileID: 8962358447280058091}
-  _forwardFace: {fileID: 3506407680724640220}
-  _backFace: {fileID: 1744138845250648594}
+  _forwardFace: {fileID: 1744138845250648594}
+  _backFace: {fileID: 3506407680724640220}
   _upArrow: {fileID: 0}
   _downArraw: {fileID: 0}
   _rightArrow: {fileID: 0}
@@ -729,7 +730,7 @@ GameObject:
   - component: {fileID: 6459816319434974613}
   - component: {fileID: 2624995363205367600}
   m_Layer: 0
-  m_Name: downFace
+  m_Name: DownFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,7 +780,7 @@ GameObject:
   - component: {fileID: 8262648806187723390}
   - component: {fileID: 3506407680724640220}
   m_Layer: 0
-  m_Name: forwardFace
+  m_Name: BackFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -915,7 +916,7 @@ GameObject:
   - component: {fileID: 6671153571215730621}
   - component: {fileID: 4500926117116258952}
   m_Layer: 0
-  m_Name: rightFace
+  m_Name: RightFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1052,7 +1053,7 @@ GameObject:
   - component: {fileID: 7122061331499051097}
   - component: {fileID: 1744138845250648594}
   m_Layer: 0
-  m_Name: backFace
+  m_Name: ForwardFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1208,7 +1209,7 @@ GameObject:
   - component: {fileID: 2663358082387198075}
   - component: {fileID: 6106329401290962387}
   m_Layer: 0
-  m_Name: upFace
+  m_Name: UpFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1258,7 +1259,7 @@ GameObject:
   - component: {fileID: 7199935743402984918}
   - component: {fileID: 8962358447280058091}
   m_Layer: 0
-  m_Name: leftFace
+  m_Name: LeftFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
