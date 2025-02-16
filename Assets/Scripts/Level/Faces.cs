@@ -44,37 +44,28 @@ public class Faces : MonoBehaviour
             { Vector3Int.forward, _forwardFace },
             { Vector3Int.back, _backFace }
         };
-		ShowPossibleRotations();
+		ShowPossibleRotations(Quaternion.identity);
     }
 	
-	public bool			CanRotate(Quaternion rotation)
+	public GameObject			GetFace(Quaternion _localRotation, Quaternion rotation)
 	{
 		try
 		{
 			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(_localRotation * rotation * Vector3.back);
 			GameObject	frontFace = _faces[frontFaceDirection];
-			return (frontFace != null);
+			return (frontFace);
 		}
 		catch (System.Exception)
 		{
-			return (false);
+			return (null);
 		}
 	}
-
-	public void	RotateFace(Quaternion rotation)
-	{
-		_localRotation *= rotation;
-	}
 	
-	public void	ShowPossibleRotations()
+	public void	ShowPossibleRotations(Quaternion _localRotation)
 	{
-		_upArrow.enabled = (CanRotate(Quaternion.AngleAxis(-90, Vector3.right)));
-		_downArraw.enabled = (CanRotate(Quaternion.AngleAxis(90, Vector3.right)));
-		_rightArrow.enabled = (CanRotate(Quaternion.AngleAxis(-90, Vector3.up)));
-		_leftArrow.enabled = (CanRotate(Quaternion.AngleAxis(90, Vector3.up)));
-		Debug.Log("up : " + CanRotate(Quaternion.AngleAxis(-90, Vector3.right))
-		+ ", down : " + CanRotate(Quaternion.AngleAxis(90, Vector3.right))
-		+ ", right : " + CanRotate(Quaternion.AngleAxis(-90, Vector3.up))
-		+ ", left : " + CanRotate(Quaternion.AngleAxis(90, Vector3.up)));
+		_upArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(-90, Vector3.right)) != null);
+		_downArraw.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(90, Vector3.right)) != null);
+		_rightArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(-90, Vector3.up)) != null);
+		_leftArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(90, Vector3.up)) != null);
 	}
 }

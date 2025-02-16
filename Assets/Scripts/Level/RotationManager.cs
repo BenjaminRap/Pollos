@@ -22,6 +22,7 @@ public class RotationManager : MonoBehaviour
 
 	private Coroutine				_rotateCoroutine;
 	private Quaternion				_globalRotation;
+	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
 	private Faces					_faces;
@@ -39,6 +40,7 @@ public class RotationManager : MonoBehaviour
 		}
 		_instance = this;
         _globalRotation = Quaternion.identity;
+		_localRotation = Quaternion.identity;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
 
@@ -76,8 +78,8 @@ public class RotationManager : MonoBehaviour
 	{
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
-		_faces.RotateFace(rotation);
-		_faces.ShowPossibleRotations();
+		_localRotation *= rotation;
+		_faces.ShowPossibleRotations(_localRotation);
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
 	
@@ -88,10 +90,11 @@ public class RotationManager : MonoBehaviour
 			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
 			rotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
-		if (!_faces.CanRotate(rotation))
+		GameObject	newFace = _faces.GetFace(_localRotation, rotation);
+		if (newFace == null)
 			return ;
-		_faces.RotateFace(rotation);
-		_faces.ShowPossibleRotations();
+		_localRotation *= rotation;
+		_faces.ShowPossibleRotations(_localRotation);
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal());
 	}
