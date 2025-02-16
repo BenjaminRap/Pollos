@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 [RequireComponent(typeof(Cube))]
 /// <summary>This class is a singleton than manages the rotation of the level.
@@ -9,9 +8,6 @@ public class RotationManager : MonoBehaviour
 {
 	private static RotationManager	_instance;
 
-	/// <summary>The angle rotated each input.</summary>
-	private const float				_rotationAngle = 90.0f;
-	
 	[SerializeField]
 	private Face					_currentFace;
 	
@@ -29,6 +25,7 @@ public class RotationManager : MonoBehaviour
 
 	private Rotatable[]				_rotatablesObjets;
 	private Cube					_cube;
+	private Vector3					_rotationAxis;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 
@@ -42,6 +39,7 @@ public class RotationManager : MonoBehaviour
 		}
 		_instance = this;
 
+		_rotationAxis = Vector3.zero;
 		_cube = GetComponent<Cube>();
         _globalRotation = Quaternion.identity;
 		_localRotation = Quaternion.identity;
@@ -65,6 +63,7 @@ public class RotationManager : MonoBehaviour
 			_currentFace = newFace;
 		}
 		_rotateCoroutine = null;
+		_rotationAxis = Vector3.zero;
 	}
 
 	/// <summary>Toggle the freezing state of the rotatables objects, freeze
@@ -87,7 +86,10 @@ public class RotationManager : MonoBehaviour
 	
 	public void	RotateFace(int axisValue)
 	{
-		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * _rotationAngle, Vector3.forward);
+		if (_rotationAxis.x != 0 || _rotationAxis.y != 0)
+			return ;
+		_rotationAxis = Vector3.forward;
+		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
 		_localRotation *= Quaternion.Inverse(rotation);
 		_cube.ShowPossibleRotations(_localRotation);
@@ -96,15 +98,29 @@ public class RotationManager : MonoBehaviour
 	
 	public void	RotateCube(Vector2Int value)
 	{
-		Quaternion rotation;
+		if (_rotationAxis.z != 0)
+			return ;
+		Quaternion	rotation;
+		Vector3		newRotationAxis;
 		if (value.y != 0)
-			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
+		{
+			if (_rotationAxis.x != 0)
+				return ;
+			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
+			newRotationAxis = Vector3.up;
+		}
 		else
-			rotation = Quaternion.AngleAxis(value.x * _rotationAngle, Vector3.up);
+		{
+			if (_rotationAxis.y != 0)
+				return ;
+			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
+			newRotationAxis = Vector3.right;
+		}
 		Quaternion newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
 		Face	newFace = _cube.GetFace(newLocalRotation);
 		if (newFace == null)
 			return ;
+		_rotationAxis = newRotationAxis;
 		_localRotation = newLocalRotation;
 		_cube.ShowPossibleRotations(_localRotation);
 		_globalRotation = rotation * _globalRotation;
