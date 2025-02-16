@@ -104,8 +104,8 @@ public class RotationManager : MonoBehaviour
 			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
 		else
 			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
-		Quaternion newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
-		Face	newFace = _cube.GetFace(newLocalRotation);
+		Quaternion	newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
+		Face		newFace = _cube.GetFace(newLocalRotation);
 		if (newFace == null)
 			return ;
 		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
