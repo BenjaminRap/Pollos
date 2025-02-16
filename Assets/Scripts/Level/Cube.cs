@@ -26,11 +26,9 @@ public class Cube : MonoBehaviour
 	private SpriteRenderer						_leftArrow;
 	
 	private Dictionary<Vector3Int, Face>		_faces;
-	private Quaternion							_localRotation;
 	
 	private void Start()
 	{
-		_localRotation = Quaternion.identity;
 		_faces = new()
 		{
 			{ Vector3Int.up, _upFace },
@@ -43,11 +41,11 @@ public class Cube : MonoBehaviour
 		ShowPossibleRotations(Quaternion.identity);
 	}
 	
-	public Face			GetFace(Quaternion _localRotation, Quaternion rotation)
+	public Face			GetFace(Quaternion localRotation)
 	{
 		try
 		{
-			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(_localRotation * rotation * Vector3.back);
+			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * Vector3.back);
 			Face		frontFace = _faces[frontFaceDirection];
 			return (frontFace);
 		}
@@ -57,7 +55,7 @@ public class Cube : MonoBehaviour
 		}
 	}
 	
-	public void	ShowPossibleRotations(Quaternion _localRotation)
+	public void	ShowPossibleRotations(Quaternion localRotation)
 	{
 		// _upArrow.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(-90, Vector3.right)) != null);
 		// _downArraw.enabled = (GetFace(_localRotation, Quaternion.AngleAxis(90, Vector3.right)) != null);

@@ -101,10 +101,11 @@ public class RotationManager : MonoBehaviour
 			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
 			rotation = Quaternion.AngleAxis(value.x * _rotationAngle, Vector3.up);
-		Face	newFace = _cube.GetFace(_localRotation, Quaternion.Inverse(rotation));
+		Quaternion newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
+		Face	newFace = _cube.GetFace(newLocalRotation);
 		if (newFace == null)
 			return ;
-		_localRotation *= Quaternion.Inverse(rotation);
+		_localRotation = newLocalRotation;
 		_cube.ShowPossibleRotations(_localRotation);
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
