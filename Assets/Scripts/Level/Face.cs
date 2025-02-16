@@ -3,15 +3,16 @@ using UnityEngine;
 public class Face : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject		_upArrow;
+	private GameObject			_upArrow;
 	[SerializeField]
-	private GameObject		_downArrow;
+	private GameObject			_downArrow;
 	[SerializeField]
-	private GameObject		_rightArrow;
+	private GameObject			_rightArrow;
 	[SerializeField]
-	private GameObject		_leftArrow;
+	private GameObject			_leftArrow;
 	
 	private SpriteRenderer[]	_renderers;
+	private int					_hiddenLayer;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class Face : MonoBehaviour
 			return ;
 		}
 		_renderers = GetComponentsInChildren<SpriteRenderer>();
+		_hiddenLayer = LayerMask.NameToLayer("Hidden");
 		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
     }
@@ -39,7 +41,7 @@ public class Face : MonoBehaviour
 	{
 		foreach (SpriteRenderer spriteRenderer in _renderers)
 		{
-			spriteRenderer.enabled = rendered;
+			spriteRenderer.gameObject.layer = rendered ? 0 : _hiddenLayer;
 		}
 	}
 }
