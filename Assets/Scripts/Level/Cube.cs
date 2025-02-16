@@ -15,15 +15,6 @@ public class Cube : MonoBehaviour
 	private Face								_forwardFace;
 	[SerializeField]
 	private Face								_backFace;
-
-	[SerializeField]
-	private SpriteRenderer						_upArrow;
-	[SerializeField]
-	private SpriteRenderer						_downArraw;
-	[SerializeField]
-	private SpriteRenderer						_rightArrow;
-	[SerializeField]
-	private SpriteRenderer						_leftArrow;
 	
 	private Dictionary<Vector3Int, Face>		_faces;
 	
