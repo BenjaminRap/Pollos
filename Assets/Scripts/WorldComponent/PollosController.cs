@@ -52,6 +52,6 @@ public class PollosController : MonoBehaviour
 	
 	public void	ResetRotation()
 	{
-		transform.rotation = Quaternion.identity;
+		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
 	}
 }
