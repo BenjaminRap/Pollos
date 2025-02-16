@@ -25,7 +25,7 @@ public class RotationManager : MonoBehaviour
 
 	private Rotatable[]				_rotatablesObjets;
 	private Cube					_cube;
-	private Vector3					_rotationAxis;
+	private Vector3Int				_rotationAxis;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 
@@ -39,7 +39,7 @@ public class RotationManager : MonoBehaviour
 		}
 		_instance = this;
 
-		_rotationAxis = Vector3.zero;
+		_rotationAxis = Vector3Int.zero;
 		_cube = GetComponent<Cube>();
         _globalRotation = Quaternion.identity;
 		_localRotation = Quaternion.identity;
@@ -63,7 +63,7 @@ public class RotationManager : MonoBehaviour
 			_currentFace = newFace;
 		}
 		_rotateCoroutine = null;
-		_rotationAxis = Vector3.zero;
+		_rotationAxis = Vector3Int.zero;
 	}
 
 	/// <summary>Toggle the freezing state of the rotatables objects, freeze
@@ -88,7 +88,7 @@ public class RotationManager : MonoBehaviour
 	{
 		if (_rotationAxis.x != 0 || _rotationAxis.y != 0)
 			return ;
-		_rotationAxis = Vector3.forward;
+		_rotationAxis = Vector3Int.forward;
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
 		_localRotation *= Quaternion.Inverse(rotation);
@@ -97,29 +97,18 @@ public class RotationManager : MonoBehaviour
 	
 	public void	RotateCube(Vector2Int value)
 	{
-		if (_rotationAxis.z != 0)
+		if (_rotationAxis != Vector3Int.zero)
 			return ;
 		Quaternion	rotation;
-		Vector3		newRotationAxis;
 		if (value.y != 0)
-		{
-			if (_rotationAxis.y != 0)
-				return ;
 			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
-			newRotationAxis = Vector3.right;
-		}
 		else
-		{
-			if (_rotationAxis.x != 0)
-				return ;
 			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
-			newRotationAxis = Vector3.up;
-		}
 		Quaternion newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
 		Face	newFace = _cube.GetFace(newLocalRotation);
 		if (newFace == null)
 			return ;
-		_rotationAxis = newRotationAxis;
+		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
 		_localRotation = newLocalRotation;
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
