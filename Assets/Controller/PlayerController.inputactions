@@ -6,7 +6,7 @@
             "id": "ca8beeba-f22f-4ba3-bf05-b1c29c4dccfc",
             "actions": [
                 {
-                    "name": "rotateWorld",
+                    "name": "rotateFace",
                     "type": "Value",
                     "id": "704834ec-708a-4763-8fcc-a96a6be2d941",
                     "expectedControlType": "Axis",
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "rotateCube",
+                    "type": "Value",
+                    "id": "e3a0403b-a9cb-4fe5-95da-855f71721ecd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -41,29 +50,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "rotateWorld",
+                    "action": "rotateFace",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "negative",
                     "id": "c41f8a3c-4c4f-49ce-ae02-e2b4cbe7ce75",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "rotateWorld",
+                    "action": "rotateFace",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
                     "id": "877cc298-0fa0-458c-a2a5-f7a973146294",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "rotateWorld",
+                    "action": "rotateFace",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -88,6 +97,116 @@
                     "action": "menu",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Arrows",
+                    "id": "547d74b5-991e-439e-9872-03cfa611110b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "beee42d5-9d88-4916-a70f-fc5dc478757b",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "eae33f42-4c2f-4986-b2a0-ae2499c5c7c4",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "2ab73d3b-1b37-49ff-baae-3318ece5359f",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "6272e860-ee5c-4cee-9f1c-7775d2975adf",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "wasd",
+                    "id": "1c264050-60c0-4e8b-a8ba-a4334d0c7e10",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "398ea78c-2626-4c96-8bc2-def5d170342a",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "1a979d1a-4544-4e4f-9a4f-20296276e371",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "ecc82a94-73b3-4718-aa5d-88d1c527ee14",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "65c37853-7cdc-4c41-a6ab-aa618f85bf3e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotateCube",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

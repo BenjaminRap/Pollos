@@ -536,11 +536,11 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -561,7 +561,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2131,34 +2131,42 @@ PrefabInstance:
       objectReference: {fileID: 1132845235}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: _levelsPrefabs.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: 27790789337bcce40bb551679cc6f528, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: 18f49b8af44070d4295308991d62653f, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: 7c9c833a76372eb43acff1dc9ae3fa1c, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: 27790789337bcce40bb551679cc6f528, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[2]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: 35b939bfbe3a97645aeb993778b1953b, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: cb0d5b9aa04a1fb44894660d3e37359e, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[3]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: fd17b5ec218bb8a48a0417955f8e2f48, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: 7c9c833a76372eb43acff1dc9ae3fa1c, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[4]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: ce63e6267b80f8745a825ed2b482d859, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: 35b939bfbe3a97645aeb993778b1953b, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[5]'
       value: 
-      objectReference: {fileID: 2159126921825663166, guid: ec87cb9ede6092e41a53e0e347965e62, type: 3}
+      objectReference: {fileID: 2159126921825663166, guid: fd17b5ec218bb8a48a0417955f8e2f48, type: 3}
     - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
       propertyPath: '_levelsPrefabs.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2159126921825663166, guid: ce63e6267b80f8745a825ed2b482d859, type: 3}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_levelsPrefabs.Array.data[7]'
+      value: 
+      objectReference: {fileID: 2159126921825663166, guid: ec87cb9ede6092e41a53e0e347965e62, type: 3}
+    - target: {fileID: 7151958347453068034, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
+      propertyPath: '_levelsPrefabs.Array.data[8]'
       value: 
       objectReference: {fileID: 2159126921825663166, guid: 7196c4a730347d849b6f78f7c28701b3, type: 3}
     - target: {fileID: 8056080230015103099, guid: 8be76a73d47cb55469fc5c0c3fdd8f25, type: 3}
