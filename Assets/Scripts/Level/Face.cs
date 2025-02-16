@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Face : MonoBehaviour
 {
 	[SerializeField]
@@ -11,7 +12,8 @@ public class Face : MonoBehaviour
 	[SerializeField]
 	private GameObject			_leftArrow;
 	
-	private SpriteRenderer[]	_renderers;
+	private Transform[]		_childrens;
+	
 	private int					_hiddenLayer;
 
     private void Start()
@@ -23,7 +25,7 @@ public class Face : MonoBehaviour
 			Destroy(gameObject);
 			return ;
 		}
-		_renderers = GetComponentsInChildren<SpriteRenderer>();
+		_childrens = GetComponentsInChildren<Transform>();
 		_hiddenLayer = LayerMask.NameToLayer("Hidden");
 		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
@@ -39,9 +41,14 @@ public class Face : MonoBehaviour
 	
 	public void	SetRendered(bool rendered)
 	{
-		foreach (SpriteRenderer spriteRenderer in _renderers)
+		foreach (Transform child in _childrens)
 		{
-			spriteRenderer.gameObject.layer = rendered ? 0 : _hiddenLayer;
+			child.gameObject.layer = rendered ? 0 : _hiddenLayer;
 		}
 	}
+
+    private void OnTriggerExit(Collider other)
+    {
+		Debug.Log(gameObject);
+    }
 }

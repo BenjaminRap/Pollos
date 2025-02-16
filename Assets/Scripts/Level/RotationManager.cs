@@ -28,6 +28,7 @@ public class RotationManager : MonoBehaviour
 	private Vector3Int				_rotationAxis;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
+	public Quaternion				LocalRotation { get => _localRotation; }
 
     private void Start()
     {
