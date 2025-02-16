@@ -90,7 +90,7 @@ public class RotationManager : MonoBehaviour
 			rotation = Quaternion.AngleAxis(-value.y * _rotationAngle, Vector3.right);
 		else
 			rotation = Quaternion.AngleAxis(-value.x * _rotationAngle, Vector3.up);
-		GameObject	newFace = _cube.GetFace(_localRotation, rotation);
+		Face	newFace = _cube.GetFace(_localRotation, rotation);
 		if (newFace == null)
 			return ;
 		_localRotation *= rotation;

@@ -15,4 +15,5 @@ public class Face : MonoBehaviour
     {
         Debug.Log(transform.rotation.eulerAngles);
     }
+	
 }

@@ -4,18 +4,18 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject							_upFace;
+	private Face								_upFace;
 	[SerializeField]
-	private GameObject							_downFace;
+	private Face								_downFace;
 	[SerializeField]
-	private GameObject							_rightFace;
+	private Face								_rightFace;
 	[SerializeField]
-	private GameObject							_leftFace;
+	private Face								_leftFace;
 	[SerializeField]
-	private GameObject							_forwardFace;
+	private Face								_forwardFace;
 	[SerializeField]
-	private GameObject							_backFace;
-	
+	private Face								_backFace;
+
 	[SerializeField]
 	private SpriteRenderer						_upArrow;
 	[SerializeField]
@@ -25,7 +25,7 @@ public class Cube : MonoBehaviour
 	[SerializeField]
 	private SpriteRenderer						_leftArrow;
 	
-	private Dictionary<Vector3Int, GameObject>	_faces;
+	private Dictionary<Vector3Int, Face>	_faces;
 	private Quaternion							_localRotation;
 	
 	private void Start()
@@ -47,12 +47,12 @@ public class Cube : MonoBehaviour
 		ShowPossibleRotations(Quaternion.identity);
 	}
 	
-	public GameObject			GetFace(Quaternion _localRotation, Quaternion rotation)
+	public Face			GetFace(Quaternion _localRotation, Quaternion rotation)
 	{
 		try
 		{
 			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(_localRotation * rotation * Vector3.back);
-			GameObject	frontFace = _faces[frontFaceDirection];
+			Face		frontFace = _faces[frontFaceDirection];
 			return (frontFace);
 		}
 		catch (System.Exception)
