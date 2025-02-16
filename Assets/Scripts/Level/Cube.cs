@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Faces : MonoBehaviour
+public class Cube : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject							_upFace;

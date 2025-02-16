@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
-[RequireComponent(typeof(Faces))]
+[RequireComponent(typeof(Cube))]
 /// <summary>This class is a singleton than manages the rotation of the level.
 /// It rotate the parent rotable and freeze the rotables in it.</summary>
 public class RotationManager : MonoBehaviour
@@ -25,13 +25,13 @@ public class RotationManager : MonoBehaviour
 	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
-	private Faces					_faces;
+	private Cube					_faces;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 
     private void Start()
     {
-		_faces = GetComponent<Faces>();
+		_faces = GetComponent<Cube>();
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the RotationManager class !");
