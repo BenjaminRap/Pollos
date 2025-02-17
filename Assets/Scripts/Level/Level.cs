@@ -41,9 +41,6 @@ public class Level : MonoBehaviour
 	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
 	public void			RotateFace(int axisValue)
 	{
-		if (!PollosController.TryGetInstance(out PollosController characterControler))
-			return ;
-		characterControler.RotateCharacter();
 		_stormManager.ComeCloser();
 		_rotationManager.RotateFace(axisValue);
 	}
@@ -52,9 +49,7 @@ public class Level : MonoBehaviour
 	{
 		if (axisValue.x != 0 && axisValue.y != 0)
 			return ;
-		if (!PollosController.TryGetInstance(out PollosController characterControler))
-			return ;
-		characterControler.RotateCharacter();
+		_stormManager.ComeCloser();
 		_rotationManager.RotateCube(axisValue);
 	}
 	

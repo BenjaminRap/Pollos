@@ -56,12 +56,7 @@ public class Face : MonoBehaviour
 		Face 		newFace =_rotationManager.RotateCube(direction);
 		if (newFace == null)
 			return ;
-		if (!PollosController.TryGetInstance(out PollosController characterControler))
-			return ;
-		characterControler.RotateCharacter();
 		other.transform.SetParent(newFace.transform);
-		Vector3	newLocalPosition = other.transform.localPosition;
-		newLocalPosition.z = 0;
-		other.transform.localPosition = newLocalPosition;
+		other.transform.localPosition = TransformUtils.SetZ(other.transform.localPosition, 0.0f);
     }
 }

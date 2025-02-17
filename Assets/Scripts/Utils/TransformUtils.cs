@@ -33,4 +33,10 @@ public static class TransformUtils
 		}
 		transform.localPosition = localPositionGoal;;
 	}
+	
+	/// <summary>Return a new vector with the same x and y as vec but with value as z.</summary>
+	public static Vector3	SetZ(Vector3	vec, float value)
+	{
+		return (new(vec.x, vec.y, value));
+	}
 }

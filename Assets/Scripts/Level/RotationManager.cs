@@ -113,6 +113,8 @@ public class RotationManager : MonoBehaviour
 		_localRotation = newLocalRotation;
 		_globalRotation = rotation * _globalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
+		if (PollosController.TryGetInstance(out PollosController characterControler))
+			characterControler.RotateCharacter();
 		return (newFace);
 	}
 }
