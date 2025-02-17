@@ -131,22 +131,4 @@ public class RotationManager : MonoBehaviour
 		_onRotateEvents.Invoke();
 		return (levelRotation.NewFace);
 	}
-
-	/// <summary>Rotate the level around the z axis, that means that we can
-	/// see the same face.</summary>
-	/// <param name="axisValue"> This is the value of the input of the player</param>
-	public Face	RotateFace(int axisValue)
-	{
-		LevelRotation levelRotation = CanRotate(Vector3Int.forward * axisValue);
-		return (Rotate(levelRotation));
-	}
-	
-	/// <summary>Rotate the level around the x or y axis, that means that the current
-	/// face will change.</summary>
-	/// <param name="value"> This is the value of the input of the player</param>
-	public Face	RotateCube(Vector2Int value)
-	{
-		LevelRotation	levelRotation = CanRotate((Vector3Int)value);
-		return (Rotate(levelRotation));
-	}
 }

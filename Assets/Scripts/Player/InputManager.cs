@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour
 		if (!Level.TryGetInstance(out Level currentLevel))
 			return ;
 		int value = Mathf.RoundToInt(context.ReadValue<float>());
-		currentLevel.RotateFace(value);
+		currentLevel.Rotate(Vector3Int.forward * value);
 	}
 	
 	private void	RotateCube(InputAction.CallbackContext context)
@@ -94,6 +94,6 @@ public class InputManager : MonoBehaviour
 			return ;
 		Vector2		value = context.ReadValue<Vector2>();
 
-		currentLevel.RotateCube(Vector2Int.RoundToInt(value));
+		currentLevel.Rotate((Vector3Int)Vector2Int.RoundToInt(value));
 	}
 }

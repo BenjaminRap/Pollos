@@ -37,20 +37,13 @@ public class Level : MonoBehaviour
 		return (true);
 	}
 	
-	/// <summary>Rotate the level.</summary>
-	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
-	public void			RotateFace(int axisValue)
+	public void			Rotate(Vector3Int	axis)
 	{
-		_stormManager.ComeCloser();
-		_rotationManager.RotateFace(axisValue);
-	}
-	
-	public void			RotateCube(Vector2Int axisValue)
-	{
-		if (axisValue.x != 0 && axisValue.y != 0)
+		LevelRotation	levelRotation = _rotationManager.CanRotate(axis);
+		Face			newFace = _rotationManager.Rotate(levelRotation);
+		if (newFace == null)
 			return ;
 		_stormManager.ComeCloser();
-		_rotationManager.RotateCube(axisValue);
 	}
 	
 	public Transform	GetRotatableChild()
