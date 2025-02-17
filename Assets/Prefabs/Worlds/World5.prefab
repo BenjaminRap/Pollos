@@ -2989,6 +2989,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FallingBox (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8181649199368420710, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ff60146f746826f4c905f1dbde1e6014, type: 3}
+    - target: {fileID: 8181649199368420710, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9210429423870761554, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
