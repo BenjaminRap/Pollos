@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentFace: {fileID: 3506407680724640220}
-  _rotationDuration: 0.2
+  _rotationDuration: 0.5
   _rotatableChild: {fileID: 3909547111023414187}
 --- !u!114 &8900094541331985912
 MonoBehaviour:

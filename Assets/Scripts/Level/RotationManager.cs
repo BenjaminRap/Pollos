@@ -14,7 +14,8 @@ public class RotationManager : MonoBehaviour
 	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
 	/// than the rotate animation.</summary>
 	[SerializeField]
-	private float					_rotationDuration = 0.2f;
+	private float					_faceRotationDuration = 0.2f;
+	private float					_cubeRotationDuration = 0.4f;
 	/// <summary>The GameOBject that will be rotated.</summary>
 	[SerializeField]
 	private Transform				_rotatableChild;
@@ -49,14 +50,14 @@ public class RotationManager : MonoBehaviour
 
 	/// <summary>A corotutine that rotates the level and restart the rigidbody's
 	/// simulation after that</summary>
-	private IEnumerator	RotateLevelToRotationGoal(Face newFace)
+	private IEnumerator	RotateLevelToRotationGoal(Face newFace, float rotationDuration)
 	{
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
-		FreezeRotatables();
+		FreezeRotatables(rotationDuration);
 		if (newFace != _currentFace)
 			newFace.SetRendered(true);
-		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, _rotationDuration);
+		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, rotationDuration);
 		UnfreezeRotatables();
 		if (newFace != _currentFace)
 		{
@@ -69,11 +70,11 @@ public class RotationManager : MonoBehaviour
 
 	/// <summary>Toggle the freezing state of the rotatables objects, freeze
 	/// means they won't move with forces.</summary>
-	private void	FreezeRotatables()
+	private void	FreezeRotatables(float rotationDuration)
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
 		{
-			rotatable.Freeze(_rotationDuration);
+			rotatable.Freeze(rotationDuration);
 		}
 	}
 
@@ -93,7 +94,9 @@ public class RotationManager : MonoBehaviour
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
 		_globalRotation = rotation * _globalRotation;
 		_localRotation *= Quaternion.Inverse(rotation);
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_currentFace));
+		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_currentFace, _faceRotationDuration));
+		if (PollosController.TryGetInstance(out PollosController characterControler))
+			characterControler.RotateCharacter();
 	}
 	
 	public Face	RotateCube(Vector2Int value)
@@ -112,7 +115,7 @@ public class RotationManager : MonoBehaviour
 		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
 		_localRotation = newLocalRotation;
 		_globalRotation = rotation * _globalRotation;
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
+		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace, _cubeRotationDuration));
 		if (PollosController.TryGetInstance(out PollosController characterControler))
 			characterControler.RotateCharacter();
 		return (newFace);
