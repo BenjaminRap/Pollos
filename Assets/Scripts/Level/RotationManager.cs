@@ -110,20 +110,29 @@ public class RotationManager : MonoBehaviour
 		Quaternion	globalRotation = rotation * _globalRotation;
 		return (new LevelRotation(localRotation, globalRotation, rotationAxis, newFace));
 	}
+	
+	public Face	Rotate(LevelRotation levelRotation)
+	{
+		if (levelRotation == null)
+			return (null);
+		_rotationAxis = levelRotation.RotationAxis;
+		_localRotation = levelRotation.LocalRotation;
+		_globalRotation = levelRotation.GlobalRotation;
+		if (levelRotation.NewFace == _currentFace)
+			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_faceRotationDuration));
+		else
+			_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(levelRotation.NewFace, _cubeRotationDuration));
+		_onRotateEvents.Invoke();
+		return (levelRotation.NewFace);
+	}
 
 	/// <summary>Rotate the level around the z axis, that means that we can
 	/// see the same face.</summary>
 	/// <param name="axisValue"> This is the value of the input of the player</param>
-	public void	RotateFace(int axisValue)
+	public Face	RotateFace(int axisValue)
 	{
-		LevelRotation	levelRotation = CanRotate(Vector3Int.forward * axisValue);
-		if (levelRotation == null)
-			return ;
-		_rotationAxis = levelRotation.RotationAxis;
-		_localRotation = levelRotation.LocalRotation;
-		_globalRotation = levelRotation.GlobalRotation;
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_faceRotationDuration));
-		_onRotateEvents.Invoke();
+		LevelRotation levelRotation = CanRotate(Vector3Int.forward * axisValue);
+		return (Rotate(levelRotation));
 	}
 	
 	/// <summary>Rotate the level around the x or y axis, that means that the current
@@ -132,13 +141,6 @@ public class RotationManager : MonoBehaviour
 	public Face	RotateCube(Vector2Int value)
 	{
 		LevelRotation	levelRotation = CanRotate((Vector3Int)value);
-		if (levelRotation == null)
-			return (null);
-		_rotationAxis = levelRotation.RotationAxis;
-		_localRotation = levelRotation.LocalRotation;
-		_globalRotation = levelRotation.GlobalRotation;
-		_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(levelRotation.NewFace, _cubeRotationDuration));
-		_onRotateEvents.Invoke();
-		return (levelRotation.NewFace);
+		return (Rotate(levelRotation));
 	}
 }
