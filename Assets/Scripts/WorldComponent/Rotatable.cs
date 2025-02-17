@@ -65,7 +65,7 @@ public class Rotatable : MonoBehaviour
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
 		_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
+		// _placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
 	}
 
 	/// <summary>Unfreeze the rigidbody</summary>

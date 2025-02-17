@@ -11,6 +11,7 @@ public class PollosController : MonoBehaviour
 
 	private void Start()
 	{
+		Time.timeScale = 0.1f;
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the PollosController class");
@@ -52,6 +53,6 @@ public class PollosController : MonoBehaviour
 	
 	public void	ResetRotation()
 	{
-		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+		transform.rotation = Quaternion.LookRotation(Vector3.back, Vector3.up);
 	}
 }

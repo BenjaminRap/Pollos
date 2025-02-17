@@ -12,16 +12,17 @@ public class Face : MonoBehaviour
 	[SerializeField]
 	private GameObject			_leftArrow;
 	
-	private Transform[]		_childrens;
-	
+	private Transform[]			_childrens;
+	private RotationManager		_rotationManager;
 	private int					_hiddenLayer;
 
     private void Start()
     {
 		Cube	cube = GetComponentInParent<Cube>();
-		if (cube == null)
+		_rotationManager = GetComponentInParent<RotationManager>();
+		if (cube == null || _rotationManager == null)
 		{
-			Debug.LogError("A gameObject with t face monobehaviour doesn't have a parent with the monobehaviour cube !");
+			Debug.LogError("Missing component in the Face parent : Cube or RotationManager !");
 			Destroy(gameObject);
 			return ;
 		}
@@ -53,6 +54,17 @@ public class Face : MonoBehaviour
 			return ;
 		Vector3		velocity = rigidbody.linearVelocity.normalized;
 		Vector2Int	direction = (Vector2Int)Vector3Int.RoundToInt(velocity);
-		Debug.Log(direction);
+		Face 		newFace =_rotationManager.RotateCube(direction);
+		if (newFace == null)
+			return ;
+		if (!PollosController.TryGetInstance(out PollosController characterControler))
+			return ;
+		characterControler.RotateCharacter();
+		characterControler.gameObject.layer = 0;
+		other.transform.SetParent(newFace.transform);
+		Vector3	newLocalPosition = other.transform.localPosition;
+		newLocalPosition.z = 0;
+		other.transform.localPosition = newLocalPosition;
+		other.transform.forward = velocity;
     }
 }
