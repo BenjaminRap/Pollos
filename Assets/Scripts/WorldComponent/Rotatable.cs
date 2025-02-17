@@ -33,10 +33,9 @@ public class Rotatable : MonoBehaviour
 
 	/// <summary>Returns the middle of the nearest case. The result of this
 	/// function is influenced by the _adjustmentLength.</summary>
-	public Vector3		GetNearestGridCell(Vector3 adjustmentVector)
+	public Vector3		GetNearestGridCell(Vector3 adjustment)
 	{
-		Vector3	localVelocity = transform.parent.InverseTransformDirection(adjustmentVector);
-		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;
+		Vector3	newPosition = transform.localPosition + adjustment.normalized * _adjustmentLength;
 
 		newPosition.x = Mathf.Round(newPosition.x + 0.5f) - 0.5f;
 		newPosition.y = Mathf.Round(newPosition.y + 0.5f) - 0.5f;

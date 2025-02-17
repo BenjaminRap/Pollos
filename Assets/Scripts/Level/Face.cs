@@ -51,7 +51,7 @@ public class Face : MonoBehaviour
 		else
 		{
 			other.transform.rotation = levelRotation.NewFace.transform.rotation;
-			rotatable.transform.localPosition = rotatable.GetNearestGridCell(Vector3.zero);
+			rotatable.transform.localPosition = rotatable.GetNearestGridCell(other.attachedRigidbody.linearVelocity);
 			rotatable.UpdateGravityUse();
 		}
 	}
