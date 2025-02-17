@@ -47,6 +47,7 @@ public class Rotatable : MonoBehaviour
 	/// rotationDuration seconds.</summary>
 	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
 	{
+		yield return (new WaitForEndOfFrame());
 		Vector3	newPosition = GetNearestGridCell();
 		float	distance = Vector3.Distance(newPosition, transform.localPosition);
 		float	speed = _velocityAtFreeze.magnitude;
@@ -65,7 +66,7 @@ public class Rotatable : MonoBehaviour
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
 		_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		// _placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
+		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
 	}
 
 	/// <summary>Unfreeze the rigidbody</summary>

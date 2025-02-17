@@ -173,8 +173,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentFace: {fileID: 0}
-  _rotationDuration: 0.2
+  _faceRotationDuration: 0.2
   _rotatableChild: {fileID: 3909547111023414187}
+  _onRotateEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7372802778595141678}
+        m_TargetAssemblyTypeName: PollosController, Assembly-CSharp
+        m_MethodName: RotateCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7247634933981929883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1995,6 +2010,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2821916056684815137, guid: 3afe1fdc8974dd24fad4cb721065a8b8, type: 3}
   m_PrefabInstance: {fileID: 4996807688480475753}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7372802778595141678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2524635988404003399, guid: 3afe1fdc8974dd24fad4cb721065a8b8, type: 3}
+  m_PrefabInstance: {fileID: 4996807688480475753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2fb339531f2304bab21c1bcba0dc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5165474513498264358
 PrefabInstance:
   m_ObjectHideFlags: 0
