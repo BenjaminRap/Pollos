@@ -49,7 +49,7 @@ public class Rotatable : MonoBehaviour
 	{
 		Vector3	newPosition = GetNearestGridCell();
 		float	distance = Vector3.Distance(newPosition, transform.localPosition);
-		float	speed = _velocityAtFreeze.magnitude;
+		float	speed = _velocityAtFreeze.magnitude + 0.01f;
 		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
 		
 		yield return TransformUtils.LocalMoveInTime(transform, newPosition, movementDuration);
