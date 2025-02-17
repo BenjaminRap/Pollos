@@ -51,12 +51,13 @@ public class Face : MonoBehaviour
     {
 		if (!other.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
 			return ;
-		Vector3		velocity = rigidbody.linearVelocity.normalized;
-		Vector2Int	direction = (Vector2Int)Vector3Int.RoundToInt(velocity);
-		Face 		newFace =_rotationManager.RotateCube(direction);
-		if (newFace == null)
+		Vector3			velocity = rigidbody.linearVelocity.normalized;
+		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
+		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
+		if (levelRotation == null)
 			return ;
-		other.transform.SetParent(newFace.transform);
+		other.transform.SetParent(levelRotation.NewFace.transform);
 		other.transform.localPosition = TransformUtils.SetZ(other.transform.localPosition, 0.0f);
+		_rotationManager.Rotate(levelRotation);
     }
 }

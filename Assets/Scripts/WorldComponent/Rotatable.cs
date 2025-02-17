@@ -47,7 +47,6 @@ public class Rotatable : MonoBehaviour
 	/// rotationDuration seconds.</summary>
 	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
 	{
-		yield return (new WaitForEndOfFrame());
 		Vector3	newPosition = GetNearestGridCell();
 		float	distance = Vector3.Distance(newPosition, transform.localPosition);
 		float	speed = _velocityAtFreeze.magnitude;
