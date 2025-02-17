@@ -38,16 +38,21 @@ public class Face : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
+		if (!other.TryGetComponent<Rotatable>(out Rotatable rotatable))
+			return ;
 		Vector3			velocity = other.attachedRigidbody.linearVelocity.normalized;
 		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
 		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
 		if (levelRotation == null)
 			return ;
-		levelRotation.NewFace.SetParentTo(other.transform);
+		levelRotation.NewFace.SetParentToRigidbody(other.attachedRigidbody);
 		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
 			_rotationManager.Rotate(levelRotation);
 		else
+		{
+			rotatable.UpdateGravityUse();
 			other.transform.rotation = levelRotation.NewFace.transform.rotation;
+		}
 	}
 	
 	public void	SetRendered(bool rendered)
@@ -58,10 +63,10 @@ public class Face : MonoBehaviour
 			Camera.main.cullingMask &= ~(1 << gameObject.layer);
 	}
 	
-	public void	SetParentTo(Transform child)
+	public void	SetParentToRigidbody(Rigidbody rigidbody)
 	{
-		child.SetParent(transform);
-		child.localPosition = TransformUtils.SetZ(child.localPosition, 0.0f);
-		child.gameObject.layer = gameObject.layer;
+		rigidbody.transform.SetParent(transform);
+		rigidbody.transform.localPosition = TransformUtils.SetZ(rigidbody.transform.localPosition, 0.0f);
+		rigidbody.transform.gameObject.layer = gameObject.layer;
 	}
 }

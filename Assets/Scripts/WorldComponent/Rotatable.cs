@@ -73,8 +73,16 @@ public class Rotatable : MonoBehaviour
 	{
 		if (!_isFroze)
 			return ;
+		UpdateGravityUse();
 		_isFroze = false;
 		_rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 		_rigidbody.linearVelocity = _velocityAtFreeze * _velocityMultiplicatorAtRotation;
+	}
+	
+	public void	UpdateGravityUse()
+	{
+		bool	useGravity = (transform.parent.forward != Vector3.down && transform.parent.forward != Vector3.up);
+		if (_rigidbody.useGravity != useGravity)
+			_rigidbody.useGravity = useGravity;	
 	}
 }
