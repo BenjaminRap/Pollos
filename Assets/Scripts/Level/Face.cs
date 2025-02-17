@@ -56,6 +56,9 @@ public class Face : MonoBehaviour
 			return ;
 		other.transform.SetParent(levelRotation.NewFace.transform);
 		other.transform.localPosition = TransformUtils.SetZ(other.transform.localPosition, 0.0f);
-		_rotationManager.Rotate(levelRotation);
+		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
+			_rotationManager.Rotate(levelRotation);
+		else
+			other.transform.rotation = levelRotation.NewFace.transform.rotation;
     }
 }
