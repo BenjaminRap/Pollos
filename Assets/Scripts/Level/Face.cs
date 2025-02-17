@@ -49,9 +49,7 @@ public class Face : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-		if (!other.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
-			return ;
-		Vector3			velocity = rigidbody.linearVelocity.normalized;
+		Vector3			velocity = other.attachedRigidbody.linearVelocity.normalized;
 		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
 		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
 		if (levelRotation == null)
