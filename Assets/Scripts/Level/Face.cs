@@ -12,7 +12,6 @@ public class Face : MonoBehaviour
 	[SerializeField]
 	private GameObject			_leftArrow;
 	
-	private Transform[]			_childrens;
 	private RotationManager		_rotationManager;
 	private int					_hiddenLayer;
 
@@ -26,7 +25,6 @@ public class Face : MonoBehaviour
 			Destroy(gameObject);
 			return ;
 		}
-		_childrens = GetComponentsInChildren<Transform>();
 		_hiddenLayer = LayerMask.NameToLayer("Hidden");
 		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
@@ -42,7 +40,8 @@ public class Face : MonoBehaviour
 	
 	public void	SetRendered(bool rendered)
 	{
-		foreach (Transform child in _childrens)
+		Transform[] childrens = GetComponentsInChildren<Transform>();
+		foreach (Transform child in childrens)
 		{
 			child.gameObject.layer = rendered ? 0 : _hiddenLayer;
 		}
@@ -60,7 +59,6 @@ public class Face : MonoBehaviour
 		if (!PollosController.TryGetInstance(out PollosController characterControler))
 			return ;
 		characterControler.RotateCharacter();
-		characterControler.gameObject.layer = 0;
 		other.transform.SetParent(newFace.transform);
 		Vector3	newLocalPosition = other.transform.localPosition;
 		newLocalPosition.z = 0;
