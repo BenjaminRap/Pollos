@@ -50,8 +50,9 @@ public class Face : MonoBehaviour
 			_rotationManager.Rotate(levelRotation);
 		else
 		{
-			rotatable.UpdateGravityUse();
 			other.transform.rotation = levelRotation.NewFace.transform.rotation;
+			rotatable.transform.localPosition = rotatable.GetNearestGridCell(Vector3.zero);
+			rotatable.UpdateGravityUse();
 		}
 	}
 	
@@ -65,7 +66,6 @@ public class Face : MonoBehaviour
 	
 	public void	SetParentToRigidbody(Rigidbody rigidbody)
 	{
-		rigidbody.linearVelocity = Vector3.zero;
 		rigidbody.excludeLayers = ~(1 << gameObject.layer);
 		rigidbody.transform.SetParent(transform);
 		rigidbody.transform.localPosition = TransformUtils.SetZ(rigidbody.transform.localPosition, 0.0f);

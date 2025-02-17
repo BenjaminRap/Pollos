@@ -33,9 +33,9 @@ public class Rotatable : MonoBehaviour
 
 	/// <summary>Returns the middle of the nearest case. The result of this
 	/// function is influenced by the _adjustmentLength.</summary>
-	public Vector3		GetNearestGridCell()
+	public Vector3		GetNearestGridCell(Vector3 adjustmentVector)
 	{
-		Vector3	localVelocity = transform.parent.InverseTransformDirection(_velocityAtFreeze);
+		Vector3	localVelocity = transform.parent.InverseTransformDirection(adjustmentVector);
 		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;
 
 		newPosition.x = Mathf.Round(newPosition.x + 0.5f) - 0.5f;
@@ -47,7 +47,7 @@ public class Rotatable : MonoBehaviour
 	/// rotationDuration seconds.</summary>
 	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
 	{
-		Vector3	newPosition = GetNearestGridCell();
+		Vector3	newPosition = GetNearestGridCell(_velocityAtFreeze);
 		float	distance = Vector3.Distance(newPosition, transform.localPosition);
 		float	speed = _velocityAtFreeze.magnitude + 0.01f;
 		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
@@ -82,7 +82,13 @@ public class Rotatable : MonoBehaviour
 	public void	UpdateGravityUse()
 	{
 		bool	useGravity = (transform.parent.forward != Vector3.down && transform.parent.forward != Vector3.up);
-		if (_rigidbody.useGravity != useGravity)
-			_rigidbody.useGravity = useGravity;	
+		if (_rigidbody.useGravity == useGravity)
+			return ;
+		_rigidbody.useGravity = useGravity;	
+		if (!useGravity)
+		{
+			_rigidbody.linearVelocity = Vector3.zero;
+			_velocityAtFreeze = Vector3.zero;
+		}
 	}
 }
