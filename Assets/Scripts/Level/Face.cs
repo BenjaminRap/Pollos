@@ -63,6 +63,5 @@ public class Face : MonoBehaviour
 		Vector3	newLocalPosition = other.transform.localPosition;
 		newLocalPosition.z = 0;
 		other.transform.localPosition = newLocalPosition;
-		other.transform.forward = velocity;
     }
 }

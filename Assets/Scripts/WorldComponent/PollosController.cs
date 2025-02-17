@@ -12,7 +12,6 @@ public class PollosController : MonoBehaviour
 
 	private void Start()
 	{
-		Time.timeScale = 0.1f;
 		if (_instance != null)
 		{
 			Debug.LogError("Multiples instances of the PollosController class");
