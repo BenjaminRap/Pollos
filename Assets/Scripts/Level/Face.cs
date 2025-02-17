@@ -13,7 +13,6 @@ public class Face : MonoBehaviour
 	private GameObject			_leftArrow;
 	
 	private RotationManager		_rotationManager;
-	private int					_hiddenLayer;
 
     private void Start()
     {
@@ -25,7 +24,6 @@ public class Face : MonoBehaviour
 			Destroy(gameObject);
 			return ;
 		}
-		_hiddenLayer = LayerMask.NameToLayer("Hidden");
 		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
     }
@@ -40,11 +38,10 @@ public class Face : MonoBehaviour
 	
 	public void	SetRendered(bool rendered)
 	{
-		Transform[] childrens = GetComponentsInChildren<Transform>();
-		foreach (Transform child in childrens)
-		{
-			child.gameObject.layer = rendered ? 0 : _hiddenLayer;
-		}
+		if (rendered)
+			Camera.main.cullingMask |= 1 << gameObject.layer;
+		else
+			Camera.main.cullingMask &= ~(1 << gameObject.layer);
 	}
 
     private void OnTriggerExit(Collider other)
@@ -54,6 +51,7 @@ public class Face : MonoBehaviour
 		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
 		if (levelRotation == null)
 			return ;
+		other.gameObject.layer = levelRotation.NewFace.gameObject.layer;
 		other.transform.SetParent(levelRotation.NewFace.transform);
 		other.transform.localPosition = TransformUtils.SetZ(other.transform.localPosition, 0.0f);
 		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
