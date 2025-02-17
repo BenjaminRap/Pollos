@@ -14,8 +14,8 @@ public class Face : MonoBehaviour
 	
 	private RotationManager		_rotationManager;
 
-    private void Start()
-    {
+	private void Start()
+	{
 		Cube	cube = GetComponentInParent<Cube>();
 		_rotationManager = GetComponentInParent<RotationManager>();
 		if (cube == null || _rotationManager == null)
@@ -26,7 +26,7 @@ public class Face : MonoBehaviour
 		}
 		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
-    }
+	}
 
 	private void	ShowPossibleRotations(Cube cube)
 	{
@@ -34,6 +34,20 @@ public class Face : MonoBehaviour
 		_downArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.right)) != null);
 		_rightArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.up)) != null);
 		_leftArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.up)) != null);
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		Vector3			velocity = other.attachedRigidbody.linearVelocity.normalized;
+		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
+		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
+		if (levelRotation == null)
+			return ;
+		levelRotation.NewFace.SetParentTo(other.transform);
+		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
+			_rotationManager.Rotate(levelRotation);
+		else
+			other.transform.rotation = levelRotation.NewFace.transform.rotation;
 	}
 	
 	public void	SetRendered(bool rendered)
@@ -43,20 +57,11 @@ public class Face : MonoBehaviour
 		else
 			Camera.main.cullingMask &= ~(1 << gameObject.layer);
 	}
-
-    private void OnTriggerExit(Collider other)
-    {
-		Vector3			velocity = other.attachedRigidbody.linearVelocity.normalized;
-		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
-		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
-		if (levelRotation == null)
-			return ;
-		other.gameObject.layer = levelRotation.NewFace.gameObject.layer;
-		other.transform.SetParent(levelRotation.NewFace.transform);
-		other.transform.localPosition = TransformUtils.SetZ(other.transform.localPosition, 0.0f);
-		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
-			_rotationManager.Rotate(levelRotation);
-		else
-			other.transform.rotation = levelRotation.NewFace.transform.rotation;
-    }
+	
+	public void	SetParentTo(Transform child)
+	{
+		child.SetParent(transform);
+		child.localPosition = TransformUtils.SetZ(child.localPosition, 0.0f);
+		child.gameObject.layer = gameObject.layer;
+	}
 }
