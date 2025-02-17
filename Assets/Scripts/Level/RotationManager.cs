@@ -2,6 +2,27 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+public class LevelRotation
+{
+	private Quaternion	_localRotation;
+	private Quaternion	_globalRotation;
+	private	Vector3Int	_rotationAxis;
+	private Face		_newFace;
+
+	public LevelRotation(Quaternion localRotation, Quaternion globalRotation, Vector3Int rotationAxis, Face newFace)
+	{
+		_localRotation = localRotation;
+		_globalRotation = globalRotation;
+		_rotationAxis = rotationAxis;
+		_newFace = newFace;
+	}
+	
+	public Quaternion	LocalRotation { get => _localRotation; }
+	public Quaternion	GlobalRotation { get => _globalRotation; }
+	public Vector3Int	RotationAxis { get => _rotationAxis; }
+	public Face			NewFace { get => _newFace; }
+}
+
 [RequireComponent(typeof(Cube))]
 /// <summary>This class is a singleton than manages the rotation of the level.
 /// It rotate the parent rotable and freeze the rotables in it.</summary>
@@ -71,18 +92,36 @@ public class RotationManager : MonoBehaviour
 		_currentFace.SetRendered(false);
 		_currentFace = newFace;
 	}
+	
+	public LevelRotation	CanRotate(Vector3Int axis)
+	{
+		Vector3Int	rotationAxis;
+		if (axis.z != 0)
+			rotationAxis = Vector3Int.back * axis.z;
+		else if (axis.y != 0)
+			rotationAxis = Vector3Int.left * axis.y;
+		else
+			rotationAxis = Vector3Int.up * axis.x;
+		Quaternion	rotation = Quaternion.AngleAxis(90, rotationAxis);
+		Quaternion	localRotation = _localRotation * Quaternion.Inverse(rotation);
+		Face		newFace = _cube.GetFace(localRotation);
+		if (newFace == null)
+			return (null);
+		Quaternion	globalRotation = rotation * _globalRotation;
+		return (new LevelRotation(localRotation, globalRotation, rotationAxis, newFace));
+	}
 
 	/// <summary>Rotate the level around the z axis, that means that we can
 	/// see the same face.</summary>
 	/// <param name="axisValue"> This is the value of the input of the player</param>
 	public void	RotateFace(int axisValue)
 	{
-		if (_rotationAxis.x != 0 || _rotationAxis.y != 0)
+		LevelRotation	levelRotation = CanRotate(Vector3Int.forward * axisValue);
+		if (levelRotation == null)
 			return ;
-		_rotationAxis = Vector3Int.forward;
-		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
-		_globalRotation = rotation * _globalRotation;
-		_localRotation *= Quaternion.Inverse(rotation);
+		_rotationAxis = levelRotation.RotationAxis;
+		_localRotation = levelRotation.LocalRotation;
+		_globalRotation = levelRotation.GlobalRotation;
 		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_faceRotationDuration));
 		_onRotateEvents.Invoke();
 	}
@@ -92,22 +131,14 @@ public class RotationManager : MonoBehaviour
 	/// <param name="value"> This is the value of the input of the player</param>
 	public Face	RotateCube(Vector2Int value)
 	{
-		if (_rotationAxis != Vector3Int.zero)
+		LevelRotation	levelRotation = CanRotate((Vector3Int)value);
+		if (levelRotation == null)
 			return (null);
-		Quaternion	rotation;
-		if (value.y != 0)
-			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
-		else
-			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
-		Quaternion	newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
-		Face		newFace = _cube.GetFace(newLocalRotation);
-		if (newFace == null)
-			return (null);
-		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
-		_localRotation = newLocalRotation;
-		_globalRotation = rotation * _globalRotation;
-		_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(newFace, _cubeRotationDuration));
+		_rotationAxis = levelRotation.RotationAxis;
+		_localRotation = levelRotation.LocalRotation;
+		_globalRotation = levelRotation.GlobalRotation;
+		_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(levelRotation.NewFace, _cubeRotationDuration));
 		_onRotateEvents.Invoke();
-		return (newFace);
+		return (levelRotation.NewFace);
 	}
 }
