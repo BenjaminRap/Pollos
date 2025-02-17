@@ -95,6 +95,8 @@ public class RotationManager : MonoBehaviour
 	
 	public LevelRotation	CanRotate(Vector3Int axis)
 	{
+		if (!VectorUtils.IsAxis(axis))
+			return (null);
 		Vector3Int	rotationAxis;
 		if (axis.z != 0)
 			rotationAxis = Vector3Int.back * axis.z;
