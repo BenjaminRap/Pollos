@@ -63,7 +63,8 @@ public class Rotatable : MonoBehaviour
 			return ;
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
-		_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+		_rigidbody.linearVelocity = Vector3.zero;
+		_rigidbody.useGravity = false;
 		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
 	}
 
@@ -74,7 +75,6 @@ public class Rotatable : MonoBehaviour
 			return ;
 		UpdateGravityUse();
 		_isFroze = false;
-		_rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 		_rigidbody.linearVelocity = _velocityAtFreeze * _velocityMultiplicatorAtRotation;
 	}
 	
