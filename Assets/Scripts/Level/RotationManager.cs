@@ -75,7 +75,8 @@ public class RotationManager : MonoBehaviour
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
 		foreach (Rotatable rotatable in _rotatablesObjets)
-			rotatable.Freeze(rotationDuration);
+			rotatable.Freeze();
+		yield return (new WaitForFixedUpdate());
 		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, rotationDuration);
 		foreach (Rotatable rotatable in _rotatablesObjets)
 			rotatable.Unfreeze();

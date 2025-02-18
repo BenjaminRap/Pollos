@@ -27,7 +27,7 @@ public class Draft : MonoBehaviour
 		Rigidbody	rigidbody = collider.attachedRigidbody;
 		SetInDraft(rigidbody, true);
 		rigidbody.position -= Vector3.up * 0.1f;
-		collider.transform.localPosition = rotatable.GetNearestGridCell(rigidbody.linearVelocity);
+		rigidbody.MovePosition(rotatable.GetNearestGridCell(rigidbody.linearVelocity));
 		StartCoroutine(CheckIfIgidbodyMoves(rigidbody));
 	}
 
@@ -42,7 +42,7 @@ public class Draft : MonoBehaviour
 			return ;
 		SetInDraft(rigidbody, false);
 		rigidbody.linearVelocity = Vector2.zero;
-		collider.transform.localPosition = rotatable.GetNearestGridCell(rigidbody.linearVelocity);
+		rigidbody.MovePosition(rotatable.GetNearestGridCell(rigidbody.linearVelocity));
 	}
 
 	/// <summary>While a collider with a rigidbody is in the draft, push it to the

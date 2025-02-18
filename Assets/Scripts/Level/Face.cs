@@ -40,19 +40,20 @@ public class Face : MonoBehaviour
 	{
 		if (!other.TryGetComponent<Rotatable>(out Rotatable rotatable))
 			return ;
-		Vector3			velocity = other.attachedRigidbody.linearVelocity.normalized;
+		Rigidbody		rigidbody = other.attachedRigidbody;
+		Vector3			velocity = rigidbody.linearVelocity.normalized;
 		Vector3Int		direction = Vector3Int.RoundToInt(velocity);
 		LevelRotation	levelRotation = _rotationManager.CanRotate(direction);
 		if (levelRotation == null)
 			return ;
-		levelRotation.NewFace.SetParentToRigidbody(other.attachedRigidbody);
+		levelRotation.NewFace.SetParentToRigidbody(rigidbody);
 		if (other.TryGetComponent<PollosController>(out PollosController pollosController)
 			&& other.transform.forward == Vector3.back)
 			_rotationManager.Rotate(levelRotation);
 		else
 		{
 			other.transform.rotation = levelRotation.NewFace.transform.rotation;
-			rotatable.transform.localPosition = rotatable.GetNearestGridCell(other.attachedRigidbody.linearVelocity);
+			rigidbody.MovePosition(rotatable.GetNearestGridCell(rigidbody.linearVelocity));
 			rotatable.UpdateGravityUse();
 		}
 	}

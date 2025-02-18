@@ -20,7 +20,6 @@ public class Rotatable : MonoBehaviour
 	private Rigidbody		_rigidbody;
 	private bool			_isFroze;
 	private Vector3			_velocityAtFreeze;
-	private Coroutine		_placeInGridCoroutine;
 	
 	public bool				IsFroze { get => _isFroze; }
 
@@ -39,25 +38,12 @@ public class Rotatable : MonoBehaviour
 
 		newPosition.x = Mathf.Round(newPosition.x + 0.5f) - 0.5f;
 		newPosition.y = Mathf.Round(newPosition.y + 0.5f) - 0.5f;
-		return (newPosition);
-	}
-
-	/// <summary>Moves this rigidbody to the nearest grid cell, in maximum
-	/// rotationDuration seconds.</summary>
-	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
-	{
-		Vector3	newPosition = GetNearestGridCell(_velocityAtFreeze);
-		float	distance = Vector3.Distance(newPosition, transform.localPosition);
-		float	speed = _velocityAtFreeze.magnitude + 0.01f;
-		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
-		
-		yield return TransformUtils.LocalMoveInTime(transform, newPosition, movementDuration);
-		_placeInGridCoroutine = null;
+		return (transform.parent.TransformPoint(newPosition));
 	}
 	
 	/// <summary>Freezes the rigidbody and move this object to the nearest grid
 	/// in maximum rotationDuration seconds</summary>
-	public void	Freeze(float rotationDuration)
+	public void	Freeze()
 	{
 		if (_isFroze)
 			return ;
@@ -65,7 +51,7 @@ public class Rotatable : MonoBehaviour
 		_velocityAtFreeze = _rigidbody.linearVelocity;
 		_rigidbody.linearVelocity = Vector3.zero;
 		_rigidbody.useGravity = false;
-		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
+		_rigidbody.MovePosition(GetNearestGridCell(_velocityAtFreeze));
 	}
 
 	/// <summary>Unfreeze the rigidbody</summary>
