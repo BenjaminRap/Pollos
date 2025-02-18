@@ -46,7 +46,8 @@ public class Face : MonoBehaviour
 		if (levelRotation == null)
 			return ;
 		levelRotation.NewFace.SetParentToRigidbody(other.attachedRigidbody);
-		if (other.TryGetComponent<PollosController>(out PollosController pollosController))
+		if (other.TryGetComponent<PollosController>(out PollosController pollosController)
+			&& other.transform.forward == Vector3.back)
 			_rotationManager.Rotate(levelRotation);
 		else
 		{
