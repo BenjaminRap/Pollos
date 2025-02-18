@@ -81,13 +81,12 @@ public class Rotatable : MonoBehaviour
 	public void	UpdateGravityUse()
 	{
 		bool	useGravity = (transform.parent.forward != Vector3.down && transform.parent.forward != Vector3.up);
-		if (_rigidbody.useGravity == useGravity)
-			return ;
-		_rigidbody.useGravity = useGravity;	
-		if (!useGravity)
+		if (useGravity == false)
 		{
 			_rigidbody.linearVelocity = Vector3.zero;
 			_velocityAtFreeze = Vector3.zero;
 		}
+		if (_rigidbody.useGravity != useGravity)
+			_rigidbody.useGravity = useGravity;	
 	}
 }
