@@ -52,15 +52,7 @@ public class Face : MonoBehaviour
 		}
 	}
 	
-	public void	SetRendered(bool rendered)
-	{
-		if (rendered)
-			Camera.main.cullingMask |= 1 << gameObject.layer;
-		else
-			Camera.main.cullingMask &= ~(1 << gameObject.layer);
-	}
-	
-	public void	SetParentToRigidbody(Rigidbody rigidbody)
+	private void	SetParentToRigidbody(Rigidbody rigidbody)
 	{
 		rigidbody.excludeLayers = ~(1 << gameObject.layer);
 		rigidbody.transform.SetParent(transform);
@@ -69,11 +61,19 @@ public class Face : MonoBehaviour
 		rigidbody.transform.localRotation = Quaternion.identity;
 	}
 
-	public Vector3	GetRelativeDirectionToClosestPointOnBounds(Transform obj)
+	private Vector3	GetRelativeDirectionToClosestPointOnBounds(Transform obj)
 	{
 		Vector3	closestPointOnBounds = _collider.ClosestPointOnBounds(obj.position);
 		Vector3	direction = closestPointOnBounds - obj.position;
 		Vector3	relativeDirection = obj.InverseTransformDirection(direction);
 		return (relativeDirection);
+	}
+
+	public void	SetRendered(bool rendered)
+	{
+		if (rendered)
+			Camera.main.cullingMask |= 1 << gameObject.layer;
+		else
+			Camera.main.cullingMask &= ~(1 << gameObject.layer);
 	}
 }
