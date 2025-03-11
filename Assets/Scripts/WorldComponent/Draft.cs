@@ -22,12 +22,12 @@ public class Draft : MonoBehaviour
 	/// collider in the draft.</summary>
 	private void	OnTriggerEnter(Collider collider)
 	{
-		if (!collider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody)
-			|| !collider.TryGetComponent<Rotatable>(out Rotatable rotatable))
+		if (!collider.TryGetComponent<Rotatable>(out Rotatable rotatable))
 			return ;
+		Rigidbody	rigidbody = collider.attachedRigidbody;
 		SetInDraft(rigidbody, true);
 		rigidbody.position -= Vector3.up * 0.1f;
-		collider.transform.localPosition = rotatable.GetNearestGridCell();
+		rigidbody.MovePosition(rotatable.GetNearestGridCell(rigidbody.linearVelocity));
 		StartCoroutine(CheckIfIgidbodyMoves(rigidbody));
 	}
 
@@ -35,22 +35,23 @@ public class Draft : MonoBehaviour
 	/// this collider from the draft.</summary>
 	private void	OnTriggerExit(Collider collider)
 	{
-		if (!collider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody)
-			|| !collider.TryGetComponent<Rotatable>(out Rotatable rotatable))
+		if (!collider.TryGetComponent<Rotatable>(out Rotatable rotatable))
 			return ;
+		Rigidbody	rigidbody = collider.attachedRigidbody;
 		if (!IsInDraft(rigidbody)) // his gravioty has already been returned
 			return ;
 		SetInDraft(rigidbody, false);
 		rigidbody.linearVelocity = Vector2.zero;
-		collider.transform.localPosition = rotatable.GetNearestGridCell();
+		rigidbody.MovePosition(rotatable.GetNearestGridCell(rigidbody.linearVelocity));
 	}
 
 	/// <summary>While a collider with a rigidbody is in the draft, push it to the
 	/// _draftDirection.</summary>
 	private void	OnTriggerStay(Collider collider)
 	{
-		if (!collider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+		if (!collider.TryGetComponent<Rotatable>(out Rotatable rotatable))
 			return ;
+		Rigidbody	rigidbody = collider.attachedRigidbody;
 		if (!IsInDraft(rigidbody))
 			return ;
 		rigidbody.AddForce(transform.TransformVector(_draftForce * Time.deltaTime), ForceMode.Force);

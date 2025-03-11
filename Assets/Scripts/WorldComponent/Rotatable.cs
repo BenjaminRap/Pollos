@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>This class allows a GameObject with a rigidbody to freeze and unfreeze, not
@@ -20,9 +19,6 @@ public class Rotatable : MonoBehaviour
 	private Rigidbody		_rigidbody;
 	private bool			_isFroze;
 	private Vector3			_velocityAtFreeze;
-	private Coroutine		_placeInGridCoroutine;
-	
-	public bool				IsFroze { get => _isFroze; }
 
 	private void	Start()
 	{
@@ -33,39 +29,26 @@ public class Rotatable : MonoBehaviour
 
 	/// <summary>Returns the middle of the nearest case. The result of this
 	/// function is influenced by the _adjustmentLength.</summary>
-	public Vector3		GetNearestGridCell()
+	public Vector3		GetNearestGridCell(Vector3 adjustment)
 	{
-		Vector3	localVelocity = transform.parent.InverseTransformDirection(_velocityAtFreeze);
-		Vector3	newPosition = transform.localPosition + localVelocity.normalized * _adjustmentLength;
+		Vector3	newPosition = transform.localPosition + adjustment.normalized * _adjustmentLength;
 
 		newPosition.x = Mathf.Round(newPosition.x + 0.5f) - 0.5f;
 		newPosition.y = Mathf.Round(newPosition.y + 0.5f) - 0.5f;
-		return (newPosition);
-	}
-
-	/// <summary>Moves this rigidbody to the nearest grid cell, in maximum
-	/// rotationDuration seconds.</summary>
-	private IEnumerator	MoveToNearestGridCell(float rotationDuration)
-	{
-		Vector3	newPosition = GetNearestGridCell();
-		float	distance = Vector3.Distance(newPosition, transform.localPosition);
-		float	speed = _velocityAtFreeze.magnitude;
-		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
-		
-		yield return TransformUtils.LocalMoveInTime(transform, newPosition, movementDuration);
-		_placeInGridCoroutine = null;
+		return (transform.parent.TransformPoint(newPosition));
 	}
 	
 	/// <summary>Freezes the rigidbody and move this object to the nearest grid
 	/// in maximum rotationDuration seconds</summary>
-	public void	Freeze(float rotationDuration)
+	public void	Freeze()
 	{
 		if (_isFroze)
 			return ;
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
-		_rigidbody.isKinematic = true;
-		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
+		_rigidbody.linearVelocity = Vector3.zero;
+		_rigidbody.useGravity = false;
+		_rigidbody.MovePosition(GetNearestGridCell(_velocityAtFreeze));
 	}
 
 	/// <summary>Unfreeze the rigidbody</summary>
@@ -73,8 +56,27 @@ public class Rotatable : MonoBehaviour
 	{
 		if (!_isFroze)
 			return ;
+		UpdateGravityUse();
 		_isFroze = false;
-		_rigidbody.isKinematic = false;
 		_rigidbody.linearVelocity = _velocityAtFreeze * _velocityMultiplicatorAtRotation;
+	}
+	
+	public void	UpdateGravityUse()
+	{
+		bool	useGravity = (transform.parent.forward != Vector3.down && transform.parent.forward != Vector3.up);
+		if (useGravity == false)
+		{
+			_rigidbody.linearVelocity = Vector3.zero;
+			_velocityAtFreeze = Vector3.zero;
+		}
+		if (_rigidbody.useGravity != useGravity)
+			_rigidbody.useGravity = useGravity;	
+	}
+
+	public Vector3	GetVelocityBeforeFreeze()
+	{
+		if (_isFroze)
+			return (_velocityAtFreeze);
+		return (_rigidbody.linearVelocity);
 	}
 }

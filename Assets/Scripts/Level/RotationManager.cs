@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Cube))]
 /// <summary>This class is a singleton than manages the rotation of the level.
@@ -10,25 +11,23 @@ public class RotationManager : MonoBehaviour
 
 	[SerializeField]
 	private Face					_currentFace;
-	
-	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
-	/// than the rotate animation.</summary>
 	[SerializeField]
-	private float					_rotationDuration = 0.2f;
-	/// <summary>The GameOBject that will be rotated.</summary>
+	private float					_faceRotationDuration = 0.2f;
+	[SerializeField]
+	private float					_cubeRotationDuration = 0.4f;
 	[SerializeField]
 	private Transform				_rotatableChild;
+	[SerializeField]
+	private UnityEvent				_onRotateEvents;
 
 	private Coroutine				_rotateCoroutine;
 	private Quaternion				_globalRotation;
-	private Quaternion				_localRotation;
 
 	private Rotatable[]				_rotatablesObjets;
 	private Cube					_cube;
-	private Vector3Int				_rotationAxis;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
-	public Quaternion				LocalRotation { get => _localRotation; }
+	public Cube						Cube { get => _cube; }
 
     private void Start()
     {
@@ -40,78 +39,66 @@ public class RotationManager : MonoBehaviour
 		}
 		_instance = this;
 
-		_rotationAxis = Vector3Int.zero;
 		_cube = GetComponent<Cube>();
         _globalRotation = Quaternion.identity;
-		_localRotation = Quaternion.identity;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
 
-	/// <summary>A corotutine that rotates the level and restart the rigidbody's
-	/// simulation after that</summary>
-	private IEnumerator	RotateLevelToRotationGoal(Face newFace)
+	/// <summary>A corotutine that rotates the level to the _rotationGoal rotation
+	/// And freeze and unfreeze the rigidbody s inside the Level.</summary>
+	private IEnumerator	RotateLevelToRotationGoal(float rotationDuration)
 	{
 		if (_rotateCoroutine != null)
 			StopCoroutine(_rotateCoroutine);
-		FreezeRotatables();
-		if (newFace != _currentFace)
-			newFace.SetRendered(true);
-		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, _rotationDuration);
-		UnfreezeRotatables();
-		if (newFace != _currentFace)
-		{
-			_currentFace.SetRendered(false);
-			_currentFace = newFace;
-		}
-		_rotateCoroutine = null;
-		_rotationAxis = Vector3Int.zero;
-	}
-
-	/// <summary>Toggle the freezing state of the rotatables objects, freeze
-	/// means they won't move with forces.</summary>
-	private void	FreezeRotatables()
-	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
-		{
-			rotatable.Freeze(_rotationDuration);
-		}
-	}
-
-	private void	UnfreezeRotatables()
-	{
+			rotatable.Freeze();
+		yield return (new WaitForFixedUpdate());
+		yield return (new WaitForFixedUpdate());
+		yield return (TransformUtils.RotateInTime(_rotatableChild, _globalRotation, rotationDuration));
 		foreach (Rotatable rotatable in _rotatablesObjets)
-		{
 			rotatable.Unfreeze();
-		}
+		_rotateCoroutine = null;
 	}
 	
-	public void	RotateFace(int axisValue)
+	/// <summary>A coroutine that rotates the level to the rotation goal but also
+	/// hides the faces that aren't facing the camera.</summary>
+	private IEnumerator	RotateCubeToRotationGoal(Face newFace, float rotationDuration)
 	{
-		if (_rotationAxis.x != 0 || _rotationAxis.y != 0)
-			return ;
-		_rotationAxis = Vector3Int.forward;
-		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
-		_globalRotation = rotation * _globalRotation;
-		_localRotation *= Quaternion.Inverse(rotation);
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_currentFace));
+		Face	previousFace = _currentFace;
+		newFace.SetRendered(true);
+		_currentFace = newFace;
+		yield return RotateLevelToRotationGoal(rotationDuration);
+		previousFace.SetRendered(false);
 	}
-	
-	public void	RotateCube(Vector2Int value)
+
+	public Quaternion	GetRotationFromInput(Vector3Int direction)
 	{
-		if (_rotationAxis != Vector3Int.zero)
-			return ;
-		Quaternion	rotation;
-		if (value.y != 0)
-			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
+		if (!VectorUtils.IsAxis(direction))
+			return (Quaternion.identity);
+		Vector3Int	rotationAxis;
+		if (direction.z != 0)
+			rotationAxis = Vector3Int.back * direction.z;
+		else if (direction.y != 0)
+			rotationAxis = Vector3Int.left * direction.y;
 		else
-			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
-		Quaternion	newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
-		Face		newFace = _cube.GetFace(newLocalRotation);
+			rotationAxis = Vector3Int.up * direction.x;
+		return (Quaternion.AngleAxis(90, rotationAxis));
+	}
+	
+	public Face	Rotate(Vector3Int direction)
+	{
+		Quaternion	rotation = GetRotationFromInput(direction);
+		if (rotation == Quaternion.identity)
+			return (null);
+		Face		newFace = _cube.GetFace(Quaternion.Inverse(rotation) * _currentFace.transform.forward);
 		if (newFace == null)
-			return ;
-		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
-		_localRotation = newLocalRotation;
+			return (null);
 		_globalRotation = rotation * _globalRotation;
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
+		if (newFace == _currentFace)
+			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_faceRotationDuration));
+		else
+			_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(newFace, _cubeRotationDuration));
+		_onRotateEvents.Invoke();
+		return (newFace);
 	}
 }
