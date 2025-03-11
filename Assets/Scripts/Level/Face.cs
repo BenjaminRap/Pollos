@@ -36,10 +36,9 @@ public class Face : MonoBehaviour
 		}
 		else
 		{
-			Vector3Int	rotationAxis = _rotationManager.GetRotationAxisFromInput(direction);
-			if (rotationAxis == Vector3Int.zero)
+			Quaternion	relativeRotation = _rotationManager.GetRotationFromInput(direction);
+			if (relativeRotation == Quaternion.identity)
 				return ;
-			Quaternion	relativeRotation = Quaternion.AngleAxis(90, rotationAxis);
 			Quaternion	globalRotation = other.transform.parent.rotation * relativeRotation;
 			Face		newFace = _rotationManager.Cube.GetFace(Quaternion.Inverse(globalRotation) * other.transform.parent.forward);
 			if (newFace == null)

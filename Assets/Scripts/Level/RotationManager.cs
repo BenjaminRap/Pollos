@@ -25,7 +25,6 @@ public class RotationManager : MonoBehaviour
 
 	private Rotatable[]				_rotatablesObjets;
 	private Cube					_cube;
-	private Vector3Int				_rotationAxis;
 	
 	public Transform				RotatableChild { get => _rotatableChild; }
 	public Cube						Cube { get => _cube; }
@@ -40,7 +39,6 @@ public class RotationManager : MonoBehaviour
 		}
 		_instance = this;
 
-		_rotationAxis = Vector3Int.zero;
 		_cube = GetComponent<Cube>();
         _globalRotation = Quaternion.identity;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
@@ -60,7 +58,6 @@ public class RotationManager : MonoBehaviour
 		foreach (Rotatable rotatable in _rotatablesObjets)
 			rotatable.Unfreeze();
 		_rotateCoroutine = null;
-		_rotationAxis = Vector3Int.zero;
 	}
 	
 	/// <summary>A coroutine that rotates the level to the rotation goal but also
@@ -74,10 +71,10 @@ public class RotationManager : MonoBehaviour
 		previousFace.SetRendered(false);
 	}
 
-	public Vector3Int	GetRotationAxisFromInput(Vector3Int input)
+	public Quaternion	GetRotationFromInput(Vector3Int input)
 	{
 		if (!VectorUtils.IsAxis(input))
-			return (Vector3Int.zero);
+			return (Quaternion.identity);
 		Vector3Int	rotationAxis;
 		if (input.z != 0)
 			rotationAxis = Vector3Int.back * input.z;
@@ -85,24 +82,18 @@ public class RotationManager : MonoBehaviour
 			rotationAxis = Vector3Int.left * input.y;
 		else
 			rotationAxis = Vector3Int.up * input.x;
-		return (rotationAxis);
+		return (Quaternion.AngleAxis(90, rotationAxis));
 	}
 	
 	public Face	Rotate(Vector3Int input)
 	{
-		Vector3Int	rotationAxis = GetRotationAxisFromInput(input);
-		if (rotationAxis == Vector3Int.zero)
+		Quaternion	rotation = GetRotationFromInput(input);
+		if (rotation == Quaternion.identity)
 			return (null);
-		if (!(_rotationAxis == Vector3Int.zero
-			|| _rotationAxis == rotationAxis
-			|| _rotationAxis == -rotationAxis))
-			return (null);
-		Quaternion	rotation = Quaternion.AngleAxis(90, rotationAxis);
 		Face		newFace = _cube.GetFace(Quaternion.Inverse(rotation) * _currentFace.transform.forward);
 		if (newFace == null)
 			return (null);
 		_globalRotation = rotation * _globalRotation;
-		_rotationAxis = rotationAxis;
 		if (newFace == _currentFace)
 			_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_faceRotationDuration));
 		else
