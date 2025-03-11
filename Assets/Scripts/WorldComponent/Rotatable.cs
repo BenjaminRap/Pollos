@@ -19,9 +19,6 @@ public class Rotatable : MonoBehaviour
 	private Rigidbody		_rigidbody;
 	private bool			_isFroze;
 	private Vector3			_velocityAtFreeze;
-	
-	public bool				IsFroze { get => _isFroze; }
-	public Vector3			VelocityAtFreeze { get => _velocityAtFreeze; }
 
 	private void	Start()
 	{
@@ -74,5 +71,12 @@ public class Rotatable : MonoBehaviour
 		}
 		if (_rigidbody.useGravity != useGravity)
 			_rigidbody.useGravity = useGravity;	
+	}
+
+	public Vector3	GetVelocityBeforeFreeze()
+	{
+		if (_isFroze)
+			return (_velocityAtFreeze);
+		return (_rigidbody.linearVelocity);
 	}
 }

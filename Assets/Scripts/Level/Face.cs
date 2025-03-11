@@ -25,7 +25,7 @@ public class Face : MonoBehaviour
 		if (!other.TryGetComponent(out Rotatable rotatable))
 			return ;
 		Rigidbody		rigidbody = other.attachedRigidbody;
-		Vector3			normalizedVelocity = rotatable.IsFroze ? rotatable.VelocityAtFreeze.normalized : rigidbody.linearVelocity.normalized ;
+		Vector3			normalizedVelocity = rotatable.GetVelocityBeforeFreeze().normalized;
 		Vector3Int		direction = Vector3Int.RoundToInt(normalizedVelocity);
 		if (other.TryGetComponent(out PollosController _)
 			&& Vector3Int.RoundToInt(other.transform.forward) == Vector3Int.forward)
