@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>This class allows a GameObject with a rigidbody to freeze and unfreeze, not
@@ -22,6 +21,7 @@ public class Rotatable : MonoBehaviour
 	private Vector3			_velocityAtFreeze;
 	
 	public bool				IsFroze { get => _isFroze; }
+	public Vector3			VelocityAtFreeze { get => _velocityAtFreeze; }
 
 	private void	Start()
 	{

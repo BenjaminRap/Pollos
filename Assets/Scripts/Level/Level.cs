@@ -39,8 +39,7 @@ public class Level : MonoBehaviour
 	
 	public void			Rotate(Vector3Int	axis)
 	{
-		LevelRotation	levelRotation = _rotationManager.CanRotate(axis);
-		Face			newFace = _rotationManager.Rotate(levelRotation);
+		Face			newFace = _rotationManager.Rotate(axis);
 		if (newFace == null)
 			return ;
 		_stormManager.ComeCloser();

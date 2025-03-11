@@ -512,6 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentFace: {fileID: 1744138845250648594}
   _faceRotationDuration: 0.2
+  _cubeRotationDuration: 0.4
   _rotatableChild: {fileID: 3909547111023414187}
   _onRotateEvents:
     m_PersistentCalls:
@@ -540,12 +541,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfe8baa950c9ed47b00c7f10ab5e15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upFace: {fileID: 6106329401290962387}
-  _downFace: {fileID: 2624995363205367600}
-  _rightFace: {fileID: 0}
-  _leftFace: {fileID: 8962358447280058091}
-  _forwardFace: {fileID: 1744138845250648594}
-  _backFace: {fileID: 3506407680724640220}
+  _faces:
+  - {fileID: 3506407680724640220}
+  - {fileID: 4500926117116258952}
+  - {fileID: 1744138845250648594}
+  - {fileID: 8962358447280058091}
+  - {fileID: 6106329401290962387}
+  - {fileID: 2624995363205367600}
 --- !u!1 &2173398627926376215
 GameObject:
   m_ObjectHideFlags: 0
