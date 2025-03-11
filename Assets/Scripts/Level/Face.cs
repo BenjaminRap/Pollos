@@ -44,7 +44,6 @@ public class Face : MonoBehaviour
 			if (newFace == null)
 				return ;
 			newFace.SetParentToRigidbody(rigidbody);
-			other.transform.localRotation = Quaternion.identity;
 			Vector3	newPosition = rotatable.GetNearestGridCell(newFace.GetRelativeDirectionToClosestPointOnBounds(other.transform));
 			if (!RigidbodyUtils.CanRigidbodyMoveTo(rigidbody, newPosition))
 				Debug.Log("It has been teleported but has collided !");
@@ -66,7 +65,8 @@ public class Face : MonoBehaviour
 		rigidbody.excludeLayers = ~(1 << gameObject.layer);
 		rigidbody.transform.SetParent(transform);
 		rigidbody.transform.localPosition = TransformUtils.SetZ(rigidbody.transform.localPosition, 0.0f);
-		rigidbody.transform.gameObject.layer = gameObject.layer;
+		rigidbody.gameObject.layer = gameObject.layer;
+		rigidbody.transform.localRotation = Quaternion.identity;
 	}
 
 	public Vector3	GetRelativeDirectionToClosestPointOnBounds(Transform obj)

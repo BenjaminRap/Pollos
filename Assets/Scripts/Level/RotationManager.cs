@@ -99,6 +99,6 @@ public class RotationManager : MonoBehaviour
 		else
 			_rotateCoroutine = StartCoroutine(RotateCubeToRotationGoal(newFace, _cubeRotationDuration));
 		_onRotateEvents.Invoke();
-		return newFace;
+		return (newFace);
 	}
 }
