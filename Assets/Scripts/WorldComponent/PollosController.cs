@@ -5,7 +5,7 @@ using UnityEngine;
 public class PollosController : MonoBehaviour
 {
 	private static PollosController	_instance;
-	private Quaternion				_rotation;
+	private Rigidbody				_rigidbody;
 	
 
 	[SerializeField] private Animator	_animPollos = null;
@@ -20,13 +20,16 @@ public class PollosController : MonoBehaviour
 		}
 		_instance = this;
 		_animPollos = GetComponent<Animator>();
-		_rotation = Quaternion.LookRotation(Vector3.back, Vector3.up);
+		_rigidbody = GetComponent<Rigidbody>();
 	}
 
     private void Update()
     {
-		if (transform.rotation != _rotation)
-        	transform.rotation = _rotation;
+		if (_rigidbody.useGravity == false)
+			return ;
+		Quaternion	rotation = Quaternion.LookRotation(transform.parent.forward, Vector3.up);
+		if (transform.rotation != rotation)
+			transform.rotation = rotation;
     }
 
     public static bool	TryGetInstance(out PollosController characterControler)
