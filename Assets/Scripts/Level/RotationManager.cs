@@ -71,23 +71,23 @@ public class RotationManager : MonoBehaviour
 		previousFace.SetRendered(false);
 	}
 
-	public Quaternion	GetRotationFromInput(Vector3Int input)
+	public Quaternion	GetRotationFromInput(Vector3Int direction)
 	{
-		if (!VectorUtils.IsAxis(input))
+		if (!VectorUtils.IsAxis(direction))
 			return (Quaternion.identity);
 		Vector3Int	rotationAxis;
-		if (input.z != 0)
-			rotationAxis = Vector3Int.back * input.z;
-		else if (input.y != 0)
-			rotationAxis = Vector3Int.left * input.y;
+		if (direction.z != 0)
+			rotationAxis = Vector3Int.back * direction.z;
+		else if (direction.y != 0)
+			rotationAxis = Vector3Int.left * direction.y;
 		else
-			rotationAxis = Vector3Int.up * input.x;
+			rotationAxis = Vector3Int.up * direction.x;
 		return (Quaternion.AngleAxis(90, rotationAxis));
 	}
 	
-	public Face	Rotate(Vector3Int input)
+	public Face	Rotate(Vector3Int direction)
 	{
-		Quaternion	rotation = GetRotationFromInput(input);
+		Quaternion	rotation = GetRotationFromInput(direction);
 		if (rotation == Quaternion.identity)
 			return (null);
 		Face		newFace = _cube.GetFace(Quaternion.Inverse(rotation) * _currentFace.transform.forward);
