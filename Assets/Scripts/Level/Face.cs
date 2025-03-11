@@ -3,15 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Face : MonoBehaviour
 {
-	[SerializeField]
-	private GameObject			_upArrow;
-	[SerializeField]
-	private GameObject			_downArrow;
-	[SerializeField]
-	private GameObject			_rightArrow;
-	[SerializeField]
-	private GameObject			_leftArrow;
-	
 	private RotationManager		_rotationManager;
 	private Collider			_collider;
 
@@ -27,15 +18,6 @@ public class Face : MonoBehaviour
 		}
 		_collider = GetComponent<Collider>();
 		SetRendered(transform.rotation == Quaternion.identity);
-		ShowPossibleRotations(cube);
-	}
-
-	private void	ShowPossibleRotations(Cube cube)
-	{
-		_upArrow.SetActive(cube.GetFace(-transform.up) != null);
-		_downArrow.SetActive(cube.GetFace(transform.up) != null);
-		_rightArrow.SetActive(cube.GetFace(-transform.right) != null);
-		_leftArrow.SetActive(cube.GetFace(transform.right) != null);
 	}
 
 	private void OnTriggerExit(Collider other)
