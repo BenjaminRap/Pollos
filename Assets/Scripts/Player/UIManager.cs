@@ -4,19 +4,20 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-	[SerializeField] private GameObject _playButton = null;
-	[SerializeField] private GameObject _quitButton = null;
-	[SerializeField] private GameObject _creditButton = null;
-	[SerializeField] private GameObject _uiCredit= null;
-	[SerializeField] private GameObject _cancelImage = null;
-	[SerializeField] private Animator _animatorFade= null;
-	[SerializeField] private Animator _animatorPlay= null;
+    private static readonly WaitForSeconds _waitForSeconds8 = new (8);
+
+    [SerializeField] private GameObject _playButton;
+	[SerializeField] private GameObject _quitButton;
+	[SerializeField] private GameObject _creditButton;
+	[SerializeField] private GameObject _uiCredit;
+	[SerializeField] private GameObject _cancelImage;
+	[SerializeField] private Animator _animatorFade;
+	[SerializeField] private Animator _animatorPlay;
 
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		DontDestroyOnLoad(this._animatorFade.transform.parent);
+		DontDestroyOnLoad(_animatorFade.transform.parent);
 	}
 
 	public void OnCreditClic()
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
 		_quitButton.SetActive(false);
 		_creditButton.SetActive(false);
 	}
+
 	public void OnExitCreditClic()
 	{
 		//_uiCredit.SetActive(false);
@@ -33,22 +35,26 @@ public class UIManager : MonoBehaviour
 		//_quitButton.SetActive(true);
 		//_creditButton.SetActive(true);
 	}
+
 	public IEnumerator PlayGameCoroutine()
 	{
 		_animatorPlay.SetBool("PlayClick",true);
 		_cancelImage.SetActive(true);
-		yield return new WaitForSeconds(8);
+		yield return _waitForSeconds8;
 		SceneManager.LoadSceneAsync("InGame");
 	}
+
 	public void ExitGame()
 	{
 		Application.Quit();
 	}
+
 	public void OnClic()
 	{
 		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("Clic", gameObject.transform.position, 2);
 	}
+
 	public void PlayGame()
 	{
 		StartCoroutine(PlayGameCoroutine());

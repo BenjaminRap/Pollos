@@ -3,32 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>A temporary class that is used to serialized a dictionnary in the inspector.</summary>
 [Serializable]
 public class	AudioEffectSerializable
 {
-	[SerializeField]
-	public string		audioName;
-	[SerializeField]
-	public AudioClip[]	clips;
+	[SerializeField] public string	audioName;
+	[SerializeField] public AudioClip[]	clips;
 }
 
-/// <summary>This class is a singleton that manages the temporary sound of a scene.
-/// It can add sounds, associated with an audioName, and destroy the gameObject
-/// after the audio played.</summary>
 public class	AudioManager : MonoBehaviour
 {
-	private static AudioManager				_instance;
+	private static AudioManager	_instance;
 
-	/// <summary>The prefab that will be instanciated when playing a sound.</summary>
-	[SerializeField]
-	private AudioSource						_audioSourcePrefab;
-	/// <summary>The temporary list that will be converted into a dictionnary.</summary>
-	[SerializeField]
-	private AudioEffectSerializable[]		_audioEffectsSerializable;
+	[SerializeField] private AudioSource	_audioSourcePrefab;
+	[SerializeField] private AudioEffectSerializable[]	_audioEffectsSerializable;
 	
-	/// <summary>A dictionnary of audioName (key) and list of AudioClip (value).</summary>
-	private Dictionary<string, AudioClip[]>	_audioEffects = new();
+	private readonly Dictionary<string, AudioClip[]>	_audioEffects = new();
 
 	private void	Start()
 	{
@@ -45,9 +34,6 @@ public class	AudioManager : MonoBehaviour
 		_instance = this;
 	}
 	
-	/// <summary>Get the instance of this singleton if there is one.</summary>
-	/// <param name="audioManager">This variable will be set to the instance value.</param>
-	/// <returns>True if there is an instance, false otherwise.</returns>
 	public static bool	TryGetInstance(out AudioManager audioManager)
 	{
 		audioManager = _instance;
@@ -59,11 +45,6 @@ public class	AudioManager : MonoBehaviour
 		return (true);
 	}
 	
-	/// <summary>Returns a random audioclip that corresponds to the audioName.
-	/// If audioName is invalid or if the list associated to it is empty, print an
-	/// error message and return null.</summary>
-	/// <param name="audioName">The name of the audio, the key of the dictionnary.</param>
-	/// <returns>An Random AudioClip or null</returns>
 	private AudioClip	PickRandomAudio(string audioName)
 	{
 		try
@@ -78,14 +59,12 @@ public class	AudioManager : MonoBehaviour
 			int randomIndex = UnityEngine.Random.Range(0, audioCount - 1);
 			return (audioClips[randomIndex]);
 		}
-		catch (System.Exception)
+		catch (Exception)
 		{
 			return (null);
 		}
 	}
 	
-	/// <summary>Player a random effect associated to audioName at the position audioSourcePoint
-	/// with the volume in parameter.</summary>
 	public void	PlayAudioEffect(string audioName, Vector3 audioSourcePoint, float volume)
 	{
 		AudioClip	audioClip = PickRandomAudio(audioName);

@@ -2,7 +2,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(StormManager))]
 [RequireComponent(typeof(RotationManager))]
-/// <summary>This class manages a level : the storms and the rotation of the level.</summary>
 public class Level : MonoBehaviour
 {
 	private static Level	_instance;
@@ -10,7 +9,7 @@ public class Level : MonoBehaviour
 	private StormManager	_stormManager;
 	private RotationManager	_rotationManager;
 
-	private void		Start()
+	private void	Awake()
 	{
 		if (_instance != null)
 		{
@@ -23,9 +22,6 @@ public class Level : MonoBehaviour
 		_rotationManager = GetComponent<RotationManager>();
 	}
 	
-	/// <summary>Get the instance of this singleton if there is one.</summary>
-	/// <param name="level">This variable will be set to the instance value.</param>
-	/// <returns>True if there is an instance, false otherwise.</returns>
 	public static bool	TryGetInstance(out Level level)
 	{
 		level = _instance;
@@ -37,9 +33,7 @@ public class Level : MonoBehaviour
 		return (true);
 	}
 	
-	/// <summary>Rotate the level.</summary>
-	/// <param name="axisValue">The axis of the input : 1 for right and -1 for left.</param>
-	public void			RotateFace(int axisValue)
+	public void	RotateFace(int axisValue)
 	{
 		if (!PollosController.TryGetInstance(out PollosController characterControler))
 			return ;
@@ -48,7 +42,7 @@ public class Level : MonoBehaviour
 		_rotationManager.RotateFace(axisValue);
 	}
 	
-	public void			RotateCube(Vector2Int axisValue)
+	public void	RotateCube(Vector2Int axisValue)
 	{
 		if (axisValue.x != 0 && axisValue.y != 0)
 			return ;

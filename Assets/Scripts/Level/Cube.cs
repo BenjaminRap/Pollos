@@ -3,22 +3,16 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-	[SerializeField]
-	private Face								_upFace;
-	[SerializeField]
-	private Face								_downFace;
-	[SerializeField]
-	private Face								_rightFace;
-	[SerializeField]
-	private Face								_leftFace;
-	[SerializeField]
-	private Face								_forwardFace;
-	[SerializeField]
-	private Face								_backFace;
+	[SerializeField] private Face	_upFace;
+	[SerializeField] private Face	_downFace;
+	[SerializeField] private Face	_rightFace;
+	[SerializeField] private Face	_leftFace;
+	[SerializeField] private Face	_forwardFace;
+	[SerializeField] private Face	_backFace;
 	
 	private Dictionary<Vector3Int, Face>		_faces;
 	
-	private void Start()
+	private void Awake()
 	{
 		_faces = new()
 		{
@@ -31,7 +25,7 @@ public class Cube : MonoBehaviour
 		};
 	}
 	
-	public Face			GetFace(Quaternion localRotation)
+	public Face	GetFace(Quaternion localRotation)
 	{
 		try
 		{

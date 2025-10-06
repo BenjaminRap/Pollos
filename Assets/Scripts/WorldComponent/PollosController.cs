@@ -6,7 +6,6 @@ public class PollosController : MonoBehaviour
 {
 	private static PollosController	_instance;
 	
-
 	[SerializeField] private Animator	_animPollos = null;
 
 	private void Start()
@@ -36,10 +35,12 @@ public class PollosController : MonoBehaviour
 	{
 		_animPollos.SetBool("BoolIsFlying", false);
 	}
+
 	private void OnCollisionExit(Collision other)
 	{
 		_animPollos.SetBool("BoolIsFlying", true);
 	}
+
 	public void RotateCharacter()
 	{
 		_animPollos.SetTrigger("TriggerRotate");

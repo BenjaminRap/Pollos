@@ -3,35 +3,35 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Face : MonoBehaviour
 {
-	[SerializeField]
-	private GameObject			_upArrow;
-	[SerializeField]
-	private GameObject			_downArrow;
-	[SerializeField]
-	private GameObject			_rightArrow;
-	[SerializeField]
-	private GameObject			_leftArrow;
+	[SerializeField] private GameObject	_upArrow;
+	[SerializeField] private GameObject	_downArrow;
+	[SerializeField] private GameObject	_rightArrow;
+	[SerializeField] private GameObject	_leftArrow;
 	
-	private Transform[]		_childrens;
+	private Transform[]	_childrens;
 	
-	private int					_hiddenLayer;
+	private int	_hiddenLayer;
+
+	private void	Awake()
+	{
+		_childrens = GetComponentsInChildren<Transform>();
+		_hiddenLayer = LayerMask.NameToLayer("Hidden");
+		SetRendered(transform.rotation == Quaternion.identity);
+	}
 
     private void Start()
     {
 		Cube	cube = GetComponentInParent<Cube>();
 		if (cube == null)
 		{
-			Debug.LogError("A gameObject with t face monobehaviour doesn't have a parent with the monobehaviour cube !");
+			Debug.LogError("A gameObject with the face monobehaviour doesn't have a parent with the monobehaviour cube !");
 			Destroy(gameObject);
 			return ;
 		}
-		_childrens = GetComponentsInChildren<Transform>();
-		_hiddenLayer = LayerMask.NameToLayer("Hidden");
-		SetRendered(transform.rotation == Quaternion.identity);
 		ShowPossibleRotations(cube);
     }
 
-	private void	ShowPossibleRotations(Cube cube)
+	private void ShowPossibleRotations(Cube cube)
 	{
 		_upArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.right)) != null);
 		_downArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.right)) != null);
@@ -46,9 +46,4 @@ public class Face : MonoBehaviour
 			child.gameObject.layer = rendered ? 0 : _hiddenLayer;
 		}
 	}
-
-    private void OnTriggerExit(Collider other)
-    {
-		Debug.Log(gameObject);
-    }
 }

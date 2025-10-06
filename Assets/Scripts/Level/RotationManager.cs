@@ -2,35 +2,24 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Cube))]
-/// <summary>This class is a singleton than manages the rotation of the level.
-/// It rotate the parent rotable and freeze the rotables in it.</summary>
 public class RotationManager : MonoBehaviour
 {
 	private static RotationManager	_instance;
 
-	[SerializeField]
-	private Face					_currentFace;
-	
-	/// <summary>The time it takes for the level to rotate, it shouldn't be greater 
-	/// than the rotate animation.</summary>
-	[SerializeField]
-	private float					_rotationDuration = 0.2f;
-	/// <summary>The GameOBject that will be rotated.</summary>
-	[SerializeField]
-	private Transform				_rotatableChild;
+	[SerializeField] private Face	_currentFace;
+	[SerializeField] private float	_rotationDuration = 0.2f;
+	[SerializeField] private Transform	_rotatableChild;
 
-	private Coroutine				_rotateCoroutine;
-	private Quaternion				_globalRotation;
-	private Quaternion				_localRotation;
+	private Coroutine	_rotateCoroutine;
+	private Quaternion	_globalRotation;
+	private Quaternion	_localRotation;
+	private Rotatable[]	_rotatablesObjets;
+	private Cube	_cube;
+	private Vector3Int	_rotationAxis;
+	public Transform	RotatableChild { get => _rotatableChild; }
+	public Quaternion	LocalRotation { get => _localRotation; }
 
-	private Rotatable[]				_rotatablesObjets;
-	private Cube					_cube;
-	private Vector3Int				_rotationAxis;
-	
-	public Transform				RotatableChild { get => _rotatableChild; }
-	public Quaternion				LocalRotation { get => _localRotation; }
-
-    private void Start()
+    private void Awake()
     {
 		if (_instance != null)
 		{
@@ -47,8 +36,6 @@ public class RotationManager : MonoBehaviour
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
 
-	/// <summary>A corotutine that rotates the level and restart the rigidbody's
-	/// simulation after that</summary>
 	private IEnumerator	RotateLevelToRotationGoal(Face newFace)
 	{
 		if (_rotateCoroutine != null)
@@ -67,8 +54,6 @@ public class RotationManager : MonoBehaviour
 		_rotationAxis = Vector3Int.zero;
 	}
 
-	/// <summary>Toggle the freezing state of the rotatables objects, freeze
-	/// means they won't move with forces.</summary>
 	private void	FreezeRotatables()
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)

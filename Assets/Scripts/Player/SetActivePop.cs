@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SetActivePop : MonoBehaviour
 {
-	[SerializeField] private GameObject _fade = null;
+	[SerializeField] private GameObject _fade;
 
 	public void PlayGame()
 	{

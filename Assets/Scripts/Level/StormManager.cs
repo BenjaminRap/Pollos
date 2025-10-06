@@ -1,23 +1,16 @@
 using UnityEngine;
 
-/// <summary>This class is a singleton that manages the storms, it destroy itslef
-/// if there is no storms. It moves the storms and update the storm shader alpha
-/// multiplicator.</summary>
 public class StormManager : MonoBehaviour
 {
 	private static StormManager	_instance;
 
-	/// <summary>The material that has the storm effect</summary>
-	[SerializeField]
-	private Material			_stormEffect;
-	/// <summary>The curve that describe the alpha of the storm effect over time</summary>
-	[SerializeField]
-	private AnimationCurve		_alphaCurve;
+	[SerializeField] private Material	_stormEffect;
+	[SerializeField] private AnimationCurve	_alphaCurve;
 
-	private Storm[]				_storms;
-	private float				_averageStormDistanceAtStart;
+	private Storm[]	_storms;
+	private float	_averageStormDistanceAtStart;
 	
-	private void	Start()
+	private void	Awake()
 	{
 		if (_instance != null)
 		{

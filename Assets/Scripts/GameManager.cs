@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>This class is a singleton that manages the victory and defeat,
-/// by resetting the level or going to the next one. It changes the scene to the
-/// end scene if there is no remaining level.</summary>
 public class GameManager : MonoBehaviour
 {
 	private static GameManager	_instance;
 
-	[SerializeField]
-	private List<GameObject>	_levelsPrefabs;
-	private int					_levelIndex;
-	/// <summary>True if we are transitioning between two levels.</summary>
-	private bool				_inLevelTransition;
-	[SerializeField] 
-	private UIFade 				_uiFade;
+	[SerializeField] private List<GameObject>	_levelsPrefabs;
+	[SerializeField] private UIFade _uiFade;
+
+	private int	_levelIndex;
+	private bool	_inLevelTransition;
 
 	private void	Start()
 	{
@@ -35,9 +30,6 @@ public class GameManager : MonoBehaviour
 		Instantiate(_levelsPrefabs[0]);
 	}
 	
-	/// <summary>Get the instance of this singleton if there is one.</summary>
-	/// <param name="gameManager">This variable will be set to the instance value.</param>
-	/// <returns>True if there is an instance, false otherwise.</returns>
 	public static bool	TryGetInstance(out GameManager gameManager)
 	{
 		gameManager = _instance;
@@ -49,7 +41,6 @@ public class GameManager : MonoBehaviour
 		return (true);
 	}
 	
-	/// <summary>Change the level to those at levelIndex.</summary>
 	private void	SetLevel(int levelIndex)
 	{
 		if (levelIndex >= _levelsPrefabs.Count)
@@ -63,9 +54,6 @@ public class GameManager : MonoBehaviour
 		Instantiate(_levelsPrefabs[_levelIndex]);
 	}
 	
-	/// <summary>Set the transition between two levels and change the level.
-	/// It deactivate the input at start and reactivate it at end.</summary>
-	/// <param name="levelIndex"></param>
 	private IEnumerator	ChangeLevelWithFade(int levelIndex)
 	{
 		if (!InputManager.TryGetInstance(out InputManager inputManager))
@@ -80,8 +68,6 @@ public class GameManager : MonoBehaviour
         _inLevelTransition = false;
     }
 	
-	/// <summary>Change the level to the one at levelIndex after a delay.
-	/// It deactivate the input at start and reactivate it at end.</summary>
 	private IEnumerator	ChangeLevelAfterDelay(float delay, int levelIndex)
 	{
 		if (!InputManager.TryGetInstance(out InputManager inputManager))
@@ -93,7 +79,6 @@ public class GameManager : MonoBehaviour
 		_inLevelTransition = false;
 	}
 	
-	/// <summary>Add a victory sound and set the level to the next</summary>
 	public void	Victory()
 	{
 		if (_inLevelTransition == true)
@@ -111,7 +96,6 @@ public class GameManager : MonoBehaviour
 
 	}
 	
-	/// <summary>Add a defeat sound and reset the level</summary>
 	public void	Defeat()
 	{
 		if (_inLevelTransition == true)
