@@ -45,9 +45,9 @@ public class	AudioManager : MonoBehaviourSingleton<AudioManager>
 
 		if (audioClip == null)
 			return ;
-		if (!Level.TryGetInstance(out Level level))
+		if (!Cube.TryGetInstance(out Cube cube))
 			return ;
-		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, level.GetRotatableChild());
+		AudioSource	audioSource = Instantiate(_audioSourcePrefab, audioSourcePoint, Quaternion.identity, cube.transform);
 		
 		audioSource.clip = audioClip;
 		audioSource.volume = volume;

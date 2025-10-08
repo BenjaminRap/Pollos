@@ -17,9 +17,9 @@ public class Events : MonoBehaviourSingleton<Events>
 	
 	private static void	InstantiateTemporaryEffect(Effect effect, Transform transform)
 	{
-		if (!Level.TryGetInstance(out Level level))
+		if (!Cube.TryGetInstance(out Cube cube))
 			return ;
-		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, level.GetRotatableChild());
+		GameObject	instance = Instantiate(effect.Prefab, transform.position, transform.rotation, cube.transform);
 		Destroy(instance, effect.Duration);
 	}
 

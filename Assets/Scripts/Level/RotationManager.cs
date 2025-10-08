@@ -6,7 +6,6 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 {
 	[SerializeField] private Face	_currentFace;
 	[SerializeField] private float	_rotationDuration = 0.2f;
-	[SerializeField] private Transform	_rotatableChild;
 
 	private Coroutine	_rotateCoroutine;
 	private Quaternion	_globalRotation;
@@ -14,8 +13,6 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 	private Rotatable[]	_rotatablesObjets;
 	private Cube	_cube;
 	private Vector3Int	_rotationAxis;
-	public Transform	RotatableChild { get => _rotatableChild; }
-	public Quaternion	LocalRotation { get => _localRotation; }
 
     protected override void Awake()
     {
@@ -34,7 +31,7 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 		FreezeRotatables();
 		if (newFace != _currentFace)
 			newFace.SetRendered(true);
-		yield return TransformUtils.RotateInTime(_rotatableChild, _globalRotation, _rotationDuration);
+		yield return TransformUtils.RotateInTime(transform, _globalRotation, _rotationDuration);
 		UnfreezeRotatables();
 		if (newFace != _currentFace)
 		{

@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(StormManager))]
-[RequireComponent(typeof(RotationManager))]
 public class Level : MonoBehaviourSingleton<Level>
 {
 	private StormManager	_stormManager;
@@ -11,7 +10,11 @@ public class Level : MonoBehaviourSingleton<Level>
 	{
 		base.Awake();
 		_stormManager = GetComponent<StormManager>();
-		_rotationManager = GetComponent<RotationManager>();
+	}
+
+	private void	Start()
+	{
+		RotationManager.TryGetInstance(out _rotationManager);
 	}
 	
 	public void	RotateFace(int axisValue)
@@ -31,10 +34,5 @@ public class Level : MonoBehaviourSingleton<Level>
 			return ;
 		characterControler.RotateCharacter();
 		_rotationManager.RotateCube(axisValue);
-	}
-	
-	public Transform	GetRotatableChild()
-	{
-		return (_rotationManager.RotatableChild);
 	}
 }
