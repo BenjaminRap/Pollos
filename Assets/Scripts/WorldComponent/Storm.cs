@@ -6,7 +6,7 @@ public class Storm : MonoBehaviour
 	[SerializeField] private uint	_stepCount = 5;
 	[SerializeField] private float	_moveDuration = 0.3f;
 	
-	private Coroutine	_moveCoroutine;
+	private CoroutineHandler	_moveCoroutine;
 	private Vector3	_goalPosition;
 	private Vector3	_move;
 	
@@ -17,14 +17,13 @@ public class Storm : MonoBehaviour
 		_goalPosition = transform.position;
 		Vector3	direction = level.transform.position - transform.position;
 		_move = direction / _stepCount;
+		_moveCoroutine = new(this);
 	}
 
 	public void	ComeCloser()
 	{
 		_goalPosition += _move;
-		if (_moveCoroutine != null)
-			StopCoroutine(_moveCoroutine);
-		_moveCoroutine = StartCoroutine(TransformUtils.LocalMoveInTime(transform, _goalPosition, _moveDuration));
+		_moveCoroutine.Start(TransformUtils.LocalMoveInTime(transform, _goalPosition, _moveDuration), true);
 	}
 	
 	private void	OnTriggerEnter(Collider collider)

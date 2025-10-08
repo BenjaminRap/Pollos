@@ -6,18 +6,19 @@ public class Rotatable : MonoBehaviour
 {
 	[SerializeField]
 	[Range(0.0f, 0.25f)]
-	private float			_adjustmentLength;
+	private float	_adjustmentLength;
 
-	private const float		_velocityMultiplicatorAtRotation = 0.4f;
-	private Rigidbody		_rigidbody;
-	private bool			_isFroze;
-	private Vector3			_velocityAtFreeze;
-	private Coroutine		_placeInGridCoroutine;
+	private const float	_velocityMultiplicatorAtRotation = 0.4f;
+	private Rigidbody	_rigidbody;
+	private bool	_isFroze;
+	private Vector3	_velocityAtFreeze;
+	private CoroutineHandler	_placeInGridCoroutine;
 	
-	public bool				IsFroze { get => _isFroze; }
+	public bool	IsFroze { get => _isFroze; }
 
-	private void	Start()
+	private void	Awake()
 	{
+		_placeInGridCoroutine = new(this);
 		_rigidbody = GetComponent<Rigidbody>();
 		_isFroze = false;
 		_velocityAtFreeze = Vector3.zero;
@@ -41,7 +42,6 @@ public class Rotatable : MonoBehaviour
 		float	movementDuration = Mathf.Min(rotationDuration, distance / speed);
 		
 		yield return TransformUtils.LocalMoveInTime(transform, newPosition, movementDuration);
-		_placeInGridCoroutine = null;
 	}
 	
 	public void	Freeze(float rotationDuration)
@@ -51,7 +51,7 @@ public class Rotatable : MonoBehaviour
 		_isFroze = true;
 		_velocityAtFreeze = _rigidbody.linearVelocity;
 		_rigidbody.isKinematic = true;
-		_placeInGridCoroutine ??= StartCoroutine(MoveToNearestGridCell(rotationDuration));
+		_placeInGridCoroutine.Start(MoveToNearestGridCell(rotationDuration), false);
 	}
 
 	public void	Unfreeze()

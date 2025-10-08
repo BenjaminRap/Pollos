@@ -6,8 +6,8 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 {
 	[SerializeField] private float	_rotationDuration = 0.2f;
 
+	private CoroutineHandler _rotateCoroutine;
 	private Face	_currentFace;
-	private Coroutine	_rotateCoroutine;
 	private Quaternion	_rotation = Quaternion.identity;
 	private Rotatable[]	_rotatablesObjets;
 	private Cube	_cube;
@@ -18,6 +18,7 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 		base.Awake();
 		_cube = GetComponent<Cube>();
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
+		_rotateCoroutine = new(this);
     }
 
 	private void	Start()
@@ -27,8 +28,6 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 
 	private IEnumerator	RotateLevelToRotationGoal(Face newFace)
 	{
-		if (_rotateCoroutine != null)
-			StopCoroutine(_rotateCoroutine);
 		FreezeRotatables();
 		if (newFace != _currentFace)
 			newFace.SetRendered(true);
@@ -39,7 +38,6 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 			_currentFace.SetRendered(false);
 			_currentFace = newFace;
 		}
-		_rotateCoroutine = null;
 		_rotationAxis = Vector3Int.zero;
 	}
 
@@ -66,7 +64,7 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 		_rotationAxis = Vector3Int.forward;
 		Quaternion	rotation = Quaternion.AngleAxis(-axisValue * 90, Vector3.forward);
 		_rotation = rotation * _rotation;
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(_currentFace));
+		_rotateCoroutine.Start(RotateLevelToRotationGoal(_currentFace), true);
 	}
 	
 	public void	RotateCube(Vector2Int value)
@@ -82,6 +80,6 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 			return ;
 		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
 		_rotation = newGlobalRotation;
-		_rotateCoroutine = StartCoroutine(RotateLevelToRotationGoal(newFace));
+		_rotateCoroutine.Start(RotateLevelToRotationGoal(newFace), true);
 	}
 }
