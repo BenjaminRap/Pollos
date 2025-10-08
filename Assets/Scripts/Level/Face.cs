@@ -28,10 +28,17 @@ public class Face : MonoBehaviour
 	{
 		if (!Cube.TryGetInstance(out Cube cube))
 			return ;
-		_upArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.right)) != null);
-		_downArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.right)) != null);
-		_rightArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.up)) != null);
-		_leftArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.up)) != null);
+		_upArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(-90, Vector3.right), cube));
+		_downArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(90, Vector3.right), cube));
+		_rightArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(-90, Vector3.up), cube));
+		_leftArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(90, Vector3.up), cube));
+	}
+
+	private bool IsRotationPossible(Quaternion localRotation, Cube cube)
+	{
+		Quaternion globalRotation = transform.rotation * localRotation;
+
+		return (cube.TryGetFace(globalRotation, out Face _));
 	}
 	
 	public void	SetRendered(bool rendered)

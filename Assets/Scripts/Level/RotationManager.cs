@@ -26,7 +26,7 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 
 	private void	Start()
 	{
-		_currentFace = _cube.GetFace(Quaternion.identity);
+		_cube.TryGetFace(Quaternion.identity, out _currentFace);
 		Debug.Log(_currentFace.name);
 	}
 
@@ -79,14 +79,12 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 	{
 		if (_rotationAxis != Vector3Int.zero)
 			return ;
-		Quaternion	rotation;
-		if (value.y != 0)
-			rotation = Quaternion.AngleAxis(-value.y * 90, Vector3.right);
-		else
-			rotation = Quaternion.AngleAxis(value.x * 90, Vector3.up);
+		Quaternion	rotation = (value.y != 0)
+			? Quaternion.AngleAxis(-value.y * 90, Vector3.right)
+			: Quaternion.AngleAxis(value.x * 90, Vector3.up);
 		Quaternion	newLocalRotation = _localRotation * Quaternion.Inverse(rotation);
-		Face		newFace = _cube.GetFace(newLocalRotation);
-		if (newFace == null)
+
+		if (!_cube.TryGetFace(newLocalRotation, out Face newFace))
 			return ;
 		_rotationAxis = (value.y != 0) ? Vector3Int.right : Vector3Int.up;
 		_localRotation = newLocalRotation;

@@ -18,12 +18,12 @@ public class Cube : MonoBehaviourSingleton<Cube>
 		}
 	}
 	
-	public Face	GetFace(Quaternion localRotation)
+	public bool	TryGetFace(Quaternion localRotation, out Face face)
 	{
 		Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * Vector3.back);
 
-		if (_faces.TryGetValue(frontFaceDirection, out Face frontFace))
-			return (frontFace);
-		return null;
+		if (_faces.TryGetValue(frontFaceDirection, out face))
+			return (true);
+		return false;
 	}
 }
