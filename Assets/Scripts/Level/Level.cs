@@ -2,35 +2,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(StormManager))]
 [RequireComponent(typeof(RotationManager))]
-public class Level : MonoBehaviour
+public class Level : MonoBehaviourSingleton<Level>
 {
-	private static Level	_instance;
-	
 	private StormManager	_stormManager;
 	private RotationManager	_rotationManager;
 
-	private void	Awake()
+	protected override void	Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instance of the level class !");
-			Destroy(this);
-			return ;
-		}
-		_instance = this;
+		base.Awake();
 		_stormManager = GetComponent<StormManager>();
 		_rotationManager = GetComponent<RotationManager>();
-	}
-	
-	public static bool	TryGetInstance(out Level level)
-	{
-		level = _instance;
-		if (_instance == null)
-		{
-			Debug.LogError("The class Level has no instance !");
-			return (false);
-		}
-		return (true);
 	}
 	
 	public void	RotateFace(int axisValue)

@@ -2,33 +2,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-public class PollosController : MonoBehaviour
+public class PollosController : MonoBehaviourSingleton<PollosController>
 {
-	private static PollosController	_instance;
-	
-	[SerializeField] private Animator	_animPollos = null;
+	[SerializeField] private Animator	_animPollos;
 
-	private void Start()
+	protected override void Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the PollosController class");
-			Destroy(gameObject);
-			return ;
-		}
-		_instance = this;
+		base.Awake();
 		_animPollos = GetComponent<Animator>();
-	}
-	
-	public static bool	TryGetInstance(out PollosController characterControler)
-	{
-		characterControler = _instance;
-		if (_instance == null)
-		{
-			Debug.LogError("PollosController has no instance !");
-			return (false);
-		}
-		return (true);
 	}
 
 	private void OnCollisionEnter(Collision other)

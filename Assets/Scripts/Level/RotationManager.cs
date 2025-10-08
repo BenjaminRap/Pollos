@@ -2,10 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Cube))]
-public class RotationManager : MonoBehaviour
+public class RotationManager : MonoBehaviourSingleton<RotationManager>
 {
-	private static RotationManager	_instance;
-
 	[SerializeField] private Face	_currentFace;
 	[SerializeField] private float	_rotationDuration = 0.2f;
 	[SerializeField] private Transform	_rotatableChild;
@@ -19,16 +17,9 @@ public class RotationManager : MonoBehaviour
 	public Transform	RotatableChild { get => _rotatableChild; }
 	public Quaternion	LocalRotation { get => _localRotation; }
 
-    private void Awake()
+    protected override void Awake()
     {
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the RotationManager class !");
-			Destroy(gameObject);
-			return ;
-		}
-		_instance = this;
-
+		base.Awake();
 		_rotationAxis = Vector3Int.zero;
 		_cube = GetComponent<Cube>();
         _globalRotation = Quaternion.identity;

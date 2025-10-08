@@ -21,18 +21,13 @@ public class Face : MonoBehaviour
 
     private void Start()
     {
-		Cube	cube = GetComponentInParent<Cube>();
-		if (cube == null)
-		{
-			Debug.LogError("A gameObject with the face monobehaviour doesn't have a parent with the monobehaviour cube !");
-			Destroy(gameObject);
-			return ;
-		}
-		ShowPossibleRotations(cube);
+		ShowPossibleRotations();
     }
 
-	private void ShowPossibleRotations(Cube cube)
+	private void ShowPossibleRotations()
 	{
+		if (!Cube.TryGetInstance(out Cube cube))
+			return ;
 		_upArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.right)) != null);
 		_downArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(90, Vector3.right)) != null);
 		_rightArrow.SetActive(cube.GetFace(transform.rotation * Quaternion.AngleAxis(-90, Vector3.up)) != null);

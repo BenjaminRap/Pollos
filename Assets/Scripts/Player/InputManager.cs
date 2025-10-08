@@ -1,42 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviourSingleton<InputManager>
 {
-	private static InputManager _instance;
-	
 	[SerializeField] private GameObject	_ui;
 
 	private PlayerController.WorldActions	_worldActions;
 
-	private void	Awake()
+	protected override void	Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the Inputmanager class !");
-			Destroy(gameObject);
-			return ;
-		}
+		base.Awake();
 		PlayerController playerController = new();
 		_worldActions = playerController.World;
-
 		_worldActions.Enable();
 		_worldActions.rotateFace.performed += RotateFace;
 		_worldActions.rotateCube.performed += RotateCube;
 		_worldActions.resetLevel.performed += ResetLevel;
 		_worldActions.menu.performed += OpenMenu;
-		_instance = this;
-	}
-	
-	public static bool	TryGetInstance(out InputManager inputManager)
-	{
-		inputManager = _instance;
-		if (_instance == null)
-		{
-			Debug.LogError("The InputManager class has no instance !");
-			return (false);
-		}
-		return (true);
 	}
 	
 	public void	SetWorldActionsState(bool enabled)

@@ -3,42 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-	private static GameManager	_instance;
-
 	[SerializeField] private List<GameObject>	_levelsPrefabs;
 	[SerializeField] private UIFade _uiFade;
 
 	private int	_levelIndex;
 	private bool	_inLevelTransition;
 
-	private void	Start()
+    protected override void Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the GameManager class");
-			Destroy(gameObject);
-			return ;
-		}
-		_instance = this;
+		base.Awake();
 		if (_levelsPrefabs.Count == 0)
 		{
             Debug.LogWarning("No levels in the GameManager !");
 			return ;
 		}
 		Instantiate(_levelsPrefabs[0]);
-	}
-	
-	public static bool	TryGetInstance(out GameManager gameManager)
-	{
-		gameManager = _instance;
-		if (_instance == null)
-		{
-			Debug.LogError("The GameManager class has no instance !");
-			return (false);
-		}
-		return (true);
 	}
 	
 	private void	SetLevel(int levelIndex)

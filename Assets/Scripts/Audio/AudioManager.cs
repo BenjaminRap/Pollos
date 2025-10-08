@@ -10,59 +10,33 @@ public class	AudioEffectSerializable
 	[SerializeField] public AudioClip[]	clips;
 }
 
-public class	AudioManager : MonoBehaviour
+public class	AudioManager : MonoBehaviourSingleton<AudioManager>
 {
-	private static AudioManager	_instance;
-
 	[SerializeField] private AudioSource	_audioSourcePrefab;
 	[SerializeField] private AudioEffectSerializable[]	_audioEffectsSerializable;
 	
 	private readonly Dictionary<string, AudioClip[]>	_audioEffects = new();
 
-	private void	Start()
+	protected override void	Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the AudioManager class !");
-			Destroy(gameObject);
-			return ;
-		}
+		base.Awake();
 		foreach (AudioEffectSerializable audioEffect in _audioEffectsSerializable)
 		{
 			_audioEffects.Add(audioEffect.audioName, audioEffect.clips);
 		}
-		_instance = this;
-	}
-	
-	public static bool	TryGetInstance(out AudioManager audioManager)
-	{
-		audioManager = _instance;
-		if (_instance == null)
-		{
-			Debug.LogError("The AudioManager class has no instance !");
-			return (false);
-		}
-		return (true);
 	}
 	
 	private AudioClip	PickRandomAudio(string audioName)
 	{
-		try
+		if (!_audioEffects.TryGetValue(audioName, out AudioClip[] audioClips)
+			|| audioClips.Count() == 0)
 		{
-			AudioClip[]	audioClips = _audioEffects[audioName];
-			int audioCount = audioClips.Count();
-			if (audioCount == 0)
-			{
-				Debug.LogError("The sound : " + audioName + " has no clip attached");
-				return (null);
-			}
-			int randomIndex = UnityEngine.Random.Range(0, audioCount - 1);
-			return (audioClips[randomIndex]);
-		}
-		catch (Exception)
-		{
+			Debug.LogError("The sound : " + audioName + " has no clip attached");
 			return (null);
 		}
+		int randomIndex = UnityEngine.Random.Range(0, audioClips.Count() - 1);
+
+		return (audioClips[randomIndex]);
 	}
 	
 	public void	PlayAudioEffect(string audioName, Vector3 audioSourcePoint, float volume)

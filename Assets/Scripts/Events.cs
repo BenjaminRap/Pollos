@@ -10,23 +10,10 @@ public class Effect {
 	public float	Duration { get => _duration; }
 };
 
-public class Events : MonoBehaviour
+public class Events : MonoBehaviourSingleton<Events>
 {
-	private static Events	_instance;
-
 	[SerializeField] private Effect	_smokeEffect;
 	[SerializeField] private Effect	_pollosShockVFX;
-	
-	private void	Start()
-	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the Events class !");
-			Destroy(gameObject);
-			return ;
-		}
-		_instance = this;
-	}
 	
 	private static void	InstantiateTemporaryEffect(Effect effect, Transform transform)
 	{
@@ -38,25 +25,19 @@ public class Events : MonoBehaviour
 
 	public static void	SpawnFallingBoxShockEffect(Transform transform)
 	{
-		if (_instance == null)
-		{
-			Debug.LogError("There is no instance of the Events class but an eventt function has been called !");
-			return;
-		}
+		if (!TryGetInstance(out Events events))
+			return ;
 
-		InstantiateTemporaryEffect(_instance._smokeEffect, transform);
+		InstantiateTemporaryEffect(events._smokeEffect, transform);
 		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("BoxFall", transform.position, 1);
 	}
 	
 	public static void	SpawnPollosShockEffect(Transform transform)
 	{
-		if (_instance == null)
-		{
-			Debug.LogError("There is no instance of the Events class but an event function has been called !");
-			return;
-		}
-		InstantiateTemporaryEffect(_instance._smokeEffect, transform);
-		InstantiateTemporaryEffect(_instance._pollosShockVFX, transform);
+		if (!TryGetInstance(out Events events))
+			return ;
+		InstantiateTemporaryEffect(events._smokeEffect, transform);
+		InstantiateTemporaryEffect(events._pollosShockVFX, transform);
 	}
 }

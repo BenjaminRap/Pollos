@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cube : MonoBehaviour
+public class Cube : MonoBehaviourSingleton<Cube>
 {
 	[SerializeField] private Face	_upFace;
 	[SerializeField] private Face	_downFace;
@@ -12,8 +12,9 @@ public class Cube : MonoBehaviour
 	
 	private Dictionary<Vector3Int, Face>		_faces;
 	
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		_faces = new()
 		{
 			{ Vector3Int.up, _upFace },
@@ -27,15 +28,10 @@ public class Cube : MonoBehaviour
 	
 	public Face	GetFace(Quaternion localRotation)
 	{
-		try
-		{
-			Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * Vector3.back);
-			Face		frontFace = _faces[frontFaceDirection];
+		Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * Vector3.back);
+
+		if (_faces.TryGetValue(frontFaceDirection, out Face frontFace))
 			return (frontFace);
-		}
-		catch (System.Exception)
-		{
-			return (null);
-		}
+		return null;
 	}
 }

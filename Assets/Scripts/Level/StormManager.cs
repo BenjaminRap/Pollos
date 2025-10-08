@@ -1,24 +1,16 @@
 using UnityEngine;
 
-public class StormManager : MonoBehaviour
+public class StormManager : MonoBehaviourSingleton<StormManager>
 {
-	private static StormManager	_instance;
-
 	[SerializeField] private Material	_stormEffect;
 	[SerializeField] private AnimationCurve	_alphaCurve;
 
 	private Storm[]	_storms;
 	private float	_averageStormDistanceAtStart;
 	
-	private void	Awake()
+	protected override void	Awake()
 	{
-		if (_instance != null)
-		{
-			Debug.LogError("Multiples instances of the StormManager class !");
-			Destroy(gameObject);
-			return ;
-		}
-		_instance = this;
+		base.Awake();
 		_storms = GetComponentsInChildren<Storm>();
 		if (_storms.Length == 0)
 		{
