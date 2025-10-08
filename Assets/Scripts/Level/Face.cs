@@ -28,14 +28,15 @@ public class Face : MonoBehaviour
 	{
 		if (!Cube.TryGetInstance(out Cube cube))
 			return ;
-		_upArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(-90, Vector3.right), cube));
-		_downArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(90, Vector3.right), cube));
-		_rightArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(-90, Vector3.up), cube));
-		_leftArrow.SetActive(IsRotationPossible(transform.rotation * Quaternion.AngleAxis(90, Vector3.up), cube));
+		_upArrow.SetActive(IsRotationPossible(Vector3.left, cube));
+		_downArrow.SetActive(IsRotationPossible(Vector3.right, cube));
+		_rightArrow.SetActive(IsRotationPossible(Vector3.down, cube));
+		_leftArrow.SetActive(IsRotationPossible(Vector3.up, cube));
 	}
 
-	private bool IsRotationPossible(Quaternion localRotation, Cube cube)
+	private bool IsRotationPossible(Vector3 axis, Cube cube)
 	{
+		Quaternion localRotation = Quaternion.AngleAxis(90f, axis);
 		Quaternion globalRotation = transform.rotation * localRotation;
 
 		return (cube.TryGetFace(globalRotation, out Face _));
