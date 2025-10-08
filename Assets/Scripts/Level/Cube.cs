@@ -12,10 +12,6 @@ public class Cube : MonoBehaviourSingleton<Cube>
 		Face[] _facesList = GetComponentsInChildren<Face>();
 
 		_faces = _facesList.ToDictionary(face => Vector3Int.RoundToInt(-face.transform.forward));
-		foreach (KeyValuePair<Vector3Int, Face> keyValuePair in _faces)
-		{
-			Debug.Log(keyValuePair.Key + ", " + keyValuePair.Value);
-		}
 	}
 	
 	public bool	TryGetFace(Quaternion localRotation, out Face face)
