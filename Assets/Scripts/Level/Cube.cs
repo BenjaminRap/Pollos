@@ -1,29 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Cube : MonoBehaviourSingleton<Cube>
 {
-	[SerializeField] private Face	_upFace;
-	[SerializeField] private Face	_downFace;
-	[SerializeField] private Face	_rightFace;
-	[SerializeField] private Face	_leftFace;
-	[SerializeField] private Face	_forwardFace;
-	[SerializeField] private Face	_backFace;
-	
-	private Dictionary<Vector3Int, Face>		_faces;
+	private Dictionary<Vector3Int, Face>	_faces;
 	
 	protected override void Awake()
 	{
 		base.Awake();
-		_faces = new()
+		Face[] _facesList = GetComponentsInChildren<Face>();
+
+		_faces = _facesList.ToDictionary(face => Vector3Int.RoundToInt(-face.transform.forward));
+		foreach (KeyValuePair<Vector3Int, Face> keyValuePair in _faces)
 		{
-			{ Vector3Int.up, _upFace },
-			{ Vector3Int.down, _downFace },
-			{ Vector3Int.right, _rightFace },
-			{ Vector3Int.left, _leftFace },
-			{ Vector3Int.forward, _forwardFace },
-			{ Vector3Int.back, _backFace }
-		};
+			Debug.Log(keyValuePair.Key + ", " + keyValuePair.Value);
+		}
 	}
 	
 	public Face	GetFace(Quaternion localRotation)

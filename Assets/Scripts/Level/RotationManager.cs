@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Cube))]
 public class RotationManager : MonoBehaviourSingleton<RotationManager>
 {
-	[SerializeField] private Face	_currentFace;
 	[SerializeField] private float	_rotationDuration = 0.2f;
 
+	private Face	_currentFace;
 	private Coroutine	_rotateCoroutine;
 	private Quaternion	_globalRotation;
 	private Quaternion	_localRotation;
@@ -23,6 +23,12 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 		_localRotation = Quaternion.identity;
 		_rotatablesObjets = GetComponentsInChildren<Rotatable>();
     }
+
+	private void	Start()
+	{
+		_currentFace = _cube.GetFace(Quaternion.identity);
+		Debug.Log(_currentFace.name);
+	}
 
 	private IEnumerator	RotateLevelToRotationGoal(Face newFace)
 	{
