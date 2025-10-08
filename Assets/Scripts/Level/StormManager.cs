@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class StormManager : MonoBehaviourSingleton<StormManager>
@@ -25,6 +26,7 @@ public class StormManager : MonoBehaviourSingleton<StormManager>
 	{
 		float	progression = Mathf.InverseLerp(_averageStormDistanceAtStart, 0, GetAverageStormDistance());
 		float	alpha = _alphaCurve.Evaluate(progression);
+
 		_stormEffect.SetFloat("_alphaMultiplicator", alpha);
 	}
 	
@@ -35,21 +37,15 @@ public class StormManager : MonoBehaviourSingleton<StormManager>
 
 	private float	GetAverageStormDistance()
 	{
-		float	averageStormDistance = 0.0f;
+		float distanceSum = _storms.Aggregate(0f, (sum, storm) => sum + Vector3.Distance(storm.transform.position, transform.position));
+		float average = distanceSum / _storms.Length;
 
-		foreach (Storm storm in _storms)
-		{
-			averageStormDistance += Vector3.Distance(storm.transform.position, transform.position);
-		}
-		averageStormDistance /= _storms.Length;
-		return (averageStormDistance);
+		return (average);
 	}
 	
 	public void	ComeCloser()
 	{
 		foreach (Storm storm in _storms)
-		{
 			storm.ComeCloser();
-		}
 	}
 }
