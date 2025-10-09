@@ -1,0 +1,120 @@
+# .editorconfig — conventions de code C# (Unity)
+root = true
+
+[*.cs]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = tab
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+
+# --- STYLE DES ACCOLADES ---
+csharp_new_line_before_open_brace = none:method,property,accessor,control_block,type,anonymous_method
+
+# --- ESPACES ---
+csharp_space_around_binary_operators = before_and_after
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_comma = true
+csharp_space_before_comma = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+
+# --- USING ---
+dotnet_remove_unnecessary_usings = true
+dotnet_sort_system_directives_first = true
+csharp_sort_usings = true
+
+# --- ACCESSIBILITÉ & VISIBILITÉ ---
+dotnet_style_require_accessibility_modifiers = always:suggestion
+
+# --- NOMMAGE ---
+# Classes : UpperCamelCase
+dotnet_naming_rule.classes_should_be_upper_camel_case.symbols = classes
+dotnet_naming_rule.classes_should_be_upper_camel_case.style = upper_camel_case
+dotnet_naming_rule.classes_should_be_upper_camel_case.severity = warning
+
+dotnet_naming_symbols.classes.applicable_kinds = class
+dotnet_naming_style.upper_camel_case.capitalization = pascal_case
+
+# Abstract classes : A + UpperCamelCase
+dotnet_naming_rule.abstract_classes_should_start_with_a.symbols = abstract_classes
+dotnet_naming_rule.abstract_classes_should_start_with_a.style = abstract_prefix_a
+dotnet_naming_rule.abstract_classes_should_start_with_a.severity = warning
+
+dotnet_naming_symbols.abstract_classes.applicable_kinds = class
+dotnet_naming_symbols.abstract_classes.required_modifiers = abstract
+dotnet_naming_style.abstract_prefix_a.capitalization = pascal_case
+dotnet_naming_style.abstract_prefix_a.required_prefix = A
+
+# Interfaces : I + UpperCamelCase
+dotnet_naming_rule.interfaces_should_start_with_i.symbols = interfaces
+dotnet_naming_rule.interfaces_should_start_with_i.style = interface_prefix_i
+dotnet_naming_rule.interfaces_should_start_with_i.severity = warning
+
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_style.interface_prefix_i.capitalization = pascal_case
+dotnet_naming_style.interface_prefix_i.required_prefix = I
+
+# Enums : E + UpperCamelCase
+dotnet_naming_rule.enums_should_start_with_e.symbols = enums
+dotnet_naming_rule.enums_should_start_with_e.style = enum_prefix_e
+dotnet_naming_rule.enums_should_start_with_e.severity = warning
+
+dotnet_naming_symbols.enums.applicable_kinds = enum
+dotnet_naming_style.enum_prefix_e.capitalization = pascal_case
+dotnet_naming_style.enum_prefix_e.required_prefix = E
+
+# Valeurs d'enum : MAJUSCULE + underscore
+# Require const fields to be all upper-case
+dotnet_naming_symbols.const_fields.applicable_accessibilities = *
+dotnet_naming_symbols.const_fields.required_modifiers = const
+dotnet_naming_rule.const_fields.symbols = const_fields
+dotnet_naming_rule.const_fields.style = all_upper
+dotnet_naming_rule.const_fields.severity = warning
+dotnet_naming_style.all_upper.capitalization = all_upper
+
+# Méthodes : UpperCamelCase
+dotnet_naming_rule.methods_should_be_upper_camel_case.symbols = methods
+dotnet_naming_rule.methods_should_be_upper_camel_case.style = upper_camel_case
+dotnet_naming_rule.methods_should_be_upper_camel_case.severity = warning
+
+dotnet_naming_symbols.methods.applicable_kinds = method
+
+# Variables : lowerCamelCase
+dotnet_naming_rule.variables_should_be_lower_camel_case.symbols = variables
+dotnet_naming_rule.variables_should_be_lower_camel_case.style = lower_camel_case
+dotnet_naming_rule.variables_should_be_lower_camel_case.severity = suggestion
+
+dotnet_naming_symbols.variables.applicable_kinds = local, parameter
+dotnet_naming_style.lower_camel_case.capitalization = camel_case
+
+# Champs privés : _ + lowerCamelCase, obligatoire
+dotnet_naming_rule.private_fields_should_have_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_should_have_underscore.style = underscore_lower_camel
+dotnet_naming_rule.private_fields_should_have_underscore.severity = warning
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.underscore_lower_camel.capitalization = camel_case
+dotnet_naming_style.underscore_lower_camel.required_prefix = _
+
+# Champs publics : pas de _ en préfixe
+dotnet_naming_rule.public_fields_should_not_have_underscore.symbols = public_fields
+dotnet_naming_rule.public_fields_should_not_have_underscore.style = no_underscore_lower_camel
+dotnet_naming_rule.public_fields_should_not_have_underscore.severity = warning
+
+dotnet_naming_symbols.public_fields.applicable_kinds = field
+dotnet_naming_symbols.public_fields.applicable_accessibilities = public
+
+dotnet_naming_style.no_underscore_lower_camel.capitalization = camel_case
+dotnet_naming_style.no_underscore_lower_camel.required_prefix =
+
+# --- AUTRES STYLES ---
+csharp_prefer_braces = false:suggestion
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
