@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class SetActivePop : MonoBehaviour
-{
+public class SetActivePop : MonoBehaviour {
 	[SerializeField] private GameObject _fade;
 
-	public void PlayGame()
-	{
+	public void PlayGame() {
 		_fade.SetActive(true);
 	}
 }

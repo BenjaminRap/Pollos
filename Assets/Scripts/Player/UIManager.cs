@@ -2,11 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
-{
-    private static readonly WaitForSeconds _waitForSeconds8 = new (8);
+public class UIManager : MonoBehaviour {
+	private static readonly WaitForSeconds _waitForSeconds8 = new(8);
 
-    [SerializeField] private GameObject _playButton;
+	[SerializeField] private GameObject _playButton;
 	[SerializeField] private GameObject _quitButton;
 	[SerializeField] private GameObject _creditButton;
 	[SerializeField] private GameObject _uiCredit;
@@ -15,48 +14,41 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private Animator _animatorPlay;
 
 
-	void Start()
-	{
+	private void Start() {
 		DontDestroyOnLoad(_animatorFade.transform.parent);
 	}
 
-	public void OnCreditClic()
-	{
+	public void OnCreditClic() {
 		_uiCredit.SetActive(true);
 		_playButton.SetActive(false);
 		_quitButton.SetActive(false);
 		_creditButton.SetActive(false);
 	}
 
-	public void OnExitCreditClic()
-	{
+	public void OnExitCreditClic() {
 		//_uiCredit.SetActive(false);
 		//_playButton.SetActive(true);
 		//_quitButton.SetActive(true);
 		//_creditButton.SetActive(true);
 	}
 
-	public IEnumerator PlayGameCoroutine()
-	{
-		_animatorPlay.SetBool("PlayClick",true);
+	public IEnumerator PlayGameCoroutine() {
+		_animatorPlay.SetBool("PlayClick", true);
 		_cancelImage.SetActive(true);
 		yield return _waitForSeconds8;
 		SceneManager.LoadSceneAsync("InGame");
 	}
 
-	public void ExitGame()
-	{
+	public void ExitGame() {
 		Application.Quit();
 	}
 
-	public void OnClic()
-	{
+	public void OnClic() {
 		if (AudioManager.TryGetInstance(out AudioManager audioManager))
 			audioManager.PlayAudioEffect("Clic", gameObject.transform.position, 2);
 	}
 
-	public void PlayGame()
-	{
+	public void PlayGame() {
 		StartCoroutine(PlayGameCoroutine());
 	}
 }

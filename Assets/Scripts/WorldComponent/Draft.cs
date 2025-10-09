@@ -2,68 +2,62 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Draft : MonoBehaviour
-{
-	[SerializeField] private Vector3	_draftDirection;
-	[SerializeField] private float	_draftLength;
-	
-	private Vector3	_draftForce;
+public class Draft : MonoBehaviour {
+	private static readonly WaitForSeconds _waitForSeconds0_5 = new (0.5f);
 
-	private void	Awake()
-	{
+	[SerializeField] private Vector3 _draftDirection;
+	[SerializeField] private float _draftLength;
+
+	private Vector3 _draftForce;
+
+	private void Awake() {
 		_draftForce = _draftDirection.normalized * _draftLength;
 	}
-	
-	private void	OnTriggerEnter(Collider collider)
-	{
+
+	private void OnTriggerEnter(Collider collider) {
 		if (!collider.TryGetComponent(out Rigidbody rigidbody)
 			|| !collider.TryGetComponent(out Rotatable rotatable))
-			return ;
+			return;
 		SetInDraft(rigidbody, true);
 		rigidbody.position -= Vector3.up * 0.1f;
 		collider.transform.localPosition = rotatable.GetNearestGridCell();
 		StartCoroutine(CheckIfIgidbodyMoves(rigidbody));
 	}
 
-	private void	OnTriggerExit(Collider collider)
-	{
+	private void OnTriggerExit(Collider collider) {
 		if (!collider.TryGetComponent(out Rigidbody rigidbody)
 			|| !collider.TryGetComponent(out Rotatable rotatable))
-			return ;
+			return;
 		if (!IsInDraft(rigidbody))
-			return ;
+			return;
 		SetInDraft(rigidbody, false);
 		rigidbody.linearVelocity = Vector2.zero;
 		collider.transform.localPosition = rotatable.GetNearestGridCell();
 	}
 
-	private void	OnTriggerStay(Collider collider)
-	{
+	private void OnTriggerStay(Collider collider) {
 		if (!collider.TryGetComponent(out Rigidbody rigidbody))
-			return ;
+			return;
 		if (!IsInDraft(rigidbody))
-			return ;
+			return;
 		rigidbody.AddForce(transform.TransformVector(_draftForce * Time.deltaTime), ForceMode.Force);
 	}
-	
-	private IEnumerator	CheckIfIgidbodyMoves(Rigidbody rigidbody)
-	{
-		yield return (new WaitForSeconds(0.5f));
+
+	private IEnumerator CheckIfIgidbodyMoves(Rigidbody rigidbody) {
+		yield return _waitForSeconds0_5;
 		if (!IsInDraft(rigidbody))
 			yield break;
 		while (rigidbody.linearVelocity.magnitude > 0.1f)
-			yield return (null);
+			yield return null;
 		SetInDraft(rigidbody, false);
 	}
-	
-	private void	SetInDraft(Rigidbody rigidbody, bool inDraft)
-	{
+
+	private void SetInDraft(Rigidbody rigidbody, bool inDraft) {
 		rigidbody.useGravity = !inDraft;
 		rigidbody.linearVelocity = Vector3.zero;
 	}
-	
-	private bool	IsInDraft(Rigidbody rigidbody)
-	{
-		return (rigidbody.useGravity == false);
+
+	private bool IsInDraft(Rigidbody rigidbody) {
+		return rigidbody.useGravity == false;
 	}
 }

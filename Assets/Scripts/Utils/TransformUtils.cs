@@ -1,33 +1,28 @@
 using System.Collections;
 using UnityEngine;
 
-public static class TransformUtils
-{
-    public static IEnumerator	RotateInTime(Transform transform, Quaternion rotationGoal, float time)
-	{
-		float		duration = 0.0f;
-		Quaternion	rotationStart = transform.rotation;
+public static class TransformUtils {
+	public static IEnumerator RotateInTime(Transform transform, Quaternion rotationGoal, float time) {
+		float duration = 0.0f;
+		Quaternion rotationStart = transform.rotation;
 
-		while (duration < time)
-		{
+		while (duration < time) {
 			transform.rotation = Quaternion.Lerp(rotationStart, rotationGoal, duration / time);
 			duration += Time.deltaTime;
-			yield return (null);
+			yield return null;
 		}
 		transform.rotation = rotationGoal;
 	}
-	
-	public static IEnumerator	LocalMoveInTime(Transform transform, Vector3 localPositionGoal, float time)
-	{
-		float	duration = 0.0f;
-		Vector3	positionStart = transform.localPosition;
 
-		while (duration < time)
-		{
+	public static IEnumerator LocalMoveInTime(Transform transform, Vector3 localPositionGoal, float time) {
+		float duration = 0.0f;
+		Vector3 positionStart = transform.localPosition;
+
+		while (duration < time) {
 			transform.localPosition = Vector3.Lerp(positionStart, localPositionGoal, duration / time);
 			duration += Time.deltaTime;
-			yield return (null);
+			yield return null;
 		}
-		transform.localPosition = localPositionGoal;;
+		transform.localPosition = localPositionGoal; ;
 	}
 }
