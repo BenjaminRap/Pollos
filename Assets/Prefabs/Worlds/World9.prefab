@@ -721,7 +721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7256fd354c142cd4da793c7e410aa40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentFace: {fileID: 3506407680724640220}
   _rotationDuration: 0.2
 --- !u!114 &710796604584364296
 MonoBehaviour:
@@ -735,12 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfe8baa950c9ed47b00c7f10ab5e15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upFace: {fileID: 6106329401290962387}
-  _downFace: {fileID: 2624995363205367600}
-  _rightFace: {fileID: 4500926117116258952}
-  _leftFace: {fileID: 8962358447280058091}
-  _forwardFace: {fileID: 1744138845250648594}
-  _backFace: {fileID: 3506407680724640220}
 --- !u!1 &5734334941030516472
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,7 +946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6671153571215730621
 Transform:
   m_ObjectHideFlags: 0
