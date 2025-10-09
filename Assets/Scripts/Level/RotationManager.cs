@@ -44,17 +44,13 @@ public class RotationManager : MonoBehaviourSingleton<RotationManager>
 	private void	FreezeRotatables()
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
-		{
 			rotatable.Freeze(_rotationDuration);
-		}
 	}
 
 	private void	UnfreezeRotatables()
 	{
 		foreach (Rotatable rotatable in _rotatablesObjets)
-		{
 			rotatable.Unfreeze();
-		}
 	}
 	
 	public void	RotateFace(int axisValue)

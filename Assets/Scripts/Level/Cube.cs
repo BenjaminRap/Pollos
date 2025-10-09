@@ -14,9 +14,9 @@ public class Cube : MonoBehaviourSingleton<Cube>
 		_faces = _facesList.ToDictionary(face => Vector3Int.RoundToInt(-face.transform.forward));
 	}
 	
-	public bool	TryGetFace(Quaternion localRotation, out Face face)
+	public bool	TryGetFace(Quaternion rotation, out Face face)
 	{
-		Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(localRotation * Vector3.back);
+		Vector3Int	frontFaceDirection = Vector3Int.RoundToInt(rotation * Vector3.back);
 
 		if (_faces.TryGetValue(frontFaceDirection, out face))
 			return (true);
