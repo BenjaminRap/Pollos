@@ -52,7 +52,7 @@ class AssetNameValidator : AssetPostprocessor
 
 	private static void	EnforceNorm(IEnumerable<string> filesPath)
 	{
-		List<(string, string)>	_filesToRename = new();
+		List<(string, string)>	filesToRename = new();
 
         foreach (string path in filesPath)
 		{
@@ -63,10 +63,23 @@ class AssetNameValidator : AssetPostprocessor
 
 			if (correctName.Equals(name))
 				continue ;
-			_filesToRename.Add((path, correctName));
+			filesToRename.Add((path, correctName));
 		}
-		if (_filesToRename.Count != 0)
-				AssetRenamingWindow.ShowWindow(_filesToRename);
+		if (filesToRename.Count == 0)
+			return ;
+		if (AssetsRenamingSettings.BackgroundRenaming)
+			RenameAllAssetsNextFrame(filesToRename);
+		else
+			AssetRenamingWindow.ShowWindow(filesToRename);
+	}
+
+	private static void	RenameAllAssetsNextFrame(List<(string, string)> filesToRename)
+	{
+		EditorApplication.delayCall += () =>
+		{
+			foreach ((string path, string correctName) in filesToRename)
+				AssetDatabase.RenameAsset(path, correctName);
+		};
 	}
 
 	private static bool	IsExcluded(string path)

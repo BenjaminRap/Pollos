@@ -13,11 +13,14 @@ class AssetsRenamingSettings : ScriptableObject
     private string _root = "Assets";
 	[SerializeField]
     private string[] _excludedPaths;
+	[SerializeField]
+	private bool _backgroundRenaming = false;
 
 	private string[] _absoluteExcludedPaths;
 
 	public static string Root { get => GetOrCreateSettings()._root; }
 	public static string[] ExcludedPaths { get => GetOrCreateSettings()._absoluteExcludedPaths; }
+	public static bool BackgroundRenaming { get => GetOrCreateSettings()._backgroundRenaming; }
 
 	private void	OnValidate()
 	{
@@ -57,6 +60,7 @@ static class AssetsRenamingSettingsProvider
             {
                 var settings = AssetsRenamingSettings.GetSerializedSettings();
                 EditorGUILayout.PropertyField(settings.FindProperty("_root"), new GUIContent("Root"));
+                EditorGUILayout.PropertyField(settings.FindProperty("_backgroundRenaming"), new GUIContent("Background Renaming"));
                 EditorGUILayout.PropertyField(settings.FindProperty("_excludedPaths"), new GUIContent("Excluded Paths Relative To Root"));
                 settings.ApplyModifiedProperties();
             },

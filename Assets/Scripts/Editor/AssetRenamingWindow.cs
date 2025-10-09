@@ -132,7 +132,6 @@ public class	AssetRenamingWindow : EditorWindow
 
 	private void	RenameSelectedAssets()
 	{
-	
 		foreach (var kvp in _filesToRename.Where(kvp => kvp.Value.shouldRename).ToList())
 		{
 			AssetDatabase.RenameAsset(kvp.Key, kvp.Value.correctName);
