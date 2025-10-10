@@ -42,7 +42,7 @@ public class AssetNameValidator : AssetPostprocessor {
 	}
 
 	private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload) {
-		IEnumerable<string> filesToCheck = importedAssets.Concat(movedAssets);
+		IEnumerable<string> filesToCheck = importedAssets.Concat(movedAssets).Where(assetPath => assetPath.StartsWith(AssetsRenamingSettings.Root));
 
 		EnforceNorm(filesToCheck);
 	}
