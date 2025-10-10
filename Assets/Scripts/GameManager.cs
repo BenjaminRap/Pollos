@@ -28,13 +28,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager> {
 			return;
 		}
 		_levelIndex = levelIndex;
-		if (Level.TryGetInstance(out Level level))
+		if (Level.TryGetInstance(out Level level, false))
 			DestroyImmediate(level.gameObject);
 		Instantiate(_levelsPrefabs[_levelIndex]);
 	}
 
 	private IEnumerator ChangeLevelWithFade(int levelIndex) {
-		if (!InputManager.TryGetInstance(out InputManager inputManager))
+		if (!InputManager.TryGetInstance(out InputManager inputManager, true))
 			yield break;
 		inputManager.SetWorldActionsState(false);
 		_uiFade.FadeIn();
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager> {
 	}
 
 	private IEnumerator ChangeLevelAfterDelay(float delay, int levelIndex) {
-		if (!InputManager.TryGetInstance(out InputManager inputManager))
+		if (!InputManager.TryGetInstance(out InputManager inputManager, true))
 			yield break;
 		inputManager.SetWorldActionsState(false);
 		yield return new WaitForSeconds(delay);
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager> {
 		if (_inLevelTransition == true)
 			return;
 		_inLevelTransition = true;
-		if (AudioManager.TryGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager, true))
 			audioManager.PlayAudioEffect("Victory", gameObject.transform.position, 1);
 		if (_levelIndex >= _levelsPrefabs.Count - 1) {
 			SceneManager.LoadScene(2);
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager> {
 		if (_inLevelTransition == true)
 			return;
 		_inLevelTransition = true;
-		if (AudioManager.TryGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager, true))
 			audioManager.PlayAudioEffect("Death", gameObject.transform.position, 1);
 		StartCoroutine(ChangeLevelAfterDelay(0.5f, _levelIndex));
 	}

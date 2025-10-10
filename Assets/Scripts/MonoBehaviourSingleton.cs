@@ -13,10 +13,11 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour
 		_instance = this as T;
 	}
 
-	public static bool TryGetInstance(out T instance) {
+	public static bool TryGetInstance(out T instance, bool logging) {
 		instance = _instance;
 		if (_instance == null) {
-			Debug.LogError($"The class {typeof(T).Name} has no instance !");
+			if (logging)
+				Debug.LogError($"The class {typeof(T).Name} has no instance !");
 			return false;
 		}
 		return true;

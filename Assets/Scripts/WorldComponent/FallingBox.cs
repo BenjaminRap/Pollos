@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class FallingBox : MonoBehaviour {
 	private void OnCollisionEnter(Collision other) {
-		if (!GameManager.TryGetInstance(out GameManager gameManager))
+		if (!GameManager.TryGetInstance(out GameManager gameManager, true))
 			return;
 		if (!other.transform.TryGetComponent(out PollosController _))
 			return;

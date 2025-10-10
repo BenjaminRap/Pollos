@@ -33,8 +33,8 @@ public class InputManager : MonoBehaviourSingleton<InputManager> {
 	}
 
 	private void ResetLevel(InputAction.CallbackContext context) {
-		if (!GameManager.TryGetInstance(out GameManager gameManager)
-			|| !PollosController.TryGetInstance(out PollosController characterControler)) {
+		if (!GameManager.TryGetInstance(out GameManager gameManager, true)
+			|| !PollosController.TryGetInstance(out PollosController characterControler, true)) {
 			return;
 		}
 		AnimatorClipInfo[] clipInfos = characterControler.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0);
@@ -43,14 +43,14 @@ public class InputManager : MonoBehaviourSingleton<InputManager> {
 	}
 
 	private void RotateFace(InputAction.CallbackContext context) {
-		if (!Level.TryGetInstance(out Level currentLevel))
+		if (!Level.TryGetInstance(out Level currentLevel, true))
 			return;
 		int value = Mathf.RoundToInt(context.ReadValue<float>());
 		currentLevel.RotateFace(value);
 	}
 
 	private void RotateCube(InputAction.CallbackContext context) {
-		if (!Level.TryGetInstance(out Level currentLevel))
+		if (!Level.TryGetInstance(out Level currentLevel, true))
 			return;
 		Vector2 value = context.ReadValue<Vector2>();
 

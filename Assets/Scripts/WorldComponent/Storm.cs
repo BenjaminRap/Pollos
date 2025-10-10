@@ -10,8 +10,11 @@ public class Storm : MonoBehaviour {
 	private Vector3 _move;
 
 	private void Awake() {
-		if (!Level.TryGetInstance(out Level level))
+		if (!Level.TryGetInstance(out Level level, true))
+		{
+			Destroy(this);
 			return;
+		}
 		_goalPosition = transform.position;
 		Vector3 direction = level.transform.position - transform.position;
 		_move = direction / _stepCount;
@@ -25,7 +28,7 @@ public class Storm : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider collider) {
 		if (!collider.TryGetComponent(out PollosController characterControler)
-			|| !GameManager.TryGetInstance(out GameManager gameManager)) {
+			|| !GameManager.TryGetInstance(out GameManager gameManager, true)) {
 			return;
 		}
 		gameManager.Defeat();

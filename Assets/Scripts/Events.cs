@@ -15,23 +15,23 @@ public class Events : MonoBehaviourSingleton<Events> {
 	[SerializeField] private Effect _pollosShockVFX;
 
 	private static void InstantiateTemporaryEffect(Effect effect, Transform transform) {
-		if (!Cube.TryGetInstance(out Cube cube))
+		if (!Cube.TryGetInstance(out Cube cube, true))
 			return;
 		GameObject instance = Instantiate(effect.Prefab, transform.position, transform.rotation, cube.transform);
 		Destroy(instance, effect.Duration);
 	}
 
 	public static void SpawnFallingBoxShockEffect(Transform transform) {
-		if (!TryGetInstance(out Events events))
+		if (!TryGetInstance(out Events events, true))
 			return;
 
 		InstantiateTemporaryEffect(events._smokeEffect, transform);
-		if (AudioManager.TryGetInstance(out AudioManager audioManager))
+		if (AudioManager.TryGetInstance(out AudioManager audioManager, true))
 			audioManager.PlayAudioEffect("BoxFall", transform.position, 1);
 	}
 
 	public static void SpawnPollosShockEffect(Transform transform) {
-		if (!TryGetInstance(out Events events))
+		if (!TryGetInstance(out Events events, true))
 			return;
 		InstantiateTemporaryEffect(events._smokeEffect, transform);
 		InstantiateTemporaryEffect(events._pollosShockVFX, transform);

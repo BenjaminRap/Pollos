@@ -22,7 +22,7 @@ public class Face : MonoBehaviour {
 	}
 
 	private void ShowPossibleRotations() {
-		if (!Cube.TryGetInstance(out Cube cube))
+		if (!Cube.TryGetInstance(out Cube cube, true))
 			return;
 		_upArrow.SetActive(IsRotationPossible(Vector3.left, cube));
 		_downArrow.SetActive(IsRotationPossible(Vector3.right, cube));
