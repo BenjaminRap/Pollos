@@ -305,7 +305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7256fd354c142cd4da793c7e410aa40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentFace: {fileID: 7169529734471019510}
   _rotationDuration: 0.2
 --- !u!114 &874120477995902529
 MonoBehaviour:
@@ -319,12 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfe8baa950c9ed47b00c7f10ab5e15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upFace: {fileID: 0}
-  _downFace: {fileID: 0}
-  _rightFace: {fileID: 0}
-  _leftFace: {fileID: 0}
-  _forwardFace: {fileID: 0}
-  _backFace: {fileID: 7169529734471019510}
 --- !u!1001 &358479981562083316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3425,6 +3418,14 @@ PrefabInstance:
     - target: {fileID: 5666446833952311804, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
       propertyPath: m_Name
       value: FallingBox (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181649199368420710, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ff60146f746826f4c905f1dbde1e6014, type: 3}
+    - target: {fileID: 8181649199368420710, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9210429423870761554, guid: 073b0fc1b867edb42ae7979ca65458ab, type: 3}
       propertyPath: m_LocalScale.x
