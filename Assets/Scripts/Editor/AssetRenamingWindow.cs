@@ -34,7 +34,9 @@ public class AssetRenamingWindow : EditorWindow {
 
 	public static void ShowWindow(List<(string, string)> additionalFilesToRename) {
 		foreach ((string path, string correctName) in additionalFilesToRename) {
-			_filesToRename[path] = new(path, correctName);
+			string fixedPath = path.Replace('/', '\\');
+
+			_filesToRename[fixedPath] = new(fixedPath, correctName);
 		}
 		ShowWindow();
 	}
