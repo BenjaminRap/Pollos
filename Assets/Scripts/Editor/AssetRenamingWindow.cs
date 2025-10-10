@@ -119,5 +119,6 @@ public class AssetRenamingWindow : EditorWindow {
 			AssetDatabase.RenameAsset(kvp.Key, kvp.Value.correctName);
 			_filesToRename.Remove(kvp.Key);
 		}
+		AssetDatabase.SaveAssets();
 	}
 }
