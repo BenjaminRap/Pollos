@@ -73,6 +73,7 @@ public class AssetNameValidator : AssetPostprocessor {
 			foreach ((string path, string correctName) in filesToRename)
 				AssetDatabase.RenameAsset(path, correctName);
 			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
 		};
 	}
 
